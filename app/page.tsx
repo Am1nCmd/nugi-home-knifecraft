@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react"
 import useSWR from "swr"
 import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 import { HomeHero } from "@/components/home/hero"
 import { HomeCategories } from "@/components/home/categories"
 import { HomeNews } from "@/components/home/news"
@@ -29,26 +30,39 @@ export default function HomePage() {
       <Header />
       <HomeHero />
       <HomeCategories />
-      <section id="katalog" className="container mx-auto px-4 py-8 md:py-12">
-        <div className="mb-6 md:mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <h2 className="text-balance text-2xl md:text-3xl font-semibold">Katalog Pisau</h2>
-          <CategoryFilter categories={["Semua", ...CATEGORIES]} value={category} onChange={setCategory} />
-        </div>
-
-        {isLoading ? (
-          <p className="text-muted-foreground">Memuat produk...</p>
-        ) : displayedProducts.length === 0 ? (
-          <p className="text-muted-foreground">Tidak ada produk untuk kategori ini.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayedProducts.map((product: Product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+      <section id="katalog" className="bg-zinc-800/30 border-t border-zinc-700/50">
+        <div className="container mx-auto px-4 py-12 md:py-16">
+          <div className="mb-8 md:mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-balance text-3xl md:text-4xl font-bold text-white mb-2">
+                Katalog <span className="text-amber-400">Pisau</span>
+              </h2>
+              <p className="text-zinc-300">Temukan pisau berkualitas tinggi sesuai kebutuhan Anda</p>
+            </div>
+            <CategoryFilter categories={["Semua", ...CATEGORIES]} value={category} onChange={setCategory} />
           </div>
-        )}
+
+          {isLoading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-400 mx-auto mb-4"></div>
+              <p className="text-zinc-300">Memuat produk...</p>
+            </div>
+          ) : displayedProducts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-zinc-400 text-lg">Tidak ada produk untuk kategori ini.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {displayedProducts.map((product: Product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
+        </div>
       </section>
       <HomeNews />
       <HomeKnowledge />
+      <Footer />
     </main>
   )
 }

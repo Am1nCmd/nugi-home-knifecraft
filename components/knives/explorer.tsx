@@ -25,8 +25,20 @@ export default function KnivesExplorer() {
   // We'll use React.useState here.
   const [filters, setFilters] = require("react").useState<KnivesFilterState>(defaults)
 
-  if (isLoading) return <p className="text-sm">Memuat produk...</p>
-  if (error) return <p className="text-sm text-red-600">Gagal memuat produk</p>
+  if (isLoading) return (
+    <div className="text-center py-16">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-400 mx-auto mb-4"></div>
+      <p className="text-zinc-300 text-lg">Memuat produk...</p>
+    </div>
+  )
+  if (error) return (
+    <div className="text-center py-16">
+      <div className="w-12 h-12 bg-red-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-6 h-6 bg-red-500 rounded-full"></div>
+      </div>
+      <p className="text-red-400 text-lg">Gagal memuat produk</p>
+    </div>
+  )
 
   const list = (data || []).filter((k) => {
     if (filters.category !== "all" && k.category !== filters.category) return false

@@ -18,21 +18,29 @@ function formatPriceIDR(amount: number) {
 export default function KnifeProductCard({ product }: { product: KnifeProduct }) {
   const cover = product.images?.[0] || "/placeholder.svg?height=320&width=480"
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden bg-zinc-800/50 border-zinc-700/50 hover:bg-zinc-700/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-amber-900/20">
       <CardHeader className="p-0">
-        <img src={cover || "/placeholder.svg"} alt={product.title} className="h-48 w-full object-cover" />
+        <div className="aspect-[4/3] overflow-hidden bg-zinc-900/50">
+          <img
+            src={cover || "/placeholder.svg"}
+            alt={product.title}
+            className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
       </CardHeader>
-      <CardContent className="pt-4">
-        <div className="mb-2 flex items-center justify-between">
-          <span className="inline-flex items-center rounded-full border border-border bg-secondary px-2 py-1 text-xs text-secondary-foreground">
+      <CardContent className="pt-6 pb-4">
+        <div className="mb-4 flex items-center justify-between">
+          <span className="inline-flex items-center rounded-full border border-amber-600/30 bg-amber-600/10 px-3 py-1 text-xs font-medium text-amber-400">
             {product.category}
           </span>
-          <span className="font-semibold">{formatPriceIDR(product.price)}</span>
+          <span className="font-bold text-white text-lg">{formatPriceIDR(product.price)}</span>
         </div>
-        <CardTitle className="text-base md:text-lg">{product.title}</CardTitle>
+        <CardTitle className="text-lg md:text-xl text-white font-semibold leading-tight">
+          {product.title}
+        </CardTitle>
       </CardContent>
-      <CardFooter className="pt-2">
-        <Button asChild className="w-full">
+      <CardFooter className="pt-2 pb-6">
+        <Button asChild className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium">
           <Link href={`/knives/${product.id}`} aria-label={`Lihat detail untuk ${product.title}`}>
             Lihat Detail
           </Link>
