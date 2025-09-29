@@ -1,16 +1,17 @@
 import { NextResponse } from "next/server"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { addProduct } from "@/lib/store"
 import { CATEGORIES, type Product } from "@/data/products"
-import { cookies } from "next/headers"
-import { getCookieName, verifySessionValue } from "@/lib/session"
 
 export async function POST(req: Request) {
-  const session = verifySessionValue(cookies().get(getCookieName())?.value)
-  if (!session) {
-    return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 })
-  }
-
   try {
+    // Check admin authentication
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.isAdmin) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
     const body = (await req.json()) as Partial<Product> & {
       // izinkan kirim angka dalam string
       bladeLength?: number | string
@@ -35,15 +36,19 @@ export async function POST(req: Request) {
       !body?.bladeStyle ||
       !body?.handleStyle
     ) {
-      return NextResponse.json({ ok: false, error: "Data tidak lengkap." }, { status: 400 })
+      return NextResponse.json({ error: "Data tidak lengkap." }, { status: 400 })
     }
     if (!CATEGORIES.includes(body.category as any)) {
-      return NextResponse.json({ ok: false, error: "Kategori tidak valid." }, { status: 400 })
+      return NextResponse.json({ error: "Kategori tidak valid." }, { status: 400 })
     }
 
     await addProduct(body)
-    return NextResponse.json({ ok: true })
-  } catch {
-    return NextResponse.json({ ok: false, error: "Permintaan tidak valid." }, { status: 400 })
+    return NextResponse.json({
+      success: true,
+      message: "Produk berhasil ditambahkan"
+    })
+  } catch (error) {
+    console.error("Add product error:", error)
+    return NextResponse.json({ error: "Permintaan tidak valid." }, { status: 400 })
   }
 }

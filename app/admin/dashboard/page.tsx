@@ -4,7 +4,7 @@ import { useSession, signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import Link from "next/link"
-import { Sword, ArrowLeft, LogOut, Package, Upload, User } from "lucide-react"
+import { Sword, ArrowLeft, LogOut, User } from "lucide-react"
 import AdminProductForm from "@/components/admin-product-form"
 import CsvUpload from "@/components/csv-upload"
 
@@ -102,46 +102,16 @@ export default function AdminDashboardPage() {
 
       <main className="container mx-auto p-6">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold text-zinc-900 mb-2">Dashboard Admin</h1>
-          <p className="text-zinc-600">Kelola produk pisau dan tools untuk website Nugi Home Knifecraft.</p>
+          <h1 className="text-3xl font-bold text-white mb-2">Dashboard Admin</h1>
+          <p className="text-zinc-300">Kelola produk pisau dan tools untuk website Nugi Home Knifecraft.</p>
         </header>
 
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-8 lg:grid-cols-2 items-start">
           {/* Add Product Section */}
-          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm">
-            <div className="p-6 border-b border-zinc-200">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-10 h-10 bg-amber-100 rounded-lg">
-                  <Package className="w-5 h-5 text-amber-700" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-semibold text-zinc-900">Tambah Produk</h2>
-                  <p className="text-sm text-zinc-600">Tambahkan produk baru secara manual</p>
-                </div>
-              </div>
-            </div>
-            <div className="p-6">
-              <AdminProductForm />
-            </div>
-          </div>
+          <AdminProductForm />
 
           {/* CSV Upload Section */}
-          <div className="bg-white rounded-xl border border-zinc-200 shadow-sm">
-            <div className="p-6 border-b border-zinc-200">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-lg">
-                  <Upload className="w-5 h-5 text-blue-700" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-semibold text-zinc-900">Import CSV</h2>
-                  <p className="text-sm text-zinc-600">Upload file CSV untuk import bulk</p>
-                </div>
-              </div>
-            </div>
-            <div className="p-6">
-              <CsvUpload />
-            </div>
-          </div>
+          <CsvUpload />
         </div>
       </main>
     </div>

@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Package } from "lucide-react"
 import { CATEGORIES } from "@/data/products"
 
 export default function AdminProductForm() {
@@ -65,7 +66,7 @@ export default function AdminProductForm() {
       if (!res.ok) {
         setMsg(data?.error || "Gagal menambahkan produk.")
       } else {
-        setMsg("Produk berhasil ditambahkan.")
+        setMsg(data?.message || "Produk berhasil ditambahkan.")
         // reset
         setTitle("")
         setPrice("")
@@ -92,20 +93,22 @@ export default function AdminProductForm() {
   }
 
   return (
-    <Card className="w-full">
+    <Card className="w-full bg-zinc-800/50 border-zinc-700/50">
       <CardHeader className="flex flex-row items-center justify-between">
-        <div>
-          <CardTitle className="text-balance">Tambah Produk</CardTitle>
-          <CardDescription>Isi form di bawah untuk menambahkan satu produk.</CardDescription>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-10 h-10 bg-amber-100 rounded-lg">
+            <Package className="w-5 h-5 text-amber-700" />
+          </div>
+          <div>
+            <CardTitle className="text-balance text-white">Tambah Produk</CardTitle>
+            <CardDescription className="text-zinc-400">Tambahkan produk baru secara manual</CardDescription>
+          </div>
         </div>
-        <Button variant="secondary" onClick={onLogout}>
-          Keluar
-        </Button>
       </CardHeader>
       <CardContent>
         <form onSubmit={onSubmit} className="grid gap-4 md:grid-cols-2">
           <div className="grid gap-2">
-            <Label htmlFor="title">Judul</Label>
+            <Label htmlFor="title" className="text-zinc-200">Judul</Label>
             <Input
               id="title"
               value={title}
@@ -115,7 +118,7 @@ export default function AdminProductForm() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="price">Harga</Label>
+            <Label htmlFor="price" className="text-zinc-200">Harga</Label>
             <Input
               id="price"
               value={price}
@@ -126,7 +129,7 @@ export default function AdminProductForm() {
             />
           </div>
           <div className="grid gap-2">
-            <Label>Kategori</Label>
+            <Label className="text-zinc-200">Kategori</Label>
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger>
                 <SelectValue placeholder="Pilih kategori" />
@@ -142,7 +145,7 @@ export default function AdminProductForm() {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="steel">Bahan Baja</Label>
+            <Label htmlFor="steel" className="text-zinc-200">Bahan Baja</Label>
             <Input
               id="steel"
               value={steel}
@@ -153,7 +156,7 @@ export default function AdminProductForm() {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="handleMaterial">Bahan Gagang</Label>
+            <Label htmlFor="handleMaterial" className="text-zinc-200">Bahan Gagang</Label>
             <Input
               id="handleMaterial"
               value={handleMaterial}
@@ -164,7 +167,7 @@ export default function AdminProductForm() {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="bladeLength">Panjang Bilah (cm)</Label>
+            <Label htmlFor="bladeLength" className="text-zinc-200">Panjang Bilah (cm)</Label>
             <Input
               id="bladeLength"
               value={bladeLength}
@@ -176,7 +179,7 @@ export default function AdminProductForm() {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="handleLength">Panjang Gagang (cm)</Label>
+            <Label htmlFor="handleLength" className="text-zinc-200">Panjang Gagang (cm)</Label>
             <Input
               id="handleLength"
               value={handleLength}
@@ -188,7 +191,7 @@ export default function AdminProductForm() {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="bladeStyle">Model Bilah</Label>
+            <Label htmlFor="bladeStyle" className="text-zinc-200">Model Bilah</Label>
             <Input
               id="bladeStyle"
               value={bladeStyle}
@@ -199,7 +202,7 @@ export default function AdminProductForm() {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="handleStyle">Model Gagang</Label>
+            <Label htmlFor="handleStyle" className="text-zinc-200">Model Gagang</Label>
             <Input
               id="handleStyle"
               value={handleStyle}
@@ -210,9 +213,9 @@ export default function AdminProductForm() {
           </div>
 
           <div className="grid gap-2 md:col-span-2">
-            <Label>Foto Produk</Label>
+            <Label className="text-zinc-200">Foto Produk</Label>
             <Input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] ?? null)} />
-            <div className="text-xs text-muted-foreground">Atau masukkan URL gambar</div>
+            <div className="text-xs text-zinc-400">Atau masukkan URL gambar</div>
             <Input
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
@@ -225,7 +228,7 @@ export default function AdminProductForm() {
               {loading ? "Menyimpan..." : "Simpan Produk"}
             </Button>
           </div>
-          {msg ? <p className="text-sm md:col-span-2">{msg}</p> : null}
+          {msg ? <p className="text-sm md:col-span-2 text-zinc-300">{msg}</p> : null}
         </form>
       </CardContent>
     </Card>

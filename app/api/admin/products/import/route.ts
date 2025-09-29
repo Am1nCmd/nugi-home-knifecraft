@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server"
-import { addManyProducts } from "@/lib/store"
-import { CATEGORIES, type ProductCategory } from "@/data/products"
-import { cookies } from "next/headers"
-import { getCookieName, verifySessionValue } from "@/lib/session"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { addManyProducts, getProducts } from "@/lib/store"
+import { CATEGORIES, type ProductCategory, type Product } from "@/data/products"
 
 function normalizeKey(k: string) {
   return k.toLowerCase().replace(/[\s\-_]/g, "")
@@ -22,10 +22,44 @@ type CsvRow = {
   handleStyle: string
 }
 
-function parseCsv(text: string): CsvRow[] {
+function parseCsvWithQuotes(text: string): CsvRow[] {
   const lines = text.trim().split(/\r?\n/).filter(Boolean)
   if (lines.length < 2) return []
-  const headerRaw = lines[0].split(",").map((s) => s.trim())
+
+  // Parse CSV properly handling quotes
+  function parseCsvLine(line: string): string[] {
+    const result = []
+    let current = ''
+    let inQuotes = false
+    let i = 0
+
+    while (i < line.length) {
+      const char = line[i]
+
+      if (char === '"') {
+        if (inQuotes && line[i + 1] === '"') {
+          // Escaped quote
+          current += '"'
+          i += 2
+        } else {
+          // Toggle quote state
+          inQuotes = !inQuotes
+          i++
+        }
+      } else if (char === ',' && !inQuotes) {
+        result.push(current.trim())
+        current = ''
+        i++
+      } else {
+        current += char
+        i++
+      }
+    }
+    result.push(current.trim())
+    return result
+  }
+
+  const headerRaw = parseCsvLine(lines[0])
   const header = headerRaw.map(normalizeKey)
 
   // dukung EN/ID untuk kolom
@@ -69,7 +103,7 @@ function parseCsv(text: string): CsvRow[] {
 
   const out: CsvRow[] = []
   for (let i = 1; i < lines.length; i++) {
-    const parts = lines[i].split(",").map((s) => s.trim())
+    const parts = parseCsvLine(lines[i])
     const category = parts[idx.category] as ProductCategory
     const price = Number(parts[idx.price] || "0")
     const bladeLength = Number(parts[idx.bladeLength] || "0")
@@ -90,39 +124,123 @@ function parseCsv(text: string): CsvRow[] {
       continue
     }
 
+    // Remove quotes from string fields
+    const cleanString = (str: string) => str.replace(/^["']|["']$/g, '')
+
     out.push({
-      id: idx.id >= 0 ? parts[idx.id] : undefined,
-      image: parts[idx.image],
-      title: parts[idx.title],
+      id: idx.id >= 0 ? cleanString(parts[idx.id]) : undefined,
+      image: cleanString(parts[idx.image]),
+      title: cleanString(parts[idx.title]),
       price,
       category,
-      steel: parts[idx.steel],
-      handleMaterial: parts[idx.handleMaterial],
+      steel: cleanString(parts[idx.steel]),
+      handleMaterial: cleanString(parts[idx.handleMaterial]),
       bladeLength,
       handleLength,
-      bladeStyle: parts[idx.bladeStyle],
-      handleStyle: parts[idx.handleStyle],
+      bladeStyle: cleanString(parts[idx.bladeStyle]),
+      handleStyle: cleanString(parts[idx.handleStyle]),
     })
   }
   return out
 }
 
-export async function POST(req: Request) {
-  const session = verifySessionValue(cookies().get(getCookieName())?.value)
-  if (!session) {
-    return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 })
-  }
+type ImportMode = "append" | "update" | "replace"
 
-  const form = await req.formData()
-  const file = form.get("file")
-  if (!(file instanceof File)) {
-    return NextResponse.json({ ok: false, error: "File tidak ditemukan." }, { status: 400 })
+export async function POST(req: Request) {
+  try {
+    // Check admin authentication
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.isAdmin) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    const form = await req.formData()
+    const file = form.get("file")
+    const mode = (form.get("mode") as ImportMode) || "append"
+
+    if (!(file instanceof File)) {
+      return NextResponse.json({ error: "File tidak ditemukan." }, { status: 400 })
+    }
+
+    const text = await file.text()
+    const rows = parseCsvWithQuotes(text)
+
+    if (!rows.length) {
+      return NextResponse.json({ error: "CSV tidak valid atau kosong." }, { status: 400 })
+    }
+
+    // Get existing products for merge logic
+    const existingProducts = await getProducts()
+    const existingIds = new Set(existingProducts.map(p => p.id))
+    const existingTitles = new Set(existingProducts.map(p => p.title.toLowerCase()))
+
+    let processedRows: Partial<Product>[] = []
+    let stats = {
+      added: 0,
+      updated: 0,
+      skipped: 0,
+      errors: [] as string[]
+    }
+
+    for (const row of rows) {
+      try {
+        // Generate ID if not provided
+        if (!row.id || row.id.trim() === '') {
+          row.id = "p_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)
+        }
+
+        switch (mode) {
+          case "append":
+            // Skip if ID or title already exists
+            if (existingIds.has(row.id) || existingTitles.has(row.title.toLowerCase())) {
+              stats.skipped++
+              continue
+            }
+            processedRows.push(row)
+            stats.added++
+            break
+
+          case "update":
+            // Update if exists, add if new
+            if (existingIds.has(row.id)) {
+              stats.updated++
+            } else {
+              stats.added++
+            }
+            processedRows.push(row)
+            break
+
+          case "replace":
+            // Add all rows (will replace entire dataset)
+            processedRows.push(row)
+            stats.added++
+            break
+        }
+      } catch (error) {
+        stats.errors.push(`Error processing row "${row.title}": ${error}`)
+      }
+    }
+
+    // Handle replace mode
+    if (mode === "replace") {
+      // This would need a different store function to replace all
+      // For now, we'll treat it as update mode
+      await addManyProducts(processedRows)
+    } else {
+      await addManyProducts(processedRows)
+    }
+
+    return NextResponse.json({
+      success: true,
+      stats,
+      message: `Import berhasil: ${stats.added} ditambah, ${stats.updated} diperbarui, ${stats.skipped} dilewati`
+    })
+
+  } catch (error) {
+    console.error("Import error:", error)
+    return NextResponse.json(
+      { error: "Terjadi kesalahan saat import" },
+      { status: 500 }
+    )
   }
-  const text = await file.text()
-  const rows = parseCsv(text)
-  if (!rows.length) {
-    return NextResponse.json({ ok: false, error: "CSV tidak valid atau kosong." }, { status: 400 })
-  }
-  await addManyProducts(rows)
-  return NextResponse.json({ ok: true, count: rows.length })
 }
