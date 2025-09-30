@@ -1,8 +1,20 @@
 import { promises as fs } from "node:fs"
 import path from "node:path"
-import { PRODUCTS, type Product } from "@/data/products"
+import { UnifiedProduct, normalizeProduct, toLegacyProduct } from "@/data/unified-products"
+import type { Product } from "@/data/products"
 
-type DbSchema = { products: Product[] }
+type DbSchema = {
+  products: UnifiedProduct[]
+  metadata?: {
+    version: string
+    createdAt: string
+    totalProducts: number
+    productTypes: {
+      knives: number
+      tools: number
+    }
+  }
+}
 
 const DB_PATH = path.join(process.cwd(), "data", "products.db.json")
 
@@ -14,7 +26,15 @@ async function ensureDb(): Promise<void> {
   } catch {
     // init folder and file
     await fs.mkdir(path.dirname(DB_PATH), { recursive: true })
-    const initial: DbSchema = { products: PRODUCTS }
+    const initial: DbSchema = {
+      products: [],
+      metadata: {
+        version: "2.0",
+        createdAt: new Date().toISOString(),
+        totalProducts: 0,
+        productTypes: { knives: 0, tools: 0 }
+      }
+    }
     await fs.writeFile(DB_PATH, JSON.stringify(initial, null, 2), "utf8")
   }
 }
@@ -23,101 +43,162 @@ async function readDb(): Promise<DbSchema> {
   await ensureDb()
   const data = await fs.readFile(DB_PATH, "utf8")
   try {
-    return JSON.parse(data) as DbSchema
+    const parsed = JSON.parse(data) as DbSchema
+    // Ensure metadata exists
+    if (!parsed.metadata) {
+      parsed.metadata = {
+        version: "2.0",
+        createdAt: new Date().toISOString(),
+        totalProducts: parsed.products.length,
+        productTypes: {
+          knives: parsed.products.filter(p => p.type === "knife").length,
+          tools: parsed.products.filter(p => p.type === "tool").length
+        }
+      }
+    }
+    return parsed
   } catch {
-    return { products: PRODUCTS }
+    return {
+      products: [],
+      metadata: {
+        version: "2.0",
+        createdAt: new Date().toISOString(),
+        totalProducts: 0,
+        productTypes: { knives: 0, tools: 0 }
+      }
+    }
   }
 }
 
 async function writeDb(next: DbSchema): Promise<void> {
+  // Update metadata before writing
+  next.metadata = {
+    version: "2.0",
+    createdAt: next.metadata?.createdAt || new Date().toISOString(),
+    totalProducts: next.products.length,
+    productTypes: {
+      knives: next.products.filter(p => p.type === "knife").length,
+      tools: next.products.filter(p => p.type === "tool").length
+    }
+  }
+
   // serialize writes
   writeLock = writeLock.then(() => fs.writeFile(DB_PATH, JSON.stringify(next, null, 2), "utf8"))
   return writeLock
 }
 
-export async function getProducts(): Promise<Product[]> {
+// Get all products (unified)
+export async function getProducts(): Promise<UnifiedProduct[]> {
   const db = await readDb()
   return db.products
 }
 
-function genId() {
-  // simple unique id
-  return "p_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)
+// Get products by type
+export async function getKnives(): Promise<UnifiedProduct[]> {
+  const db = await readDb()
+  return db.products.filter(p => p.type === "knife")
 }
 
-export async function addProduct(p: Partial<Product>) {
-  const required = [
-    "title",
-    "price",
-    "category",
-    "image",
-    "steel",
-    "handleMaterial",
-    "bladeLength",
-    "handleLength",
-    "bladeStyle",
-    "handleStyle",
-  ] as const
-  for (const k of required) {
-    if (p[k] === undefined || p[k] === null || (typeof p[k] === "string" && p[k].trim() === "")) {
-      throw new Error("Data tidak lengkap.")
-    }
-  }
+export async function getTools(): Promise<UnifiedProduct[]> {
   const db = await readDb()
-  const toSave: Product = {
-    id: (p.id as string) || genId(),
-    title: p.title as string,
-    price: Number(p.price),
-    category: p.category as Product["category"],
-    image: p.image as string,
-    steel: p.steel as string,
-    handleMaterial: p.handleMaterial as string,
-    bladeLength: Number(p.bladeLength),
-    handleLength: Number(p.handleLength),
-    bladeStyle: p.bladeStyle as string,
-    handleStyle: p.handleStyle as string,
+  return db.products.filter(p => p.type === "tool")
+}
+
+// Get products by category
+export async function getProductsByCategory(category: string): Promise<UnifiedProduct[]> {
+  const db = await readDb()
+  return db.products.filter(p => p.category === category)
+}
+
+// Legacy compatibility - get products as legacy format
+export async function getLegacyProducts(): Promise<Product[]> {
+  const db = await readDb()
+  return db.products.map(toLegacyProduct)
+}
+
+function genId(type: "knife" | "tool" = "knife") {
+  // simple unique id with type prefix
+  const prefix = type === "knife" ? "k_" : "t_"
+  return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)
+}
+
+export async function addProduct(p: Partial<UnifiedProduct>) {
+  const normalized = normalizeProduct(p)
+
+  // Generate ID if not provided
+  if (!normalized.id) {
+    normalized.id = genId(normalized.type)
   }
+
+  // Set timestamps
+  normalized.updatedAt = new Date().toISOString()
+  if (!normalized.createdAt) {
+    normalized.createdAt = normalized.updatedAt
+  }
+
+  const db = await readDb()
+
   // upsert by id
-  const idx = db.products.findIndex((x) => x.id === toSave.id)
-  if (idx >= 0) db.products[idx] = toSave
-  else db.products.push(toSave)
+  const idx = db.products.findIndex((x) => x.id === normalized.id)
+  if (idx >= 0) {
+    // Keep original createdAt for updates
+    normalized.createdAt = db.products[idx].createdAt
+    db.products[idx] = normalized
+  } else {
+    db.products.push(normalized)
+  }
+
   await writeDb(db)
 }
 
-export async function addManyProducts(ps: Partial<Product>[]) {
+export async function addManyProducts(ps: Partial<UnifiedProduct>[]) {
   const db = await readDb()
+  const timestamp = new Date().toISOString()
+
   for (const p of ps) {
-    const item: Product = {
-      id: (p.id as string) || genId(),
-      title: p.title as string,
-      price: Number(p.price),
-      category: p.category as Product["category"],
-      image: p.image as string,
-      steel: p.steel as string,
-      handleMaterial: p.handleMaterial as string,
-      bladeLength: Number(p.bladeLength),
-      handleLength: Number(p.handleLength),
-      bladeStyle: p.bladeStyle as string,
-      handleStyle: p.handleStyle as string,
-    }
-    // validation minimal
-    if (
-      !item.title ||
-      !Number.isFinite(item.price) ||
-      !item.category ||
-      !item.image ||
-      !item.steel ||
-      !item.handleMaterial ||
-      !Number.isFinite(item.bladeLength) ||
-      !Number.isFinite(item.handleLength) ||
-      !item.bladeStyle ||
-      !item.handleStyle
-    ) {
+    try {
+      const normalized = normalizeProduct(p)
+
+      // Generate ID if not provided
+      if (!normalized.id || normalized.id.trim() === '') {
+        normalized.id = genId(normalized.type)
+      }
+
+      // Set timestamps
+      normalized.updatedAt = timestamp
+      if (!normalized.createdAt) {
+        normalized.createdAt = timestamp
+      }
+
+      // Basic validation
+      if (
+        !normalized.title ||
+        !Number.isFinite(normalized.price) ||
+        !normalized.category ||
+        !normalized.steel ||
+        !normalized.handleMaterial ||
+        !Number.isFinite(normalized.bladeLengthCm) ||
+        !Number.isFinite(normalized.handleLengthCm) ||
+        !normalized.bladeStyle ||
+        !normalized.handleStyle
+      ) {
+        continue
+      }
+
+      const idx = db.products.findIndex((x) => x.id === normalized.id)
+      if (idx >= 0) {
+        // Keep original createdAt for updates
+        normalized.createdAt = db.products[idx].createdAt
+        db.products[idx] = normalized
+      } else {
+        db.products.push(normalized)
+      }
+    } catch (error) {
+      // Skip invalid products
+      console.warn(`Skipping invalid product:`, error)
       continue
     }
-    const idx = db.products.findIndex((x) => x.id === item.id)
-    if (idx >= 0) db.products[idx] = item
-    else db.products.push(item)
   }
+
   await writeDb(db)
 }

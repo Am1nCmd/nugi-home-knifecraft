@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server"
-import { TOOLS } from "@/data/tools"
+import { getTools } from "@/lib/store"
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
-  const item = TOOLS.find((p) => p.id === params.id)
-  if (!item) return new NextResponse("Not Found", { status: 404 })
-  return NextResponse.json(item)
+  try {
+    const tools = await getTools()
+    const item = tools.find((p) => p.id === params.id)
+    if (!item) return new NextResponse("Not Found", { status: 404 })
+    return NextResponse.json(item)
+  } catch (error) {
+    console.error("Error fetching tool:", error)
+    return NextResponse.json({ error: "Failed to fetch tool" }, { status: 500 })
+  }
 }

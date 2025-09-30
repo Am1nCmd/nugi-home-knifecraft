@@ -1,7 +1,7 @@
 import KnifeProductCard from "./product-card"
-import type { KnifeProduct } from "@/data/knives"
+import type { UnifiedProduct } from "@/data/unified-products"
 
-export default function KnivesGrid({ products }: { products: KnifeProduct[] }) {
+export default function KnivesGrid({ products }: { products: UnifiedProduct[] }) {
   if (!products || products.length === 0) {
     return (
       <div className="text-center py-16">

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react"
 import useSWR from "swr"
+import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { HomeHero } from "@/components/home/hero"
@@ -10,19 +11,34 @@ import { HomeNews } from "@/components/home/news"
 import { HomeKnowledge } from "@/components/home/knowledge"
 import { CategoryFilter } from "@/components/category-filter"
 import { ProductCard } from "@/components/product-card"
-import { CATEGORIES, type Product } from "@/data/products"
+import { Button } from "@/components/ui/button"
+import { ALL_CATEGORIES, type UnifiedProduct } from "@/data/unified-products"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export default function HomePage() {
   const [category, setCategory] = useState<string>("Semua")
 
-  const { data, isLoading } = useSWR<{ products: Product[] }>("/api/products", fetcher)
-  const products = data?.products ?? []
+  const { data: knivesData, isLoading: knivesLoading } = useSWR<UnifiedProduct[]>("/api/knives", fetcher)
+  const { data: toolsData, isLoading: toolsLoading } = useSWR<UnifiedProduct[]>("/api/tools", fetcher)
+
+  const knives = knivesData ?? []
+  const tools = toolsData ?? []
+  const products = [...knives, ...tools]
+  const isLoading = knivesLoading || toolsLoading
 
   const displayedProducts = useMemo(() => {
-    if (category === "Semua") return products
-    return products.filter((p) => p.category === category)
+    let filteredProducts = products
+
+    // Filter by category if not "Semua"
+    if (category !== "Semua") {
+      filteredProducts = products.filter((p) => p.category === category)
+    }
+
+    // Sort by ID (assuming higher ID = newer) and limit to 9 items
+    return filteredProducts
+      .sort((a, b) => b.id.localeCompare(a.id))
+      .slice(0, 9)
   }, [category, products])
 
   return (
@@ -35,11 +51,11 @@ export default function HomePage() {
           <div className="mb-8 md:mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
               <h2 className="text-balance text-3xl md:text-4xl font-bold text-white mb-2">
-                Katalog <span className="text-amber-400">Pisau</span>
+                Katalog <span className="text-amber-400">Terbaru</span>
               </h2>
-              <p className="text-zinc-300">Temukan pisau berkualitas tinggi sesuai kebutuhan Anda</p>
+              <p className="text-zinc-300">9 produk terbaru dari koleksi pisau dan tools berkualitas tinggi</p>
             </div>
-            <CategoryFilter categories={["Semua", ...CATEGORIES]} value={category} onChange={setCategory} />
+            <CategoryFilter categories={["Semua", ...ALL_CATEGORIES]} value={category} onChange={setCategory} />
           </div>
 
           {isLoading ? (
@@ -52,11 +68,35 @@ export default function HomePage() {
               <p className="text-zinc-400 text-lg">Tidak ada produk untuk kategori ini.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {displayedProducts.map((product: Product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {displayedProducts.map((product: UnifiedProduct) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+
+              {/* Navigation buttons to full catalogs */}
+              <div className="mt-12 pt-8 border-t border-zinc-700/50">
+                <div className="text-center space-y-6">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white mb-2">Ingin melihat koleksi lengkap?</h3>
+                    <p className="text-zinc-400">Jelajahi seluruh katalog pisau dan tools kami</p>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                    <Button asChild className="bg-amber-600 hover:bg-amber-700 text-white font-medium flex-1">
+                      <Link href="/products?type=knife">
+                        Lihat Semua Pisau
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-zinc-900 font-medium flex-1">
+                      <Link href="/products?type=tool">
+                        Lihat Semua Tools
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       </section>

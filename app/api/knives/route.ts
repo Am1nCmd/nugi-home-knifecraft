@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server"
-import { KNIVES } from "@/data/knives"
+import { getKnives } from "@/lib/store"
 
 export async function GET() {
-  return NextResponse.json(KNIVES)
+  try {
+    const knives = await getKnives()
+    return NextResponse.json(knives)
+  } catch (error) {
+    console.error("Error fetching knives:", error)
+    return NextResponse.json({ error: "Failed to fetch knives" }, { status: 500 })
+  }
 }

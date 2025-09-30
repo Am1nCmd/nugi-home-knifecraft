@@ -84,8 +84,8 @@ export default function CsvUpload() {
     <Card className="w-full bg-zinc-800/50 border-zinc-700/50">
       <CardHeader>
         <div className="flex items-center gap-3 mb-2">
-          <div className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-lg">
-            <Upload className="w-5 h-5 text-blue-700" />
+          <div className="flex items-center justify-center w-10 h-10 bg-blue-600/20 rounded-lg">
+            <Upload className="w-5 h-5 text-blue-400" />
           </div>
           <div>
             <CardTitle className="text-balance text-white">Import CSV</CardTitle>

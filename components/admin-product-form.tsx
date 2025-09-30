@@ -9,21 +9,25 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Package } from "lucide-react"
-import { CATEGORIES } from "@/data/products"
+import { ALL_CATEGORIES, KNIFE_CATEGORIES, TOOL_CATEGORIES, ProductType } from "@/data/unified-products"
 
 export default function AdminProductForm() {
   const [title, setTitle] = useState("")
   const [price, setPrice] = useState<string>("")
+  const [type, setType] = useState<ProductType>("knife")
   const [category, setCategory] = useState<string>("")
   const [imageUrl, setImageUrl] = useState("")
   const [imageFile, setImageFile] = useState<File | null>(null)
 
   const [steel, setSteel] = useState("")
   const [handleMaterial, setHandleMaterial] = useState("")
-  const [bladeLength, setBladeLength] = useState<string>("")
-  const [handleLength, setHandleLength] = useState<string>("")
+  const [bladeLengthCm, setBladeLengthCm] = useState<string>("")
+  const [handleLengthCm, setHandleLengthCm] = useState<string>("")
+  const [bladeThicknessMm, setBladeThicknessMm] = useState<string>("")
+  const [weightGr, setWeightGr] = useState<string>("")
   const [bladeStyle, setBladeStyle] = useState("")
   const [handleStyle, setHandleStyle] = useState("")
+  const [description, setDescription] = useState("")
 
   const [msg, setMsg] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -52,14 +56,18 @@ export default function AdminProductForm() {
         body: JSON.stringify({
           title,
           price: Number(price),
+          type,
           category,
-          image,
+          images: [image],
           steel,
           handleMaterial,
-          bladeLength: Number(bladeLength),
-          handleLength: Number(handleLength),
+          bladeLengthCm: Number(bladeLengthCm),
+          handleLengthCm: Number(handleLengthCm),
+          bladeThicknessMm: bladeThicknessMm ? Number(bladeThicknessMm) : undefined,
+          weightGr: weightGr ? Number(weightGr) : undefined,
           bladeStyle,
           handleStyle,
+          description: description || undefined,
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -70,15 +78,19 @@ export default function AdminProductForm() {
         // reset
         setTitle("")
         setPrice("")
+        setType("knife")
         setCategory("")
         setImageUrl("")
         setImageFile(null)
         setSteel("")
         setHandleMaterial("")
-        setBladeLength("")
-        setHandleLength("")
+        setBladeLengthCm("")
+        setHandleLengthCm("")
+        setBladeThicknessMm("")
+        setWeightGr("")
         setBladeStyle("")
         setHandleStyle("")
+        setDescription("")
       }
     } catch {
       setMsg("Terjadi kesalahan jaringan.")
@@ -87,17 +99,13 @@ export default function AdminProductForm() {
     }
   }
 
-  async function onLogout() {
-    await fetch("/api/admin/logout", { method: "POST" })
-    window.location.href = "/admin/login"
-  }
 
   return (
     <Card className="w-full bg-zinc-800/50 border-zinc-700/50">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-10 h-10 bg-amber-100 rounded-lg">
-            <Package className="w-5 h-5 text-amber-700" />
+          <div className="flex items-center justify-center w-10 h-10 bg-amber-600/20 rounded-lg">
+            <Package className="w-5 h-5 text-amber-400" />
           </div>
           <div>
             <CardTitle className="text-balance text-white">Tambah Produk</CardTitle>
@@ -114,6 +122,7 @@ export default function AdminProductForm() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Pisau Baru"
+              className="bg-zinc-700/50 border-zinc-600/50 text-white placeholder:text-zinc-400"
               required
             />
           </div>
@@ -124,18 +133,34 @@ export default function AdminProductForm() {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               placeholder="150000"
+              className="bg-zinc-700/50 border-zinc-600/50 text-white placeholder:text-zinc-400"
               inputMode="numeric"
               required
             />
           </div>
           <div className="grid gap-2">
+            <Label className="text-zinc-200">Tipe Produk</Label>
+            <Select value={type} onValueChange={(value: ProductType) => {
+              setType(value)
+              setCategory("") // Reset category when type changes
+            }}>
+              <SelectTrigger className="bg-zinc-700/50 border-zinc-600/50 text-white">
+                <SelectValue placeholder="Pilih tipe" />
+              </SelectTrigger>
+              <SelectContent className="bg-zinc-800 border-zinc-700">
+                <SelectItem value="knife">Knife (Pisau)</SelectItem>
+                <SelectItem value="tool">Tool (Alat)</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="grid gap-2">
             <Label className="text-zinc-200">Kategori</Label>
             <Select value={category} onValueChange={setCategory}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-zinc-700/50 border-zinc-600/50 text-white">
                 <SelectValue placeholder="Pilih kategori" />
               </SelectTrigger>
-              <SelectContent>
-                {CATEGORIES.map((c) => (
+              <SelectContent className="bg-zinc-800 border-zinc-700">
+                {(type === "knife" ? KNIFE_CATEGORIES : TOOL_CATEGORIES).map((c) => (
                   <SelectItem key={c} value={c}>
                     {c}
                   </SelectItem>
@@ -151,6 +176,7 @@ export default function AdminProductForm() {
               value={steel}
               onChange={(e) => setSteel(e.target.value)}
               placeholder="D2 / AUS-8 / ..."
+              className="bg-zinc-700/50 border-zinc-600/50 text-white placeholder:text-zinc-400"
               required
             />
           </div>
@@ -162,31 +188,56 @@ export default function AdminProductForm() {
               value={handleMaterial}
               onChange={(e) => setHandleMaterial(e.target.value)}
               placeholder="G10 / Kayu / ..."
+              className="bg-zinc-700/50 border-zinc-600/50 text-white placeholder:text-zinc-400"
               required
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="bladeLength" className="text-zinc-200">Panjang Bilah (cm)</Label>
+            <Label htmlFor="bladeLengthCm" className="text-zinc-200">Panjang Bilah (cm)</Label>
             <Input
-              id="bladeLength"
-              value={bladeLength}
-              onChange={(e) => setBladeLength(e.target.value)}
+              id="bladeLengthCm"
+              value={bladeLengthCm}
+              onChange={(e) => setBladeLengthCm(e.target.value)}
               placeholder="10"
+              className="bg-zinc-700/50 border-zinc-600/50 text-white placeholder:text-zinc-400"
               inputMode="numeric"
               required
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="handleLength" className="text-zinc-200">Panjang Gagang (cm)</Label>
+            <Label htmlFor="handleLengthCm" className="text-zinc-200">Panjang Gagang (cm)</Label>
             <Input
-              id="handleLength"
-              value={handleLength}
-              onChange={(e) => setHandleLength(e.target.value)}
+              id="handleLengthCm"
+              value={handleLengthCm}
+              onChange={(e) => setHandleLengthCm(e.target.value)}
               placeholder="12"
+              className="bg-zinc-700/50 border-zinc-600/50 text-white placeholder:text-zinc-400"
               inputMode="numeric"
               required
+            />
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="bladeThicknessMm" className="text-zinc-200">Ketebalan Bilah (mm)</Label>
+            <Input
+              id="bladeThicknessMm"
+              value={bladeThicknessMm}
+              onChange={(e) => setBladeThicknessMm(e.target.value)}
+              placeholder="3.5"
+              inputMode="numeric"
+            />
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="weightGr" className="text-zinc-200">Berat (gr)</Label>
+            <Input
+              id="weightGr"
+              value={weightGr}
+              onChange={(e) => setWeightGr(e.target.value)}
+              placeholder="200"
+              inputMode="numeric"
             />
           </div>
 
@@ -209,6 +260,16 @@ export default function AdminProductForm() {
               onChange={(e) => setHandleStyle(e.target.value)}
               placeholder="Ergonomic / Slim / ..."
               required
+            />
+          </div>
+
+          <div className="grid gap-2 md:col-span-2">
+            <Label htmlFor="description" className="text-zinc-200">Deskripsi (Opsional)</Label>
+            <Input
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Deskripsi singkat produk..."
             />
           </div>
 

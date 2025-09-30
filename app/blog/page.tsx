@@ -1,71 +1,34 @@
 "use client"
 
+import { useState, useEffect } from "react"
+import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Article } from "@/data/articles"
 
-type BlogArticle = {
-  id: number
-  title: string
-  excerpt: string
-  thumbnail: string
-  publishDate: string
-  readTime: string
-}
-
-const blogArticles: BlogArticle[] = [
-  {
-    id: 1,
-    title: "Kisah Dibalik Pembuatan Pisau Dapur Tradisional",
-    excerpt: "Menyelami proses pembuatan pisau dapur tradisional dari tangan ahli pandai besi yang telah mewarisi teknik turun temurun selama puluhan tahun. Setiap langkah memiliki makna dan presisi yang tinggi.",
-    thumbnail: "/blog/traditional-knife-making.jpg",
-    publishDate: "15 Januari 2025",
-    readTime: "8 menit"
-  },
-  {
-    id: 2,
-    title: "Proses Heat Treatment: Rahasia Ketajaman Pisau",
-    excerpt: "Memahami proses heat treatment yang menjadi kunci utama ketajaman dan ketahanan pisau. Dari proses quenching hingga tempering, setiap tahap menentukan kualitas akhir pisau.",
-    thumbnail: "/blog/heat-treatment-process.jpg",
-    publishDate: "12 Januari 2025",
-    readTime: "10 menit"
-  },
-  {
-    id: 3,
-    title: "Review: Pisau Chef Damascus Steel Premium",
-    excerpt: "Pengalaman menggunakan pisau chef Damascus steel premium selama 6 bulan. Mulai dari performa memotong, ketahanan ketajaman, hingga kemudahan perawatan sehari-hari.",
-    thumbnail: "/blog/damascus-chef-knife-review.jpg",
-    publishDate: "10 Januari 2025",
-    readTime: "6 menit"
-  },
-  {
-    id: 4,
-    title: "Tutorial Lengkap Perawatan Pisau Carbon Steel",
-    excerpt: "Panduan step-by-step merawat pisau carbon steel agar tetap tajam dan bebas karat. Termasuk tips pembersihan, penyimpanan, dan pengasahan yang tepat.",
-    thumbnail: "/blog/carbon-steel-maintenance.jpg",
-    publishDate: "8 Januari 2025",
-    readTime: "12 menit"
-  },
-  {
-    id: 5,
-    title: "Sejarah dan Evolusi Pisau Jepang",
-    excerpt: "Menelusuri sejarah panjang pisau Jepang dari era samurai hingga modern. Bagaimana tradisi katana berkembang menjadi pisau dapur yang diakui dunia.",
-    thumbnail: "/blog/japanese-knife-history.jpg",
-    publishDate: "5 Januari 2025",
-    readTime: "15 menit"
-  },
-  {
-    id: 6,
-    title: "Tips Memilih Pisau Pertama untuk Pemula",
-    excerpt: "Panduan lengkap bagi pemula dalam memilih pisau pertama. Mulai dari jenis blade, handle material, hingga budget yang sesuai untuk memulai koleksi pisau.",
-    thumbnail: "/blog/beginner-knife-guide.jpg",
-    publishDate: "3 Januari 2025",
-    readTime: "9 menit"
-  }
-]
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export default function BlogPage() {
+  const [articles, setArticles] = useState<Article[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchBlogArticles = async () => {
+      try {
+        const response = await fetcher("/api/articles?type=blog")
+        setArticles(response.articles || [])
+      } catch (error) {
+        console.error("Error fetching blog articles:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchBlogArticles()
+  }, [])
+
   return (
     <main className="min-h-screen bg-zinc-900">
       <Header />
@@ -81,46 +44,61 @@ export default function BlogPage() {
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {blogArticles.map((article) => (
-            <Card key={article.id} className="overflow-hidden bg-zinc-800/50 border-zinc-700/50 hover:bg-zinc-700/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-amber-900/20">
-              <div className="aspect-video relative overflow-hidden bg-zinc-900/50">
-                <img
-                  src={article.thumbnail || "/placeholder.svg"}
-                  alt={article.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-400 mx-auto mb-4"></div>
+            <p className="text-zinc-300">Memuat artikel blog...</p>
+          </div>
+        ) : (
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {articles.map((article) => (
+              <Card key={article.id} className="overflow-hidden bg-zinc-800/50 border-zinc-700/50 hover:bg-zinc-700/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-amber-900/20">
+                <Link href={`/blog/${article.id}`}>
+                  <div className="aspect-video relative overflow-hidden bg-zinc-900/50">
+                    <img
+                      src={article.image || "/placeholder.svg"}
+                      alt={article.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                </Link>
 
-              <CardHeader className="pb-3">
-                <div className="flex items-center gap-2 text-sm text-zinc-400 mb-2">
-                  <span>{article.publishDate}</span>
-                  <span>•</span>
-                  <span>{article.readTime}</span>
-                </div>
-                <h2 className="text-xl font-semibold leading-tight line-clamp-2 text-white">
-                  {article.title}
-                </h2>
-              </CardHeader>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-2 text-sm text-zinc-400 mb-2">
+                    {article.publishDate && <span>{article.publishDate}</span>}
+                    {article.publishDate && article.readTime && <span>•</span>}
+                    {article.readTime && <span>{article.readTime}</span>}
+                  </div>
+                  <Link href={`/blog/${article.id}`}>
+                    <h2 className="text-xl font-semibold leading-tight line-clamp-2 text-white hover:text-amber-400 transition-colors">
+                      {article.title}
+                    </h2>
+                  </Link>
+                </CardHeader>
 
-              <CardContent className="pt-0">
-                <p className="text-zinc-300 leading-relaxed mb-4 line-clamp-3">
-                  {article.excerpt}
-                </p>
+                <CardContent className="pt-0">
+                  <p className="text-zinc-300 leading-relaxed mb-4 line-clamp-3">
+                    {article.excerpt}
+                  </p>
 
-                <Button variant="outline" className="w-full border-amber-600/30 text-amber-400 hover:bg-amber-600/10">
-                  Baca Selengkapnya
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                  <Link href={`/blog/${article.id}`}>
+                    <Button variant="outline" className="w-full border-amber-600/30 text-amber-400 hover:bg-amber-600/10">
+                      Baca Selengkapnya
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
 
-        <div className="mt-16 text-center">
-          <Button size="lg" variant="outline" className="border-amber-600/30 text-amber-400 hover:bg-amber-600/10">
-            Muat Artikel Lainnya
-          </Button>
-        </div>
+        {!loading && articles.length > 0 && (
+          <div className="mt-16 text-center">
+            <Button size="lg" variant="outline" className="border-amber-600/30 text-amber-400 hover:bg-amber-600/10">
+              Muat Artikel Lainnya
+            </Button>
+          </div>
+        )}
       </section>
 
       <Footer />

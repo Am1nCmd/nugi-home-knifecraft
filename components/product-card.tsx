@@ -1,6 +1,8 @@
+import Link from "next/link"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import type { Product } from "@/data/products"
+import { WhatsAppButton } from "@/components/whatsapp-button"
+import type { UnifiedProduct } from "@/data/unified-products"
 
 function formatPriceIDR(amount: number) {
   try {
@@ -15,13 +17,16 @@ function formatPriceIDR(amount: number) {
   }
 }
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({ product }: { product: UnifiedProduct }) {
+  const image = product.images?.[0] || product.image || "/placeholder.svg"
+  const detailPath = product.type === "knife" ? `/knives/${product.id}` : `/tools/${product.id}`
+
   return (
     <Card className="overflow-hidden bg-zinc-800/50 border-zinc-700/50 hover:bg-zinc-700/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-amber-900/20">
       <CardHeader className="p-0">
         <div className="aspect-[4/3] overflow-hidden bg-zinc-900/50">
           <img
-            src={product.image || "/placeholder.svg"}
+            src={image}
             alt={product.title}
             className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
           />
@@ -38,12 +43,18 @@ export function ProductCard({ product }: { product: Product }) {
           {product.title}
         </CardTitle>
       </CardContent>
-      <CardFooter className="pt-2 pb-6">
+      <CardFooter className="pt-4 pb-6 space-y-3 flex flex-col">
         <Button asChild className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium">
-          <a href="#" aria-label={`Lihat detail untuk ${product.title}`}>
+          <Link href={detailPath} aria-label={`Lihat detail untuk ${product.title}`}>
             Lihat Detail
-          </a>
+          </Link>
         </Button>
+        <WhatsAppButton
+          productTitle={product.title}
+          productPrice={formatPriceIDR(product.price)}
+          className="w-full"
+          variant="outline"
+        />
       </CardFooter>
     </Card>
   )

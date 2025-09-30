@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import fs from "fs"
-import path from "path"
+import { getProducts } from "@/lib/store"
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,84 +11,112 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    // Read current database
-    const dbPath = path.join(process.cwd(), "data", "products.db.json")
-    let products = []
+    // Get all products from unified database
+    const products = await getProducts()
 
-    if (fs.existsSync(dbPath)) {
-      const data = fs.readFileSync(dbPath, "utf-8")
-      const db = JSON.parse(data)
-      products = db.products || []
-    }
-
-    // Convert to CSV format
+    // Convert to CSV format with unified structure
     const headers = [
       "id",
       "title",
       "price",
+      "type",
       "category",
-      "image",
+      "images",
       "steel",
       "handleMaterial",
-      "bladeLength",
-      "handleLength",
+      "bladeLengthCm",
+      "handleLengthCm",
+      "bladeThicknessMm",
+      "weightGr",
       "bladeStyle",
       "handleStyle",
-      "createdAt"
+      "description",
+      "specs",
+      "createdAt",
+      "updatedAt"
     ]
 
     // Create CSV content
     let csvContent = headers.join(",") + "\n"
 
-    // Add existing products
-    products.forEach((product: any) => {
+    // Add all products from unified database
+    products.forEach((product) => {
+      // Helper function to escape CSV values
+      const escapeCSV = (value: any): string => {
+        if (value === null || value === undefined) return ""
+        const str = String(value)
+        if (str.includes(",") || str.includes('"') || str.includes("\n")) {
+          return `"${str.replace(/"/g, '""')}"`
+        }
+        return str
+      }
+
       const row = [
         product.id || "",
-        `"${(product.title || "").replace(/"/g, '""')}"`, // Escape quotes
+        escapeCSV(product.title),
         product.price || "",
+        product.type || "",
         product.category || "",
-        product.image || "",
-        product.steel || "",
-        product.handleMaterial || "",
-        product.bladeLength || "",
-        product.handleLength || "",
-        product.bladeStyle || "",
-        product.handleStyle || "",
-        product.createdAt || new Date().toISOString()
+        escapeCSV(Array.isArray(product.images) ? product.images.join(";") : ""),
+        escapeCSV(product.steel),
+        escapeCSV(product.handleMaterial),
+        product.bladeLengthCm || "",
+        product.handleLengthCm || "",
+        product.bladeThicknessMm || "",
+        product.weightGr || "",
+        escapeCSV(product.bladeStyle),
+        escapeCSV(product.handleStyle),
+        escapeCSV(product.description),
+        escapeCSV(product.specs ? JSON.stringify(product.specs) : ""),
+        product.createdAt || "",
+        product.updatedAt || ""
       ]
       csvContent += row.join(",") + "\n"
     })
 
     // Add example rows if database is empty
     if (products.length === 0) {
+      const timestamp = new Date().toISOString()
       const examples = [
         [
           "",
           '"Pisau Chef Damascus Premium"',
           "850000",
+          "knife",
           "Kitchen",
           "/images/chef-damascus.jpg",
           "Damascus Steel",
           "Pakka Wood",
           "20",
           "12",
+          "2.5",
+          "250",
           "Chef Knife",
           "Ergonomic",
-          new Date().toISOString()
+          "Premium Damascus steel chef knife",
+          '{"Finishing":"Hand-forged","Origin":"Japan"}',
+          timestamp,
+          timestamp
         ],
         [
           "",
-          '"Tactical Survival Knife"',
-          "450000",
-          "Tactical",
-          "/images/tactical-survival.jpg",
-          "D2 Steel",
-          "G10",
-          "15",
+          '"Forest Axe Medium"',
+          "820000",
+          "tool",
+          "Axe",
+          "/images/forest-axe.jpg",
+          "1055 Carbon Steel",
+          "Hickory Wood",
           "11",
-          "Drop Point",
-          "Textured Grip",
-          new Date().toISOString()
+          "50",
+          "6",
+          "950",
+          "Bearded",
+          "Curved",
+          "Medium forest axe for camping",
+          '{"Head":"Drop-forged","Sheath":"Leather"}',
+          timestamp,
+          timestamp
         ]
       ]
 

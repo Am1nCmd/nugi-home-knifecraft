@@ -1,15 +1,16 @@
 "use client"
 
+import { useState } from "react"
 import useSWR from "swr"
 import KnivesFilters, { type KnivesFilterState } from "./filters"
 import KnivesGrid from "./grid"
-import type { KnifeProduct } from "@/data/knives"
+import type { UnifiedProduct } from "@/data/unified-products"
 import { KNIFE_FILTER_META } from "@/data/knives"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export default function KnivesExplorer() {
-  const { data, error, isLoading } = useSWR<KnifeProduct[]>("/api/knives", fetcher, { revalidateOnFocus: true })
+  const { data, error, isLoading } = useSWR<UnifiedProduct[]>("/api/knives", fetcher, { revalidateOnFocus: true })
 
   const defaults: KnivesFilterState = {
     category: "all",
@@ -19,11 +20,7 @@ export default function KnivesExplorer() {
     bladeLength: [KNIFE_FILTER_META.bladeLength.min, KNIFE_FILTER_META.bladeLength.max],
   }
 
-  // local state kept minimal by URL-less controlled components; for simplicity, use a simple React state
-  const stateRef = { current: defaults }
-  // a small hack to force rerender with useState would be typical, but Next.js supports client hooks normally.
-  // We'll use React.useState here.
-  const [filters, setFilters] = require("react").useState<KnivesFilterState>(defaults)
+  const [filters, setFilters] = useState<KnivesFilterState>(defaults)
 
   if (isLoading) return (
     <div className="text-center py-16">

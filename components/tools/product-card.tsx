@@ -1,35 +1,58 @@
-import Image from "next/image"
+"use client"
+
 import Link from "next/link"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import type { ToolProduct } from "@/data/tools"
+import { WhatsAppButton } from "@/components/whatsapp-button"
+import type { UnifiedProduct } from "@/data/unified-products"
 
-export default function ToolProductCard({ product }: { product: ToolProduct }) {
-  const cover = product.images[0] || "/placeholder.svg?height=320&width=480"
+function formatPriceIDR(amount: number) {
+  try {
+    return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(
+      amount,
+    )
+  } catch {
+    return `Rp ${amount.toLocaleString("id-ID")}`
+  }
+}
+
+export default function ToolProductCard({ product }: { product: UnifiedProduct }) {
+  const cover = product.images?.[0] || "/placeholder.svg?height=320&width=480"
+
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="overflow-hidden bg-zinc-800/50 border-zinc-700/50 hover:bg-zinc-700/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-amber-900/20">
       <CardHeader className="p-0">
-        <div className="relative w-full h-48 overflow-hidden rounded-t-md bg-muted">
-          <Image
+        <div className="aspect-[4/3] overflow-hidden bg-zinc-900/50">
+          <img
             src={cover || "/placeholder.svg"}
-            alt={`Foto ${product.title}`}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 33vw"
+            alt={product.title}
+            className="h-full w-full object-cover hover:scale-105 transition-transform duration-500"
           />
         </div>
       </CardHeader>
-      <CardContent className="flex-1 space-y-1 pt-4">
-        <CardTitle className="text-base">{product.title}</CardTitle>
-        <div className="text-xs text-muted-foreground">{product.category}</div>
-        <div className="text-sm font-semibold">Rp {product.price.toLocaleString("id-ID")}</div>
+      <CardContent className="pt-6 pb-4">
+        <div className="mb-4 flex items-center justify-between">
+          <span className="inline-flex items-center rounded-full border border-amber-600/30 bg-amber-600/10 px-3 py-1 text-xs font-medium text-amber-400">
+            {product.category}
+          </span>
+          <span className="font-bold text-white text-lg">{formatPriceIDR(product.price)}</span>
+        </div>
+        <CardTitle className="text-lg md:text-xl text-white font-semibold leading-tight">
+          {product.title}
+        </CardTitle>
       </CardContent>
-      <CardFooter className="pt-2">
-        <Button asChild size="sm" className="w-full">
-          <Link href={`/tools/${product.id}`} aria-label={`Detail ${product.title}`}>
-            Detail
+      <CardFooter className="pt-4 pb-6 space-y-3 flex flex-col">
+        <Button asChild className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium">
+          <Link href={`/tools/${product.id}`} aria-label={`Lihat detail untuk ${product.title}`}>
+            Lihat Detail
           </Link>
         </Button>
+        <WhatsAppButton
+          productTitle={product.title}
+          productPrice={formatPriceIDR(product.price)}
+          className="w-full"
+          variant="outline"
+        />
       </CardFooter>
     </Card>
   )

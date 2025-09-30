@@ -103,8 +103,8 @@ export default function AboutPage() {
             <div className="relative">
               <div className="aspect-square bg-gradient-to-br from-zinc-800 to-amber-900 rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/about/craftsman-at-work.jpg"
-                  alt="Craftsman at work"
+                  src="/fajar-nugroho.png"
+                  alt="Fajar Nugroho - Craftsman at work"
                   className="w-full h-full object-cover opacity-90"
                 />
               </div>
@@ -143,56 +143,6 @@ export default function AboutPage() {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-6">
-              Tim <span className="text-amber-700">Ahli</span> Kami
-            </h2>
-            <p className="text-zinc-600 text-lg max-w-2xl mx-auto">
-              Bertemu dengan para master craftsman yang berdedikasi menghadirkan
-              karya pisau terbaik untuk Anda.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {teamMembers.map((member, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow border-zinc-200">
-                <div className="aspect-square bg-gradient-to-br from-zinc-100 to-amber-50">
-                  <img
-                    src={`/about/team-member-${index + 1}.jpg`}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold text-zinc-900 mb-1">{member.name}</h3>
-                  <p className="text-amber-700 font-medium mb-3">{member.role}</p>
-                  <p className="text-zinc-600 text-sm leading-relaxed">{member.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Group Team Photo */}
-          <div className="relative max-w-4xl mx-auto">
-            <div className="aspect-[3/2] bg-gradient-to-br from-zinc-800 to-amber-900 rounded-2xl overflow-hidden shadow-2xl">
-              <img
-                src="/about/team-photo.jpg"
-                alt="Tim Nugi Home Knifecraft"
-                className="w-full h-full object-cover opacity-90"
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl"></div>
-            <div className="absolute bottom-6 left-6">
-              <p className="text-white text-lg font-medium">Tim Nugi Home Knifecraft</p>
-              <p className="text-zinc-300 text-sm">United in craft, excellence in every blade</p>
-            </div>
           </div>
         </div>
       </section>

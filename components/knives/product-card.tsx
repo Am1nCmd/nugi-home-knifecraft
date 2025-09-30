@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import type { KnifeProduct } from "@/data/knives"
+import { WhatsAppButton } from "@/components/whatsapp-button"
+import type { UnifiedProduct } from "@/data/unified-products"
 
 function formatPriceIDR(amount: number) {
   try {
@@ -15,8 +16,9 @@ function formatPriceIDR(amount: number) {
   }
 }
 
-export default function KnifeProductCard({ product }: { product: KnifeProduct }) {
+export default function KnifeProductCard({ product }: { product: UnifiedProduct }) {
   const cover = product.images?.[0] || "/placeholder.svg?height=320&width=480"
+
   return (
     <Card className="overflow-hidden bg-zinc-800/50 border-zinc-700/50 hover:bg-zinc-700/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-amber-900/20">
       <CardHeader className="p-0">
@@ -39,12 +41,18 @@ export default function KnifeProductCard({ product }: { product: KnifeProduct })
           {product.title}
         </CardTitle>
       </CardContent>
-      <CardFooter className="pt-2 pb-6">
+      <CardFooter className="pt-4 pb-6 space-y-3 flex flex-col">
         <Button asChild className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium">
           <Link href={`/knives/${product.id}`} aria-label={`Lihat detail untuk ${product.title}`}>
             Lihat Detail
           </Link>
         </Button>
+        <WhatsAppButton
+          productTitle={product.title}
+          productPrice={formatPriceIDR(product.price)}
+          className="w-full"
+          variant="outline"
+        />
       </CardFooter>
     </Card>
   )

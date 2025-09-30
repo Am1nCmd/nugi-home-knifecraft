@@ -1,30 +1,42 @@
 "use client"
 
-type Article = {
-  title: string
-  excerpt: string
-  img: string
-}
+import { useState, useEffect } from "react"
+import { Article } from "@/data/articles"
 
-const articles: Article[] = [
-  {
-    title: "Tren Desain Pisau 2025",
-    excerpt: "Eksplorasi bentuk bilah modern, profil bevel, dan finishing yang menggabungkan performa serta estetika.",
-    img: "/knife-design-trend-editorial.jpg",
-  },
-  {
-    title: "Event Komunitas Knife-Making",
-    excerpt: "Bertemu para pembuat pisau lokal, berbagi teknik heat treatment, dan uji performa di lapangan.",
-    img: "/knife-maker-community-event.jpg",
-  },
-  {
-    title: "Tips Perawatan & Asah",
-    excerpt: "Panduan step-by-step untuk mempertahankan ketajaman dan mencegah karat pada pisau kesayangan Anda.",
-    img: "/knife-maintenance-sharpening-guide.jpg",
-  },
-]
+const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export function HomeNews() {
+  const [articles, setArticles] = useState<Article[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await fetcher("/api/articles?type=news")
+        setArticles(response.articles || [])
+      } catch (error) {
+        console.error("Error fetching news articles:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchNews()
+  }, [])
+
+  if (loading) {
+    return (
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-400 mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Memuat berita...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="border-t border-border">
       <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
@@ -36,12 +48,12 @@ export function HomeNews() {
         </header>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {articles.map((a) => (
-            <article key={a.title} className="overflow-hidden rounded-lg border border-border bg-card">
-              <img src={a.img || "/placeholder.svg"} alt={a.title} className="h-40 w-full object-cover" />
+          {articles.slice(0, 3).map((article) => (
+            <article key={article.id} className="overflow-hidden rounded-lg border border-border bg-card">
+              <img src={article.image || "/placeholder.svg"} alt={article.title} className="h-40 w-full object-cover" />
               <div className="space-y-2 p-4">
-                <h3 className="font-serif text-lg">{a.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{a.excerpt}</p>
+                <h3 className="font-serif text-lg">{article.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{article.excerpt}</p>
               </div>
             </article>
           ))}

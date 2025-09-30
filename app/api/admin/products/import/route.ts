@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { addManyProducts, getProducts } from "@/lib/store"
-import { CATEGORIES, type ProductCategory, type Product } from "@/data/products"
+import { UnifiedProduct, ALL_CATEGORIES, KNIFE_CATEGORIES, TOOL_CATEGORIES } from "@/data/unified-products"
 
 function normalizeKey(k: string) {
   return k.toLowerCase().replace(/[\s\-_]/g, "")
@@ -10,16 +10,24 @@ function normalizeKey(k: string) {
 
 type CsvRow = {
   id?: string
-  image: string
   title: string
   price: number
-  category: ProductCategory
+  type?: string
+  category: string
+  images?: string[]
+  image?: string // legacy compatibility
   steel: string
   handleMaterial: string
-  bladeLength: number
-  handleLength: number
+  bladeLengthCm: number
+  handleLengthCm: number
+  bladeThicknessMm?: number
+  weightGr?: number
   bladeStyle: string
   handleStyle: string
+  description?: string
+  specs?: string // JSON string
+  createdAt?: string
+  updatedAt?: string
 }
 
 function parseCsvWithQuotes(text: string): CsvRow[] {
@@ -71,51 +79,57 @@ function parseCsvWithQuotes(text: string): CsvRow[] {
 
   const idx = {
     id: mapIdx(["id"]),
-    image: mapIdx(["image", "photo", "foto", "gambar", "fotourl"]),
     title: mapIdx(["title", "judul", "nama"]),
     price: mapIdx(["price", "harga"]),
+    type: mapIdx(["type", "producttype", "jenis"]),
     category: mapIdx(["category", "kategori"]),
+    images: mapIdx(["images", "photos", "foto", "gambar"]),
+    image: mapIdx(["image", "photo", "foto", "gambar", "fotourl"]), // legacy
     steel: mapIdx(["steel", "bahanbaja"]),
     handleMaterial: mapIdx(["handlematerial", "bahangagang"]),
-    bladeLength: mapIdx(["bladelength", "panjangbilah"]),
-    handleLength: mapIdx(["handlelength", "panjanggagang"]),
+    bladeLengthCm: mapIdx(["bladelengthcm", "bladelength", "panjangbilah"]),
+    handleLengthCm: mapIdx(["handlelengthcm", "handlelength", "panjanggagang"]),
+    bladeThicknessMm: mapIdx(["bladethicknessmm", "bladethickness", "ketebalanbilah"]),
+    weightGr: mapIdx(["weightgr", "weight", "berat"]),
     bladeStyle: mapIdx(["bladestyle", "modelbilah"]),
     handleStyle: mapIdx(["handlestyle", "modelgagang"]),
+    description: mapIdx(["description", "deskripsi", "desc"]),
+    specs: mapIdx(["specs", "spesifikasi", "specifications"]),
+    createdAt: mapIdx(["createdat", "created", "dibuat"]),
+    updatedAt: mapIdx(["updatedat", "updated", "diperbarui"]),
   }
 
-  // image/title/price/category minimal harus ada
-  if (
-    [
-      idx.image,
-      idx.title,
-      idx.price,
-      idx.category,
-      idx.steel,
-      idx.handleMaterial,
-      idx.bladeLength,
-      idx.handleLength,
-      idx.bladeStyle,
-      idx.handleStyle,
-    ].some((i) => i < 0)
-  ) {
+  // Required fields check - allow both new and legacy format
+  const requiredFields = [idx.title, idx.price, idx.category, idx.steel, idx.handleMaterial, idx.bladeStyle, idx.handleStyle]
+  const imageField = idx.images >= 0 ? idx.images : idx.image
+  const bladeLengthField = idx.bladeLengthCm >= 0 ? idx.bladeLengthCm : -1
+  const handleLengthField = idx.handleLengthCm >= 0 ? idx.handleLengthCm : -1
+
+  if (requiredFields.some((i) => i < 0) || imageField < 0 || bladeLengthField < 0 || handleLengthField < 0) {
     return []
   }
 
   const out: CsvRow[] = []
   for (let i = 1; i < lines.length; i++) {
     const parts = parseCsvLine(lines[i])
-    const category = parts[idx.category] as ProductCategory
-    const price = Number(parts[idx.price] || "0")
-    const bladeLength = Number(parts[idx.bladeLength] || "0")
-    const handleLength = Number(parts[idx.handleLength] || "0")
 
+    // Get values
+    const category = parts[idx.category]
+    const type = parts[idx.type] || (KNIFE_CATEGORIES.includes(category as any) ? "knife" : TOOL_CATEGORIES.includes(category as any) ? "tool" : "knife")
+    const price = Number(parts[idx.price] || "0")
+    const bladeLengthCm = Number(parts[bladeLengthField] || "0")
+    const handleLengthCm = Number(parts[handleLengthField] || "0")
+    const bladeThicknessMm = idx.bladeThicknessMm >= 0 ? Number(parts[idx.bladeThicknessMm] || "0") : undefined
+    const weightGr = idx.weightGr >= 0 ? Number(parts[idx.weightGr] || "0") : undefined
+
+    // Validation
     if (
       !parts[idx.title] ||
-      !parts[idx.image] ||
-      !CATEGORIES.includes(category) ||
+      !parts[imageField] ||
+      !ALL_CATEGORIES.includes(category as any) ||
       !Number.isFinite(price) ||
-      !Number.isFinite(bladeLength) ||
-      !Number.isFinite(handleLength) ||
+      !Number.isFinite(bladeLengthCm) ||
+      !Number.isFinite(handleLengthCm) ||
       !parts[idx.steel] ||
       !parts[idx.handleMaterial] ||
       !parts[idx.bladeStyle] ||
@@ -124,21 +138,46 @@ function parseCsvWithQuotes(text: string): CsvRow[] {
       continue
     }
 
-    // Remove quotes from string fields
-    const cleanString = (str: string) => str.replace(/^["']|["']$/g, '')
+    // Helper to clean string values
+    const cleanString = (str: string) => str?.replace(/^["']|["']$/g, '') || ''
+
+    // Parse images
+    let images: string[] = []
+    if (idx.images >= 0 && parts[idx.images]) {
+      images = parts[idx.images].split(';').map(cleanString).filter(Boolean)
+    } else if (idx.image >= 0 && parts[idx.image]) {
+      images = [cleanString(parts[idx.image])]
+    }
+
+    // Parse specs
+    let specs: any = undefined
+    if (idx.specs >= 0 && parts[idx.specs]) {
+      try {
+        specs = JSON.parse(cleanString(parts[idx.specs]))
+      } catch {
+        // If not valid JSON, ignore
+      }
+    }
 
     out.push({
       id: idx.id >= 0 ? cleanString(parts[idx.id]) : undefined,
-      image: cleanString(parts[idx.image]),
       title: cleanString(parts[idx.title]),
       price,
+      type: type as "knife" | "tool",
       category,
+      images,
       steel: cleanString(parts[idx.steel]),
       handleMaterial: cleanString(parts[idx.handleMaterial]),
-      bladeLength,
-      handleLength,
+      bladeLengthCm,
+      handleLengthCm,
+      bladeThicknessMm,
+      weightGr,
       bladeStyle: cleanString(parts[idx.bladeStyle]),
       handleStyle: cleanString(parts[idx.handleStyle]),
+      description: idx.description >= 0 ? cleanString(parts[idx.description]) : undefined,
+      specs,
+      createdAt: idx.createdAt >= 0 ? cleanString(parts[idx.createdAt]) : undefined,
+      updatedAt: idx.updatedAt >= 0 ? cleanString(parts[idx.updatedAt]) : undefined,
     })
   }
   return out
@@ -174,7 +213,7 @@ export async function POST(req: Request) {
     const existingIds = new Set(existingProducts.map(p => p.id))
     const existingTitles = new Set(existingProducts.map(p => p.title.toLowerCase()))
 
-    let processedRows: Partial<Product>[] = []
+    let processedRows: Partial<UnifiedProduct>[] = []
     let stats = {
       added: 0,
       updated: 0,
@@ -189,6 +228,28 @@ export async function POST(req: Request) {
           row.id = "p_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)
         }
 
+        // Convert CsvRow to UnifiedProduct format
+        const unifiedProduct: Partial<UnifiedProduct> = {
+          id: row.id,
+          title: row.title,
+          price: row.price,
+          type: row.type as "knife" | "tool",
+          category: row.category as any,
+          images: row.images || [],
+          steel: row.steel,
+          handleMaterial: row.handleMaterial,
+          bladeLengthCm: row.bladeLengthCm,
+          handleLengthCm: row.handleLengthCm,
+          bladeThicknessMm: row.bladeThicknessMm,
+          weightGr: row.weightGr,
+          bladeStyle: row.bladeStyle,
+          handleStyle: row.handleStyle,
+          description: row.description,
+          specs: row.specs,
+          createdAt: row.createdAt,
+          updatedAt: row.updatedAt,
+        }
+
         switch (mode) {
           case "append":
             // Skip if ID or title already exists
@@ -196,7 +257,7 @@ export async function POST(req: Request) {
               stats.skipped++
               continue
             }
-            processedRows.push(row)
+            processedRows.push(unifiedProduct)
             stats.added++
             break
 
@@ -207,12 +268,12 @@ export async function POST(req: Request) {
             } else {
               stats.added++
             }
-            processedRows.push(row)
+            processedRows.push(unifiedProduct)
             break
 
           case "replace":
             // Add all rows (will replace entire dataset)
-            processedRows.push(row)
+            processedRows.push(unifiedProduct)
             stats.added++
             break
         }

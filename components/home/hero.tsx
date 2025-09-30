@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 export function HomeHero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-zinc-900 via-zinc-800 to-amber-900 text-white">
-      <div className="absolute inset-0 bg-[url('/wood-grain-dark.jpg')] opacity-10 bg-cover bg-center"></div>
+      <div className="absolute inset-0 bg-[url('/bushcraft-knife-outdoors-wood-texture.jpg')] opacity-10 bg-cover bg-center"></div>
       <div className="absolute inset-0 bg-black/20"></div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-24">
@@ -42,7 +42,7 @@ export function HomeHero() {
           <div className="relative">
             <div className="aspect-square bg-gradient-to-br from-zinc-800 to-amber-900 rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/hero-knife-premium.jpg"
+                src="/pisau-handmade-premium-close-up-product-photo-on-d.jpg"
                 alt="Pisau handmade premium - craftsmanship detail"
                 className="h-full w-full object-cover opacity-90"
               />
