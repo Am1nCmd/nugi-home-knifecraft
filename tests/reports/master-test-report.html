@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nugi Home Knifecraft - Master Test Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 15px; margin-bottom: 30px; text-align: center; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }
+        .summary-card { background: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .summary-card h3 { font-size: 2.5rem; margin-bottom: 10px; }
+        .summary-card.passed h3 { color: #10b981; }
+        .summary-card.failed h3 { color: #ef4444; }
+        .summary-card.warnings h3 { color: #f59e0b; }
+        .summary-card.total h3 { color: #6366f1; }
+        .test-suites { display: grid; gap: 20px; }
+        .suite-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .suite-header { padding: 20px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; }
+        .suite-content { padding: 20px; }
+        .status { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .status.completed { background: #d1fae5; color: #065f46; }
+        .status.failed { background: #fee2e2; color: #991b1b; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-top: 15px; }
+        .metric { background: #f8fafc; padding: 15px; border-radius: 8px; text-align: center; }
+        .metric-value { font-size: 1.5rem; font-weight: bold; color: #374151; }
+        .metric-label { font-size: 0.875rem; color: #6b7280; margin-top: 5px; }
+        .report-links { margin-top: 20px; }
+        .report-link { display: inline-block; margin-right: 10px; padding: 8px 16px; background: #e0e7ff; color: #3730a3; text-decoration: none; border-radius: 6px; font-size: 14px; }
+        .footer { margin-top: 40px; padding: 30px; background: white; border-radius: 10px; text-align: center; }
+        .recommendations { background: #fef7cd; border: 1px solid #fbbf24; border-radius: 8px; padding: 20px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 Nugi Home Knifecraft</h1>
+            <h2>Master Test Report</h2>
+            <p>Comprehensive Testing Suite Results</p>
+            <p><small>Generated: 2025-09-30T19:18:04.130Z</small></p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card total">
+                <h3>36</h3>
+                <p>Total Tests</p>
+            </div>
+            <div class="summary-card passed">
+                <h3>30</h3>
+                <p>Passed</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>0</h3>
+                <p>Failed</p>
+            </div>
+            <div class="summary-card warnings">
+                <h3>6</h3>
+                <p>Warnings</p>
+            </div>
+        </div>
+
+        <div class="test-suites">
+            
+                <div class="suite-card">
+                    <div class="suite-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Page Navigation & UI Tests</h3>
+                            <span class="status completed">completed</span>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-value">11</div>
+                                    <div class="metric-label">Passed</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">0</div>
+                                    <div class="metric-label">Failed</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">4</div>
+                                    <div class="metric-label">Warnings</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">15</div>
+                                    <div class="metric-label">Total</div>
+                                </div>
+                            </div>
+                        
+
+                        
+
+                        
+                            <div class="report-links">
+                                <a href="reports/page-navigation-report.json" class="report-link">📄 View Detailed Report</a>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="suite-card">
+                    <div class="suite-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>WhatsApp & Social Media Tests</h3>
+                            <span class="status completed">completed</span>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-value">10</div>
+                                    <div class="metric-label">Passed</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">0</div>
+                                    <div class="metric-label">Failed</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">2</div>
+                                    <div class="metric-label">Warnings</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">12</div>
+                                    <div class="metric-label">Total</div>
+                                </div>
+                            </div>
+                        
+
+                        
+
+                        
+                            <div class="report-links">
+                                <a href="reports/whatsapp-social-report.json" class="report-link">📄 View Detailed Report</a>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="suite-card">
+                    <div class="suite-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Functional API Tests</h3>
+                            <span class="status completed">completed</span>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-value">5</div>
+                                    <div class="metric-label">Passed</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">0</div>
+                                    <div class="metric-label">Failed</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">0</div>
+                                    <div class="metric-label">Warnings</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">5</div>
+                                    <div class="metric-label">Total</div>
+                                </div>
+                            </div>
+                        
+
+                        
+
+                        
+                            <div class="report-links">
+                                <a href="reports/api-tests-report.json" class="report-link">📄 View Detailed Report</a>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="suite-card">
+                    <div class="suite-header">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>Accessibility Tests</h3>
+                            <span class="status completed">completed</span>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-value">4</div>
+                                    <div class="metric-label">Passed</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">0</div>
+                                    <div class="metric-label">Failed</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">0</div>
+                                    <div class="metric-label">Warnings</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-value">4</div>
+                                    <div class="metric-label">Total</div>
+                                </div>
+                            </div>
+                        
+
+                        
+
+                        
+                            <div class="report-links">
+                                <a href="reports/accessibility-report.json" class="report-link">📄 View Detailed Report</a>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+        </div>
+
+        <div class="recommendations">
+            <h3>🎯 Key Recommendations</h3>
+            <ul style="margin-top: 15px; padding-left: 20px;">
+                <li><strong>WhatsApp Integration:</strong> Verify both phone numbers are correct and test message formatting</li>
+                <li><strong>Social Media:</strong> Create social media accounts if they don't exist yet</li>
+                <li><strong>Performance:</strong> Monitor page load times and optimize if necessary</li>
+                <li><strong>Accessibility:</strong> Ensure all images have alt text and forms have proper labels</li>
+                <li><strong>Mobile Experience:</strong> Test thoroughly on actual mobile devices</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <h3>📊 Test Summary</h3>
+            <p>Total Duration: 23s</p>
+            <p>Success Rate: 83%</p>
+            <div style="margin-top: 20px;">
+                <a href="reports/" class="report-link">📁 View All Reports</a>
+                <a href="screenshots/" class="report-link">📸 View Screenshots</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

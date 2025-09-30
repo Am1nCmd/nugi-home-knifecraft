@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Navigation & UI Test Report</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8fafc; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+        .summary-card { background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .summary-card.passed { border-left: 4px solid #10b981; }
+        .summary-card.failed { border-left: 4px solid #ef4444; }
+        .summary-card.warnings { border-left: 4px solid #f59e0b; }
+        .test-section { background: white; margin: 20px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .section-header { background: #f1f5f9; padding: 15px; font-weight: 600; color: #334155; }
+        .test-item { padding: 15px; border-bottom: 1px solid #e2e8f0; }
+        .test-item:last-child { border-bottom: none; }
+        .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .status.passed { background: #d1fae5; color: #065f46; }
+        .status.failed { background: #fee2e2; color: #991b1b; }
+        .status.warning { background: #fef3c7; color: #92400e; }
+        .details { margin-top: 10px; padding: 10px; background: #f8fafc; border-radius: 4px; font-size: 14px; }
+        .screenshot-link { display: inline-block; margin: 5px 0; padding: 5px 10px; background: #e0e7ff; color: #3730a3; text-decoration: none; border-radius: 4px; font-size: 12px; }
+        .performance-metric { display: inline-block; margin: 5px 10px 5px 0; padding: 5px 8px; background: #f3f4f6; border-radius: 4px; font-size: 12px; }
+        pre { background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧭 Page Navigation & UI Test Report</h1>
+            <p>Nugi Home Knifecraft - Comprehensive UI Testing</p>
+            <p><small>Generated: 2025-09-30T19:18:04.262Z</small></p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card passed">
+                <h3>11</h3>
+                <p>Passed</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>0</h3>
+                <p>Failed</p>
+            </div>
+            <div class="summary-card warnings">
+                <h3>4</h3>
+                <p>Warnings</p>
+            </div>
+            <div class="summary-card">
+                <h3>15</h3>
+                <p>Total Tests</p>
+            </div>
+        </div>
+
+        <!-- Navigation Tests -->
+        <div class="test-section">
+            <div class="section-header">📄 Page Navigation Tests</div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Page Navigation - Homepage</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Path:</strong> /</p>
+                        <p><strong>Status Code:</strong> 200</p>
+                        <p><strong>Title:</strong> Nugi Home Knifecraft - Premium Handcrafted Knives</p>
+                        
+                        <a href="screenshots/page-homepage.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Page Navigation - Products</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Path:</strong> /products</p>
+                        <p><strong>Status Code:</strong> 200</p>
+                        <p><strong>Title:</strong> Products - Nugi Home Knifecraft</p>
+                        
+                        <a href="screenshots/page-products.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Page Navigation - Blog</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Path:</strong> /blog</p>
+                        <p><strong>Status Code:</strong> 200</p>
+                        <p><strong>Title:</strong> Nugi Home Knifecraft - Premium Handcrafted Knives</p>
+                        
+                        <a href="screenshots/page-blog.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Page Navigation - About</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Path:</strong> /about</p>
+                        <p><strong>Status Code:</strong> 200</p>
+                        <p><strong>Title:</strong> Nugi Home Knifecraft - Premium Handcrafted Knives</p>
+                        
+                        <a href="screenshots/page-about.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Page Navigation - Admin Login</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Path:</strong> /admin/login</p>
+                        <p><strong>Status Code:</strong> 200</p>
+                        <p><strong>Title:</strong> Nugi Home Knifecraft - Premium Handcrafted Knives</p>
+                        
+                        <a href="screenshots/page-admin-login.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                    </div>
+                </div>
+            
+        </div>
+
+        <!-- Component Tests -->
+        <div class="test-section">
+            <div class="section-header">🔘 UI Component Tests</div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Header Component</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <pre>{
+  "found": true,
+  "hasLogo": true,
+  "hasNavigation": true,
+  "hasMobileMenu": true,
+  "navigationItems": [
+    {
+      "text": "Home",
+      "href": "/"
+    },
+    {
+      "text": "Products",
+      "href": "/products"
+    },
+    {
+      "text": "Knife Blog",
+      "href": "/blog"
+    },
+    {
+      "text": "About Us",
+      "href": "/about"
+    }
+  ]
+}</pre>
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Footer Component</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <pre>{
+  "found": true,
+  "socialLinksCount": 4,
+  "hasContactInfo": false,
+  "hasCopyright": true,
+  "socialLinks": [
+    {
+      "href": "https://wa.me/6281199921",
+      "text": ""
+    },
+    {
+      "href": "https://instagram.com/nugihomeknifecraft",
+      "text": ""
+    },
+    {
+      "href": "https://facebook.com/nugihomeknifecraft",
+      "text": ""
+    },
+    {
+      "href": "https://youtube.com/@nugihomeknifecraft",
+      "text": ""
+    }
+  ]
+}</pre>
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Product Cards</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details">
+                        <pre>{
+  "found": 0,
+  "details": []
+}</pre>
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Filter Components</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <pre>{
+  "totalFilters": 1,
+  "hasCategoryFilter": true,
+  "filterTypes": [
+    {
+      "type": "select-one",
+      "name": "Filter kategori produk"
+    }
+  ]
+}</pre>
+                    </div>
+                </div>
+            
+        </div>
+
+        <!-- Responsive Tests -->
+        <div class="test-section">
+            <div class="section-header">📱 Responsive Design Tests</div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Responsive Design - Desktop</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Viewport:</strong> 1920x1080</p>
+                        <a href="screenshots/responsive-desktop.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                            <p><strong>Horizontal Scroll:</strong> No ✅</p>
+                            <p><strong>Overflowing Elements:</strong> 0</p>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Responsive Design - Laptop</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Viewport:</strong> 1366x768</p>
+                        <a href="screenshots/responsive-laptop.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                            <p><strong>Horizontal Scroll:</strong> No ✅</p>
+                            <p><strong>Overflowing Elements:</strong> 0</p>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Responsive Design - Tablet</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Viewport:</strong> 768x1024</p>
+                        <a href="screenshots/responsive-tablet.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                            <p><strong>Horizontal Scroll:</strong> No ✅</p>
+                            <p><strong>Overflowing Elements:</strong> 1</p>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Responsive Design - Mobile Large</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Viewport:</strong> 414x896</p>
+                        <a href="screenshots/responsive-mobile-large.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                            <p><strong>Horizontal Scroll:</strong> No ✅</p>
+                            <p><strong>Overflowing Elements:</strong> 1</p>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Responsive Design - Mobile Small</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details">
+                        <p><strong>Viewport:</strong> 375x667</p>
+                        <a href="screenshots/responsive-mobile-small.png" class="screenshot-link">📸 View Screenshot</a>
+                        
+                            <p><strong>Horizontal Scroll:</strong> No ✅</p>
+                            <p><strong>Overflowing Elements:</strong> 1</p>
+                        
+                        
+                    </div>
+                </div>
+            
+        </div>
+
+        <!-- Performance Tests -->
+        <div class="test-section">
+            <div class="section-header">⚡ Performance Tests</div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Homepage Performance</strong>
+                        <span class="status passed">passed</span>
+                    </div>
+                    <div class="details">
+                        <span class="performance-metric">Load Time: 999ms</span>
+                        <span class="performance-metric">Resources: 35</span>
+                        <span class="performance-metric">Code Usage: 87%</span>
+                        
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+</body>
+</html>

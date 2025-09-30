@@ -1,0 +1,182 @@
+{
+  "timestamp": "2025-09-30T19:29:46.966Z",
+  "pageAccessTests": [
+    {
+      "test": "Product Management Page Access",
+      "status": "failed",
+      "error": "page.waitForTimeout is not a function"
+    }
+  ],
+  "formTests": [
+    {
+      "test": "Product Form Structure",
+      "status": "warning",
+      "details": {
+        "formElements": {
+          "hasForms": 0,
+          "hasInputs": 0,
+          "hasSelects": 0,
+          "hasTextareas": 0,
+          "hasSubmitButtons": 0,
+          "hasFileInputs": 0
+        },
+        "productFields": {
+          "hasNameField": false,
+          "hasPriceField": false,
+          "hasDescriptionField": false,
+          "hasTypeField": false,
+          "hasImageField": false
+        }
+      }
+    },
+    {
+      "test": "Form Validation Attributes",
+      "status": "warning",
+      "details": []
+    },
+    {
+      "test": "Tab Navigation Structure",
+      "status": "warning",
+      "details": {
+        "tabCount": 0,
+        "panelCount": 0,
+        "tabs": [],
+        "hasTabStructure": false
+      },
+      "screenshot": "products-tabs.png"
+    },
+    {
+      "test": "Expected Product Management Tabs",
+      "status": "warning",
+      "expectedTabs": [
+        "Daftar Produk",
+        "Tambah Produk",
+        "Import/Export"
+      ],
+      "foundTabs": [
+        {
+          "name": "Daftar Produk",
+          "found": false
+        },
+        {
+          "name": "Tambah Produk",
+          "found": false
+        },
+        {
+          "name": "Import/Export",
+          "found": false
+        }
+      ]
+    }
+  ],
+  "listTests": [
+    {
+      "test": "Products API Response",
+      "status": "passed",
+      "details": {
+        "isValidJSON": true,
+        "hasProducts": true,
+        "productCount": 24,
+        "hasKnives": true,
+        "hasTools": true,
+        "sampleProduct": {
+          "id": "p6",
+          "title": "Pisau Lipat Compact",
+          "price": 290000,
+          "type": "knife",
+          "category": "Tactical",
+          "images": [
+            "/pisau-lipat-compact.jpg"
+          ],
+          "steel": "8Cr13MoV",
+          "handleMaterial": "Aluminum",
+          "bladeLengthCm": 7,
+          "handleLengthCm": 9,
+          "bladeStyle": "Sheepsfoot",
+          "handleStyle": "Slim",
+          "image": "/pisau-lipat-compact.jpg",
+          "createdAt": "2025-09-29T17:15:16.517Z",
+          "updatedAt": "2025-09-29T17:15:16.517Z",
+          "createdBy": {
+            "email": "system@migration",
+            "name": "System Migration"
+          },
+          "updatedBy": {
+            "email": "system@migration",
+            "name": "System Migration"
+          }
+        }
+      }
+    },
+    {
+      "test": "Product List UI Components",
+      "status": "passed",
+      "details": {
+        "hasList": false,
+        "hasSearchInput": false,
+        "hasFilterButtons": false,
+        "hasPagination": false,
+        "hasActionButtons": true
+      }
+    }
+  ],
+  "csvTests": [
+    {
+      "test": "CSV UI Elements",
+      "status": "warning",
+      "details": {
+        "hasFileInput": false,
+        "hasUploadButton": false,
+        "hasDownloadButton": false,
+        "hasCSVMention": false,
+        "hasImportExportTab": false
+      }
+    },
+    {
+      "test": "CSV API Endpoints",
+      "status": "passed",
+      "details": [
+        {
+          "endpoint": "/api/admin/products/export",
+          "method": "GET",
+          "description": "CSV Export",
+          "status": 401,
+          "isAccessible": true,
+          "isProtected": true
+        },
+        {
+          "endpoint": "/api/admin/products/import",
+          "method": "POST",
+          "description": "CSV Import",
+          "status": 405,
+          "isAccessible": true,
+          "isProtected": false
+        }
+      ]
+    }
+  ],
+  "validationTests": [
+    {
+      "test": "Form Validation Behavior",
+      "status": "warning",
+      "details": []
+    },
+    {
+      "test": "Field Validation Patterns",
+      "status": "warning",
+      "details": {
+        "emailFields": 0,
+        "urlFields": 0,
+        "numberFields": 0,
+        "patternFields": 0,
+        "requiredFields": 0
+      }
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 1,
+    "warnings": 7,
+    "total": 11
+  }
+}

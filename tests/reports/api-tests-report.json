@@ -1,0 +1,50 @@
+{
+  "timestamp": "2025-09-30T19:18:25.295Z",
+  "tests": [
+    {
+      "name": "Products API",
+      "endpoint": "/api/products/unified",
+      "status": "passed",
+      "statusCode": 200,
+      "duration": 47,
+      "responseSize": 14643,
+      "hasData": true
+    },
+    {
+      "name": "Articles API",
+      "endpoint": "/api/articles",
+      "status": "passed",
+      "statusCode": 200,
+      "duration": 11,
+      "responseSize": 7474,
+      "hasData": true
+    },
+    {
+      "name": "Auth Session API",
+      "endpoint": "/api/auth/session",
+      "status": "passed",
+      "statusCode": 200,
+      "duration": 6,
+      "responseSize": 2,
+      "hasData": true
+    },
+    {
+      "name": "Knives API",
+      "endpoint": "/api/knives",
+      "status": "passed",
+      "statusCode": 200,
+      "duration": 5,
+      "responseSize": 9581,
+      "hasData": true
+    },
+    {
+      "name": "Tools API",
+      "endpoint": "/api/tools",
+      "status": "passed",
+      "statusCode": 200,
+      "duration": 5,
+      "responseSize": 4878,
+      "hasData": true
+    }
+  ]
+}

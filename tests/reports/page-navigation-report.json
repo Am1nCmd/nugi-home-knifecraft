@@ -1,0 +1,382 @@
+{
+  "timestamp": "2025-09-30T19:18:04.262Z",
+  "navigationTests": [
+    {
+      "test": "Page Navigation - Homepage",
+      "status": "passed",
+      "path": "/",
+      "statusCode": 200,
+      "title": "Nugi Home Knifecraft - Premium Handcrafted Knives",
+      "hasTitle": true,
+      "elementChecks": {
+        "header": true,
+        "nav": true,
+        "main": true,
+        "footer": true
+      },
+      "navigationLinks": [
+        {
+          "text": "Home",
+          "href": "/",
+          "isActive": false
+        },
+        {
+          "text": "Products",
+          "href": "/products",
+          "isActive": false
+        },
+        {
+          "text": "Knife Blog",
+          "href": "/blog",
+          "isActive": false
+        },
+        {
+          "text": "About Us",
+          "href": "/about",
+          "isActive": false
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "screenshots/page-homepage.png",
+      "loadTime": null
+    },
+    {
+      "test": "Page Navigation - Products",
+      "status": "passed",
+      "path": "/products",
+      "statusCode": 200,
+      "title": "Products - Nugi Home Knifecraft",
+      "hasTitle": true,
+      "elementChecks": {
+        "header": true,
+        "main": true,
+        ".product-grid": false
+      },
+      "navigationLinks": [
+        {
+          "text": "Home",
+          "href": "/",
+          "isActive": false
+        },
+        {
+          "text": "Products",
+          "href": "/products",
+          "isActive": false
+        },
+        {
+          "text": "Knife Blog",
+          "href": "/blog",
+          "isActive": false
+        },
+        {
+          "text": "About Us",
+          "href": "/about",
+          "isActive": false
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "screenshots/page-products.png",
+      "loadTime": null
+    },
+    {
+      "test": "Page Navigation - Blog",
+      "status": "passed",
+      "path": "/blog",
+      "statusCode": 200,
+      "title": "Nugi Home Knifecraft - Premium Handcrafted Knives",
+      "hasTitle": true,
+      "elementChecks": {
+        "header": true,
+        "main": true,
+        ".article": false
+      },
+      "navigationLinks": [
+        {
+          "text": "Home",
+          "href": "/",
+          "isActive": false
+        },
+        {
+          "text": "Products",
+          "href": "/products",
+          "isActive": false
+        },
+        {
+          "text": "Knife Blog",
+          "href": "/blog",
+          "isActive": false
+        },
+        {
+          "text": "About Us",
+          "href": "/about",
+          "isActive": false
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "screenshots/page-blog.png",
+      "loadTime": null
+    },
+    {
+      "test": "Page Navigation - About",
+      "status": "passed",
+      "path": "/about",
+      "statusCode": 200,
+      "title": "Nugi Home Knifecraft - Premium Handcrafted Knives",
+      "hasTitle": true,
+      "elementChecks": {
+        "header": true,
+        "main": true
+      },
+      "navigationLinks": [
+        {
+          "text": "Home",
+          "href": "/",
+          "isActive": false
+        },
+        {
+          "text": "Products",
+          "href": "/products",
+          "isActive": false
+        },
+        {
+          "text": "Knife Blog",
+          "href": "/blog",
+          "isActive": false
+        },
+        {
+          "text": "About Us",
+          "href": "/about",
+          "isActive": false
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "screenshots/page-about.png",
+      "loadTime": null
+    },
+    {
+      "test": "Page Navigation - Admin Login",
+      "status": "passed",
+      "path": "/admin/login",
+      "statusCode": 200,
+      "title": "Nugi Home Knifecraft - Premium Handcrafted Knives",
+      "hasTitle": true,
+      "elementChecks": {
+        "form": false,
+        "input": false
+      },
+      "navigationLinks": [],
+      "consoleErrors": [],
+      "screenshot": "screenshots/page-admin-login.png",
+      "loadTime": null
+    }
+  ],
+  "componentTests": [
+    {
+      "test": "Header Component",
+      "status": "passed",
+      "details": {
+        "found": true,
+        "hasLogo": true,
+        "hasNavigation": true,
+        "hasMobileMenu": true,
+        "navigationItems": [
+          {
+            "text": "Home",
+            "href": "/"
+          },
+          {
+            "text": "Products",
+            "href": "/products"
+          },
+          {
+            "text": "Knife Blog",
+            "href": "/blog"
+          },
+          {
+            "text": "About Us",
+            "href": "/about"
+          }
+        ]
+      }
+    },
+    {
+      "test": "Footer Component",
+      "status": "passed",
+      "details": {
+        "found": true,
+        "socialLinksCount": 4,
+        "hasContactInfo": false,
+        "hasCopyright": true,
+        "socialLinks": [
+          {
+            "href": "https://wa.me/6281199921",
+            "text": ""
+          },
+          {
+            "href": "https://instagram.com/nugihomeknifecraft",
+            "text": ""
+          },
+          {
+            "href": "https://facebook.com/nugihomeknifecraft",
+            "text": ""
+          },
+          {
+            "href": "https://youtube.com/@nugihomeknifecraft",
+            "text": ""
+          }
+        ]
+      }
+    },
+    {
+      "test": "Product Cards",
+      "status": "warning",
+      "details": {
+        "found": 0,
+        "details": []
+      }
+    },
+    {
+      "test": "Filter Components",
+      "status": "passed",
+      "details": {
+        "totalFilters": 1,
+        "hasCategoryFilter": true,
+        "filterTypes": [
+          {
+            "type": "select-one",
+            "name": "Filter kategori produk"
+          }
+        ]
+      }
+    }
+  ],
+  "responsiveTests": [
+    {
+      "test": "Responsive Design - Desktop",
+      "status": "passed",
+      "viewport": "1920x1080",
+      "mobileMenuTest": {
+        "mobileMenuButtonVisible": false,
+        "desktopNavVisible": true,
+        "isMobileViewport": false
+      },
+      "overflowTest": {
+        "hasHorizontalScroll": false,
+        "overflowingElements": 0
+      },
+      "screenshot": "screenshots/responsive-desktop.png"
+    },
+    {
+      "test": "Responsive Design - Laptop",
+      "status": "passed",
+      "viewport": "1366x768",
+      "mobileMenuTest": {
+        "mobileMenuButtonVisible": false,
+        "desktopNavVisible": true,
+        "isMobileViewport": false
+      },
+      "overflowTest": {
+        "hasHorizontalScroll": false,
+        "overflowingElements": 0
+      },
+      "screenshot": "screenshots/responsive-laptop.png"
+    },
+    {
+      "test": "Responsive Design - Tablet",
+      "status": "warning",
+      "viewport": "768x1024",
+      "mobileMenuTest": {
+        "mobileMenuButtonVisible": false,
+        "desktopNavVisible": true,
+        "isMobileViewport": true
+      },
+      "overflowTest": {
+        "hasHorizontalScroll": false,
+        "overflowingElements": 1
+      },
+      "screenshot": "screenshots/responsive-tablet.png"
+    },
+    {
+      "test": "Responsive Design - Mobile Large",
+      "status": "warning",
+      "viewport": "414x896",
+      "mobileMenuTest": {
+        "mobileMenuButtonVisible": true,
+        "desktopNavVisible": false,
+        "isMobileViewport": true
+      },
+      "overflowTest": {
+        "hasHorizontalScroll": false,
+        "overflowingElements": 1
+      },
+      "screenshot": "screenshots/responsive-mobile-large.png"
+    },
+    {
+      "test": "Responsive Design - Mobile Small",
+      "status": "warning",
+      "viewport": "375x667",
+      "mobileMenuTest": {
+        "mobileMenuButtonVisible": true,
+        "desktopNavVisible": false,
+        "isMobileViewport": true
+      },
+      "overflowTest": {
+        "hasHorizontalScroll": false,
+        "overflowingElements": 1
+      },
+      "screenshot": "screenshots/responsive-mobile-small.png"
+    }
+  ],
+  "performanceTests": [
+    {
+      "test": "Homepage Performance",
+      "status": "passed",
+      "loadTime": 999,
+      "metrics": {
+        "Timestamp": 227062.044723,
+        "Documents": 3,
+        "Frames": 1,
+        "JSEventListeners": 438,
+        "Nodes": 1029,
+        "LayoutCount": 5,
+        "RecalcStyleCount": 8,
+        "LayoutDuration": 0.006153,
+        "RecalcStyleDuration": 0.019694,
+        "ScriptDuration": 0.231678,
+        "TaskDuration": 0.377952,
+        "JSHeapUsedSize": 12328788,
+        "JSHeapTotalSize": 21889024
+      },
+      "performanceData": {
+        "timing": {},
+        "navigation": {},
+        "memory": {
+          "usedJSHeapSize": 50746902,
+          "totalJSHeapSize": 60294250,
+          "jsHeapSizeLimit": 4294705152
+        }
+      },
+      "resourceCount": {
+        "total": 35,
+        "types": {
+          "link": 10,
+          "script": 5,
+          "fetch": 8,
+          "img": 12
+        },
+        "totalSize": 1808609
+      },
+      "codeUsage": {
+        "totalBytes": 15603141,
+        "usedBytes": 13521825,
+        "usagePercentage": 87
+      }
+    }
+  ],
+  "summary": {
+    "passed": 11,
+    "failed": 0,
+    "warnings": 4,
+    "total": 15
+  }
+}

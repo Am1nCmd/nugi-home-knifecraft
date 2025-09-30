@@ -1,0 +1,156 @@
+{
+  "timestamp": "2025-09-30T19:29:37.122Z",
+  "dashboardTests": [
+    {
+      "test": "Dashboard Access without Authentication",
+      "status": "failed",
+      "error": "page.waitForTimeout is not a function"
+    },
+    {
+      "test": "Dashboard UI Theme and Styling",
+      "status": "warning",
+      "details": {
+        "isDarkTheme": false,
+        "hasAmberAccents": true,
+        "hasGradients": true,
+        "hasMobileMenuButton": false,
+        "bodyBackground": "oklch(0.21 0.006 285.885)",
+        "bodyColor": "oklch(0.967 0.001 286.375)"
+      },
+      "screenshot": "dashboard-ui.png"
+    },
+    {
+      "test": "Dashboard UI Components",
+      "status": "passed",
+      "details": {
+        "hasCards": false,
+        "hasGrid": false,
+        "hasIcons": true,
+        "hasButtons": true,
+        "hasInputs": false
+      }
+    },
+    {
+      "test": "Dashboard Responsive Design",
+      "status": "passed",
+      "details": [
+        {
+          "viewport": "Mobile",
+          "dimensions": "375x667",
+          "viewportWidth": 375,
+          "viewportHeight": 667,
+          "bodyWidth": 375,
+          "hasHorizontalScroll": false,
+          "headerVisible": true,
+          "cardsFitScreen": true,
+          "cardCount": 0
+        },
+        {
+          "viewport": "Tablet",
+          "dimensions": "768x1024",
+          "viewportWidth": 768,
+          "viewportHeight": 1024,
+          "bodyWidth": 768,
+          "hasHorizontalScroll": false,
+          "headerVisible": true,
+          "cardsFitScreen": true,
+          "cardCount": 0
+        },
+        {
+          "viewport": "Desktop",
+          "dimensions": "1920x1080",
+          "viewportWidth": 1920,
+          "viewportHeight": 1080,
+          "bodyWidth": 1920,
+          "hasHorizontalScroll": false,
+          "headerVisible": true,
+          "cardsFitScreen": true,
+          "cardCount": 0
+        }
+      ]
+    }
+  ],
+  "navigationTests": [
+    {
+      "test": "Dashboard Navigation Elements",
+      "status": "passed",
+      "details": {
+        "navElements": {
+          "hasHeader": true,
+          "hasLogo": true,
+          "hasMainNav": false,
+          "hasLinks": true,
+          "linkCount": 1
+        },
+        "adminLinks": [],
+        "allLinks": [
+          {
+            "href": "http://localhost:3000/",
+            "text": "Kembali ke Website",
+            "isAdminLink": false
+          }
+        ]
+      }
+    },
+    {
+      "test": "Admin Navigation Links",
+      "status": "warning",
+      "expectedPaths": [
+        "/admin/dashboard",
+        "/admin/products",
+        "/admin/articles",
+        "/admin/analytics",
+        "/admin/settings"
+      ],
+      "foundPaths": {
+        "/admin/dashboard": false,
+        "/admin/products": false,
+        "/admin/articles": false,
+        "/admin/analytics": false,
+        "/admin/settings": false
+      }
+    }
+  ],
+  "statisticsTests": [
+    {
+      "test": "Dashboard Statistics Structure",
+      "status": "passed",
+      "details": {
+        "hasStatisticsStructure": true,
+        "cardCount": 1,
+        "dashboardElements": {
+          "hasCards": false,
+          "hasIcons": true,
+          "hasNumbers": false,
+          "hasLabels": false
+        }
+      }
+    },
+    {
+      "test": "Statistics API Endpoints",
+      "status": "passed",
+      "apiResults": [
+        {
+          "endpoint": "/api/products/unified",
+          "status": 200,
+          "hasData": true,
+          "dataSize": 3,
+          "isWorking": true
+        },
+        {
+          "endpoint": "/api/articles",
+          "status": 200,
+          "hasData": true,
+          "dataSize": 3,
+          "isWorking": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 1,
+    "warnings": 2,
+    "total": 8
+  }
+}

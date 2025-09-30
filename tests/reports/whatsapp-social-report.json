@@ -1,0 +1,347 @@
+{
+  "timestamp": "2025-09-30T19:18:21.395Z",
+  "whatsappTests": [
+    {
+      "test": "WhatsApp Buttons - Homepage",
+      "status": "passed",
+      "found": 11,
+      "details": [
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Join WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "",
+          "href": "https://wa.me/6281199921",
+          "tagName": "a",
+          "isVisible": true
+        }
+      ]
+    },
+    {
+      "test": "WhatsApp Buttons - Products Page",
+      "status": "passed",
+      "found": 26,
+      "details": [
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Beli via WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "Join WhatsApp",
+          "href": null,
+          "tagName": "button",
+          "isVisible": true
+        },
+        {
+          "text": "",
+          "href": "https://wa.me/6281199921",
+          "tagName": "a",
+          "isVisible": true
+        }
+      ]
+    },
+    {
+      "test": "WhatsApp Button Click Functionality",
+      "status": "warning",
+      "capturedUrls": [],
+      "buttonFound": true,
+      "details": "WhatsApp button found and clicked successfully. URL capture depends on actual WhatsApp integration."
+    },
+    {
+      "test": "WhatsApp Number Validation - Purchase buttons",
+      "status": "warning",
+      "number": "6281199214",
+      "found": false,
+      "details": "Checking for number 6281199214 in Purchase buttons"
+    },
+    {
+      "test": "WhatsApp Number Validation - Footer contact",
+      "status": "passed",
+      "number": "6281199921",
+      "found": true,
+      "details": "Checking for number 6281199921 in Footer contact"
+    }
+  ],
+  "socialMediaTests": [
+    {
+      "test": "Social Media Links - Footer",
+      "status": "passed",
+      "found": 3,
+      "expected": 3,
+      "details": [
+        {
+          "href": "https://instagram.com/nugihomeknifecraft",
+          "text": "",
+          "target": "_blank",
+          "hasIcon": true,
+          "isVisible": true
+        },
+        {
+          "href": "https://facebook.com/nugihomeknifecraft",
+          "text": "",
+          "target": "_blank",
+          "hasIcon": true,
+          "isVisible": true
+        },
+        {
+          "href": "https://youtube.com/@nugihomeknifecraft",
+          "text": "",
+          "target": "_blank",
+          "hasIcon": true,
+          "isVisible": true
+        }
+      ]
+    },
+    {
+      "test": "Instagram Link Validation",
+      "status": "passed",
+      "platform": "Instagram",
+      "expectedPattern": "instagram.com/nugihomeknifecraft",
+      "found": true,
+      "note": "Link found in footer - accounts to be created later"
+    },
+    {
+      "test": "Facebook Link Validation",
+      "status": "passed",
+      "platform": "Facebook",
+      "expectedPattern": "facebook.com/nugihomeknifecraft",
+      "found": true,
+      "note": "Link found in footer - accounts to be created later"
+    },
+    {
+      "test": "YouTube Link Validation",
+      "status": "passed",
+      "platform": "YouTube",
+      "expectedPattern": "youtube.com/@nugihomeknifecraft",
+      "found": true,
+      "note": "Link found in footer - accounts to be created later"
+    },
+    {
+      "test": "Link Behavior - Instagram",
+      "status": "passed",
+      "href": "https://instagram.com/nugihomeknifecraft",
+      "opensInNewTab": true,
+      "hasIcon": true,
+      "details": "Opens in new tab"
+    },
+    {
+      "test": "Link Behavior - Facebook",
+      "status": "passed",
+      "href": "https://facebook.com/nugihomeknifecraft",
+      "opensInNewTab": true,
+      "hasIcon": true,
+      "details": "Opens in new tab"
+    },
+    {
+      "test": "Link Behavior - YouTube",
+      "status": "passed",
+      "href": "https://youtube.com/@nugihomeknifecraft",
+      "opensInNewTab": true,
+      "hasIcon": true,
+      "details": "Opens in new tab"
+    }
+  ],
+  "summary": {
+    "passed": 10,
+    "failed": 0,
+    "warnings": 2,
+    "total": 12
+  }
+}

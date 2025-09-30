@@ -1,0 +1,58 @@
+{
+  "timestamp": "2025-09-30T19:18:04.130Z",
+  "testSuites": [
+    {
+      "name": "Page Navigation & UI Tests",
+      "status": "completed",
+      "summary": {
+        "passed": 11,
+        "failed": 0,
+        "warnings": 4,
+        "total": 15
+      },
+      "reportPath": "./tests/reports/page-navigation-report.json",
+      "duration": 17128
+    },
+    {
+      "name": "WhatsApp & Social Media Tests",
+      "status": "completed",
+      "summary": {
+        "passed": 10,
+        "failed": 0,
+        "warnings": 2,
+        "total": 12
+      },
+      "reportPath": "./tests/reports/whatsapp-social-report.json",
+      "duration": 3919
+    },
+    {
+      "name": "Functional API Tests",
+      "status": "completed",
+      "summary": {
+        "passed": 5,
+        "failed": 0,
+        "warnings": 0,
+        "total": 5
+      },
+      "reportPath": "./tests/reports/api-tests-report.json"
+    },
+    {
+      "name": "Accessibility Tests",
+      "status": "completed",
+      "summary": {
+        "passed": 4,
+        "warnings": 0,
+        "failed": 0,
+        "total": 4
+      },
+      "reportPath": "./tests/reports/accessibility-report.json"
+    }
+  ],
+  "overallSummary": {
+    "totalTests": 36,
+    "passed": 30,
+    "failed": 0,
+    "warnings": 6,
+    "duration": 22715
+  }
+}
