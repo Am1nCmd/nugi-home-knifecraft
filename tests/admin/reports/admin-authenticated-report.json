@@ -1,0 +1,89 @@
+{
+  "timestamp": "2025-09-30T19:49:05.109Z",
+  "sessionTests": [
+    {
+      "test": "Session Authentication Validation",
+      "status": "warning",
+      "details": {
+        "currentUrl": "http://localhost:3000/admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard",
+        "isOnDashboard": false,
+        "isOnLogin": true,
+        "isAuthenticated": false,
+        "dashboardElements": {
+          "hasTitle": false,
+          "hasUserInfo": null,
+          "hasStatCards": false,
+          "hasNavigation": false,
+          "hasLogoutButton": false
+        }
+      },
+      "screenshot": "authenticated-session-check.png",
+      "message": "User not authenticated - please login first in Safari"
+    }
+  ],
+  "dashboardTests": [
+    {
+      "test": "Authenticated Dashboard Content",
+      "status": "warning",
+      "details": {
+        "authenticated": false,
+        "message": "Not on dashboard - authentication required"
+      },
+      "screenshot": "authenticated-dashboard.png"
+    }
+  ],
+  "productTests": [
+    {
+      "test": "Authenticated Product Management Page",
+      "status": "warning",
+      "details": {
+        "authenticated": false,
+        "message": "Not on products page - authentication required"
+      },
+      "screenshot": "authenticated-products.png"
+    },
+    {
+      "test": "Product Management Tab Switching",
+      "status": "warning",
+      "details": []
+    }
+  ],
+  "crudTests": [
+    {
+      "test": "Authenticated API Access",
+      "status": "warning",
+      "details": [
+        {
+          "endpoint": "/api/admin/products",
+          "method": "GET",
+          "description": "Get admin products",
+          "status": 405,
+          "isSuccessful": false,
+          "responsePreview": "<!doctype html>\n<html dir=\"ltr\" lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"color-scheme\" content=\"light dark\">\n  <meta name=\"theme-color\" content=\"#fff\">\n  <meta name=\"viewport\" content="
+        },
+        {
+          "endpoint": "/api/admin/products/export",
+          "method": "GET",
+          "description": "Export CSV",
+          "status": 401,
+          "isSuccessful": false,
+          "responsePreview": "{\"error\":\"Unauthorized\"}"
+        }
+      ]
+    },
+    {
+      "test": "Form Structure for CRUD Operations",
+      "status": "warning",
+      "details": {
+        "formCount": 0,
+        "formDetails": []
+      }
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 0,
+    "warnings": 6,
+    "total": 6
+  }
+}

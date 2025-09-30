@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Authenticated Test Report</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8fafc; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+        .summary-card { background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .summary-card.passed { border-left: 4px solid #10b981; }
+        .summary-card.failed { border-left: 4px solid #ef4444; }
+        .summary-card.warnings { border-left: 4px solid #f59e0b; }
+        .test-section { background: white; margin: 20px 0; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .section-header { background: #f1f5f9; padding: 15px; font-weight: 600; color: #334155; }
+        .test-item { padding: 15px; border-bottom: 1px solid #e2e8f0; }
+        .test-item:last-child { border-bottom: none; }
+        .status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .status.passed { background: #d1fae5; color: #065f46; }
+        .status.failed { background: #fee2e2; color: #991b1b; }
+        .status.warning { background: #fef3c7; color: #92400e; }
+        .details { margin-top: 10px; padding: 10px; background: #f8fafc; border-radius: 4px; font-size: 14px; }
+        pre { background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 6px; overflow-x: auto; font-size: 12px; }
+        .screenshot-link { display: inline-block; margin: 5px 0; padding: 5px 10px; background: #e0e7ff; color: #3730a3; text-decoration: none; border-radius: 4px; font-size: 12px; }
+        .auth-status { padding: 10px; border-radius: 6px; margin: 10px 0; }
+        .auth-status.success { background: #d1fae5; color: #065f46; }
+        .auth-status.warning { background: #fef3c7; color: #92400e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Admin Authenticated Test Report</h1>
+            <p>Nugi Home Knifecraft - Full Admin Functionality Testing</p>
+            <p><small>Generated: 2025-09-30T19:49:05.109Z</small></p>
+        </div>
+
+        <div class="summary">
+            <div class="summary-card passed">
+                <h3>0</h3>
+                <p>Passed</p>
+            </div>
+            <div class="summary-card failed">
+                <h3>0</h3>
+                <p>Failed</p>
+            </div>
+            <div class="summary-card warnings">
+                <h3>6</h3>
+                <p>Warnings</p>
+            </div>
+            <div class="summary-card">
+                <h3>6</h3>
+                <p>Total Tests</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <div class="section-header">🔍 Session Validation Tests</div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Session Authentication Validation</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="auth-status warning">User not authenticated - please login first in Safari</div>
+                    <div class="details"><pre>{
+  "currentUrl": "http://localhost:3000/admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard",
+  "isOnDashboard": false,
+  "isOnLogin": true,
+  "isAuthenticated": false,
+  "dashboardElements": {
+    "hasTitle": false,
+    "hasUserInfo": null,
+    "hasStatCards": false,
+    "hasNavigation": false,
+    "hasLogoutButton": false
+  }
+}</pre></div>
+                    <a href="../screenshots/authenticated-session-check.png" class="screenshot-link">📸 View Screenshot</a>
+                    
+                </div>
+            
+        </div>
+
+        <div class="test-section">
+            <div class="section-header">📊 Dashboard Tests</div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Authenticated Dashboard Content</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details"><pre>{
+  "authenticated": false,
+  "message": "Not on dashboard - authentication required"
+}</pre></div>
+                    <a href="../screenshots/authenticated-dashboard.png" class="screenshot-link">📸 View Screenshot</a>
+                    
+                </div>
+            
+        </div>
+
+        <div class="test-section">
+            <div class="section-header">📦 Product Management Tests</div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Authenticated Product Management Page</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details"><pre>{
+  "authenticated": false,
+  "message": "Not on products page - authentication required"
+}</pre></div>
+                    <a href="../screenshots/authenticated-products.png" class="screenshot-link">📸 View Screenshot</a>
+                    
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Product Management Tab Switching</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details"><pre>[]</pre></div>
+                    
+                    
+                </div>
+            
+        </div>
+
+        <div class="test-section">
+            <div class="section-header">⚙️ CRUD Operations Tests</div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Authenticated API Access</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details"><pre>[
+  {
+    "endpoint": "/api/admin/products",
+    "method": "GET",
+    "description": "Get admin products",
+    "status": 405,
+    "isSuccessful": false,
+    "responsePreview": "<!doctype html>\n<html dir=\"ltr\" lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta name=\"color-scheme\" content=\"light dark\">\n  <meta name=\"theme-color\" content=\"#fff\">\n  <meta name=\"viewport\" content="
+  },
+  {
+    "endpoint": "/api/admin/products/export",
+    "method": "GET",
+    "description": "Export CSV",
+    "status": 401,
+    "isSuccessful": false,
+    "responsePreview": "{\"error\":\"Unauthorized\"}"
+  }
+]</pre></div>
+                    
+                </div>
+            
+                <div class="test-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong>Form Structure for CRUD Operations</strong>
+                        <span class="status warning">warning</span>
+                    </div>
+                    <div class="details"><pre>{
+  "formCount": 0,
+  "formDetails": []
+}</pre></div>
+                    
+                </div>
+            
+        </div>
+
+        <div class="test-section">
+            <div class="section-header">📋 Testing Instructions</div>
+            <div class="test-item">
+                <h4>📝 Prerequisites:</h4>
+                <ol>
+                    <li>Login to your admin account in Safari</li>
+                    <li>Navigate to http://localhost:3000/admin/dashboard</li>
+                    <li>Keep Safari open during testing</li>
+                    <li>Run this test script</li>
+                </ol>
+
+                <h4>🎯 What This Test Covers:</h4>
+                <ul>
+                    <li>✅ Session authentication validation</li>
+                    <li>✅ Real dashboard with statistics</li>
+                    <li>✅ Product management interface</li>
+                    <li>✅ Tab navigation functionality</li>
+                    <li>✅ Form structures for CRUD operations</li>
+                    <li>✅ API endpoints with authentication</li>
+                    <li>✅ CSV import/export features</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
