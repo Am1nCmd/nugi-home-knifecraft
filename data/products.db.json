@@ -747,8 +747,6 @@
     "productTypes": {
       "knives": 16,
       "tools": 8
-    },
-    "lastMigration": "2025-09-30T06:21:37.133Z",
-    "migrationVersion": "1.1.0-maker-attribution"
+    }
   }
 }

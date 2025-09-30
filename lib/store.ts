@@ -202,3 +202,46 @@ export async function addManyProducts(ps: Partial<UnifiedProduct>[]) {
 
   await writeDb(db)
 }
+
+// Get individual product by ID
+export async function getProductById(id: string): Promise<UnifiedProduct | null> {
+  const db = await readDb()
+  return db.products.find(p => p.id === id) || null
+}
+
+// Update existing product
+export async function updateProduct(id: string, updates: Partial<UnifiedProduct>): Promise<UnifiedProduct | null> {
+  const db = await readDb()
+  const idx = db.products.findIndex(p => p.id === id)
+
+  if (idx === -1) {
+    return null // Product not found
+  }
+
+  const existing = db.products[idx]
+  const normalized = normalizeProduct({
+    ...existing,
+    ...updates,
+    id, // Ensure ID doesn't change
+    createdAt: existing.createdAt, // Preserve original creation date
+    updatedAt: new Date().toISOString()
+  })
+
+  db.products[idx] = normalized
+  await writeDb(db)
+  return normalized
+}
+
+// Delete product by ID
+export async function deleteProduct(id: string): Promise<boolean> {
+  const db = await readDb()
+  const idx = db.products.findIndex(p => p.id === id)
+
+  if (idx === -1) {
+    return false // Product not found
+  }
+
+  db.products.splice(idx, 1)
+  await writeDb(db)
+  return true
+}

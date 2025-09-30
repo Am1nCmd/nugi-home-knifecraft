@@ -26,6 +26,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import ProductPreviewModal from "./product-preview-modal"
+import ProductEditModal from "./product-edit-modal"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
@@ -45,6 +47,11 @@ export default function ProductsList() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [productToDelete, setProductToDelete] = useState<UnifiedProduct | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
+
+  // Modal states
+  const [previewModalOpen, setPreviewModalOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState<UnifiedProduct | null>(null)
 
   // Build the API URL with filters
   const apiUrl = useMemo(() => {
@@ -102,6 +109,36 @@ export default function ProductsList() {
     } finally {
       setDeleteLoading(false)
     }
+  }
+
+  const handlePreviewProduct = (product: UnifiedProduct) => {
+    setSelectedProduct(product)
+    setPreviewModalOpen(true)
+  }
+
+  const handleEditProduct = (product: UnifiedProduct) => {
+    setSelectedProduct(product)
+    setEditModalOpen(true)
+  }
+
+  const handleEditSave = (updatedProduct: UnifiedProduct) => {
+    // Refresh the data after successful edit
+    mutate()
+  }
+
+  const handleClosePreview = () => {
+    setPreviewModalOpen(false)
+    setSelectedProduct(null)
+  }
+
+  const handleCloseEdit = () => {
+    setEditModalOpen(false)
+    setSelectedProduct(null)
+  }
+
+  const handleEditToPreview = () => {
+    setEditModalOpen(false)
+    setPreviewModalOpen(true)
   }
 
   if (error) {
@@ -251,20 +288,33 @@ export default function ProductsList() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Button size="sm" variant="outline" className="h-8 w-8 p-0">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-8 w-8 p-0 border-zinc-600 text-zinc-300 hover:bg-zinc-600"
+                          onClick={() => handlePreviewProduct(product)}
+                          title="Preview produk"
+                        >
                           <Eye className="w-4 h-4" />
                         </Button>
-                        <Button size="sm" variant="outline" className="h-8 w-8 p-0">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-8 w-8 p-0 border-amber-600 text-amber-400 hover:bg-amber-600 hover:text-white"
+                          onClick={() => handleEditProduct(product)}
+                          title="Edit produk"
+                        >
                           <Edit className="w-4 h-4" />
                         </Button>
                         <Button
                           size="sm"
                           variant="outline"
-                          className="h-8 w-8 p-0 text-red-400 hover:text-red-300"
+                          className="h-8 w-8 p-0 text-red-400 hover:text-red-300 border-red-600 hover:bg-red-600"
                           onClick={() => {
                             setProductToDelete(product)
                             setDeleteDialogOpen(true)
                           }}
+                          title="Hapus produk"
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -316,6 +366,22 @@ export default function ProductsList() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Preview Modal */}
+      <ProductPreviewModal
+        product={selectedProduct}
+        isOpen={previewModalOpen}
+        onClose={handleClosePreview}
+        onEdit={handleEditToPreview}
+      />
+
+      {/* Edit Modal */}
+      <ProductEditModal
+        product={selectedProduct}
+        isOpen={editModalOpen}
+        onClose={handleCloseEdit}
+        onSave={handleEditSave}
+      />
     </Card>
   )
 }

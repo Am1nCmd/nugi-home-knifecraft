@@ -8,12 +8,19 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Trash2, Edit, Eye } from "lucide-react"
 import { Article, ArticleType } from "@/data/articles"
+import ArticlePreviewModal from "./admin/article-preview-modal"
+import ArticleEditModal from "./admin/article-edit-modal"
 
 export default function AdminArticleList() {
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<ArticleType>("news")
   const [makerFilter, setMakerFilter] = useState<string>("all")
+
+  // Modal states
+  const [previewModalOpen, setPreviewModalOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
 
   const fetchArticles = async () => {
     try {
@@ -65,6 +72,36 @@ export default function AdminArticleList() {
       console.error("Error deleting article:", error)
       alert("Gagal menghapus artikel")
     }
+  }
+
+  const handlePreviewArticle = (article: Article) => {
+    setSelectedArticle(article)
+    setPreviewModalOpen(true)
+  }
+
+  const handleEditArticle = (article: Article) => {
+    setSelectedArticle(article)
+    setEditModalOpen(true)
+  }
+
+  const handleEditSave = (updatedArticle: Article) => {
+    // Refresh the articles list after successful edit
+    fetchArticles()
+  }
+
+  const handleClosePreview = () => {
+    setPreviewModalOpen(false)
+    setSelectedArticle(null)
+  }
+
+  const handleCloseEdit = () => {
+    setEditModalOpen(false)
+    setSelectedArticle(null)
+  }
+
+  const handleEditToPreview = () => {
+    setEditModalOpen(false)
+    setPreviewModalOpen(true)
   }
 
   const getTypeLabel = (type: ArticleType) => {
@@ -147,6 +184,22 @@ export default function AdminArticleList() {
           </TabsContent>
         </Tabs>
       </CardContent>
+
+      {/* Preview Modal */}
+      <ArticlePreviewModal
+        article={selectedArticle}
+        isOpen={previewModalOpen}
+        onClose={handleClosePreview}
+        onEdit={handleEditToPreview}
+      />
+
+      {/* Edit Modal */}
+      <ArticleEditModal
+        article={selectedArticle}
+        isOpen={editModalOpen}
+        onClose={handleCloseEdit}
+        onSave={handleEditSave}
+      />
     </Card>
   )
 }
@@ -213,13 +266,17 @@ function ArticleGrid({ articles, onDelete }: { articles: Article[]; onDelete: (i
                 size="sm"
                 variant="outline"
                 className="border-zinc-600 text-zinc-300 hover:bg-zinc-600"
+                onClick={() => handlePreviewArticle(article)}
+                title="Preview artikel"
               >
                 <Eye className="w-4 h-4" />
               </Button>
               <Button
                 size="sm"
                 variant="outline"
-                className="border-zinc-600 text-zinc-300 hover:bg-zinc-600"
+                className="border-amber-600 text-amber-400 hover:bg-amber-600 hover:text-white"
+                onClick={() => handleEditArticle(article)}
+                title="Edit artikel"
               >
                 <Edit className="w-4 h-4" />
               </Button>
@@ -228,6 +285,7 @@ function ArticleGrid({ articles, onDelete }: { articles: Article[]; onDelete: (i
                 variant="outline"
                 onClick={() => onDelete(article.id)}
                 className="border-red-600 text-red-400 hover:bg-red-600 hover:text-white"
+                title="Hapus artikel"
               >
                 <Trash2 className="w-4 h-4" />
               </Button>

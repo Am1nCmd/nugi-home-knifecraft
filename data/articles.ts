@@ -1,5 +1,11 @@
 export type ArticleType = "news" | "knowledge" | "blog"
 
+// Maker information type
+export type MakerInfo = {
+  email: string
+  name: string
+}
+
 export type Article = {
   id: string
   type: ArticleType
@@ -12,6 +18,10 @@ export type Article = {
   readTime?: string // For blog articles
   createdAt: string
   updatedAt: string
+
+  // Maker attribution
+  createdBy?: MakerInfo
+  updatedBy?: MakerInfo
 }
 
 export function normalizeArticle(partial: Partial<Article>): Article {
