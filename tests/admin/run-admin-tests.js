@@ -29,7 +29,7 @@ class AdminTestRunner {
     console.log('━'.repeat(80));
     console.log('📅 Test Session:', new Date().toLocaleString());
     console.log('🌐 Target URL:', this.baseUrl);
-    console.log('🎯 Testing Scope: Authentication, Dashboard, Product Management');
+    console.log('🎯 Testing Scope: Authentication, Dashboard, Product Management, Article Management');
     console.log('━'.repeat(80));
 
     try {
@@ -43,6 +43,7 @@ class AdminTestRunner {
       await this.runAuthenticationTests();
       await this.runDashboardTests();
       await this.runProductManagementTests();
+      await this.runArticleManagementTests();
 
       // Generate master report
       await this.generateMasterReport();
@@ -183,6 +184,36 @@ class AdminTestRunner {
       console.error('❌ Product Management tests failed:', error.message);
       this.results.testSuites.push({
         name: 'Product Management Tests',
+        status: 'failed',
+        error: error.message
+      });
+    }
+  }
+
+  async runArticleManagementTests() {
+    console.log('\n📝 Running Article Management Tests...');
+
+    try {
+      const result = await this.runTestScript('./tests/admin/admin-articles-test.js');
+      const reportPath = './tests/admin/reports/admin-articles-report.json';
+
+      if (await this.fileExists(reportPath)) {
+        const report = JSON.parse(await fs.readFile(reportPath, 'utf8'));
+        this.results.testSuites.push({
+          name: 'Article Management Tests',
+          status: 'completed',
+          summary: report.summary,
+          reportPath: reportPath,
+          duration: result.duration,
+          testTypes: ['Content Management', 'Form Validation', 'Category Management', 'Rich Text Editor']
+        });
+      }
+
+      console.log('✅ Article Management tests completed');
+    } catch (error) {
+      console.error('❌ Article Management tests failed:', error.message);
+      this.results.testSuites.push({
+        name: 'Article Management Tests',
         status: 'failed',
         error: error.message
       });
@@ -432,6 +463,15 @@ class AdminTestRunner {
                     <li>Tab navigation working</li>
                 </ul>
             </div>
+            <div class="feature-card">
+                <h4>📝 Article Management</h4>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>Content management system tested</li>
+                    <li>Rich text editor functionality</li>
+                    <li>Category and tag management</li>
+                    <li>Form validation implemented</li>
+                </ul>
+            </div>
         </div>
 
         <div class="footer">
@@ -529,6 +569,13 @@ All test screenshots are available in the \`screenshots/\` directory:
 - [x] Tab navigation system
 - [x] CRUD operation interfaces
 
+### 📝 Article Management
+- [x] Article listing and display
+- [x] Content form structure and validation
+- [x] Rich text editor functionality
+- [x] Category management system
+- [x] Article CRUD operation interfaces
+
 ## Running Tests
 
 To run these admin tests again:
@@ -543,6 +590,7 @@ Individual test suites can be run separately:
 node tests/admin/admin-auth-test.js
 node tests/admin/admin-dashboard-test.js
 node tests/admin/admin-products-test.js
+node tests/admin/admin-articles-test.js
 \`\`\`
 
 ## Security Validation

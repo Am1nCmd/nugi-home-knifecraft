@@ -1,0 +1,185 @@
+{
+  "timestamp": "2025-09-30T20:00:37.887Z",
+  "pageAccessTests": [
+    {
+      "test": "Article Management Page Access",
+      "status": "passed",
+      "details": {
+        "redirected": false,
+        "finalUrl": "http://localhost:3000/admin/articles"
+      },
+      "screenshot": "articles-page-access.png"
+    }
+  ],
+  "listTests": [
+    {
+      "test": "Articles API Response",
+      "status": "warning",
+      "details": {
+        "isValidJSON": false,
+        "hasArticles": false,
+        "status": 404,
+        "preview": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_069ab3 __variable_ea7542 __variable_0a80b4 antialiased\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1"
+      }
+    },
+    {
+      "test": "Article List UI Components",
+      "status": "passed",
+      "details": {
+        "hasList": false,
+        "hasSearchInput": false,
+        "hasFilterButtons": false,
+        "hasPagination": false,
+        "hasActionButtons": false,
+        "hasAddButton": false
+      },
+      "screenshot": "articles-ui-components.png"
+    }
+  ],
+  "formTests": [
+    {
+      "test": "Article Form Structure",
+      "status": "warning",
+      "details": {
+        "formElements": {
+          "hasForms": 0,
+          "hasInputs": 0,
+          "hasSelects": 0,
+          "hasTextareas": 0,
+          "hasSubmitButtons": 0,
+          "hasFileInputs": 0
+        },
+        "articleFields": {
+          "hasTitleField": false,
+          "hasContentField": false,
+          "hasCategoryField": false,
+          "hasTagField": false,
+          "hasStatusField": false,
+          "hasImageField": false
+        }
+      },
+      "screenshot": "articles-form-structure.png"
+    },
+    {
+      "test": "Tab Navigation Structure",
+      "status": "warning",
+      "details": {
+        "tabCount": 0,
+        "panelCount": 0,
+        "tabListCount": 0,
+        "tabs": [],
+        "hasTabStructure": false
+      },
+      "screenshot": "articles-tabs.png"
+    },
+    {
+      "test": "Expected Article Management Tabs",
+      "status": "warning",
+      "expectedTabs": [
+        "Daftar Artikel",
+        "Tambah Artikel",
+        "Kategori"
+      ],
+      "foundTabs": [
+        {
+          "name": "Daftar Artikel",
+          "found": false
+        },
+        {
+          "name": "Tambah Artikel",
+          "found": false
+        },
+        {
+          "name": "Kategori",
+          "found": false
+        }
+      ]
+    }
+  ],
+  "validationTests": [
+    {
+      "test": "Form Validation Attributes",
+      "status": "passed",
+      "details": []
+    },
+    {
+      "test": "Field Validation Patterns",
+      "status": "passed",
+      "details": {
+        "emailFields": 0,
+        "urlFields": 0,
+        "numberFields": 0,
+        "patternFields": 0,
+        "requiredFields": 0
+      }
+    }
+  ],
+  "crudTests": [
+    {
+      "test": "Article CRUD API Endpoints",
+      "status": "passed",
+      "details": [
+        {
+          "endpoint": "/api/admin/articles",
+          "method": "GET",
+          "description": "Get articles",
+          "status": 404,
+          "isSuccessful": false,
+          "isProtected": false,
+          "responsePreview": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_069ab3 __variable_ea7542 __variable_0a80b4 antialia"
+        },
+        {
+          "endpoint": "/api/admin/articles",
+          "method": "POST",
+          "description": "Create article",
+          "status": 404,
+          "isSuccessful": false,
+          "isProtected": false,
+          "responsePreview": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_069ab3 __variable_ea7542 __variable_0a80b4 antialia"
+        },
+        {
+          "endpoint": "/api/admin/articles/1",
+          "method": "PUT",
+          "description": "Update article",
+          "status": 404,
+          "isSuccessful": false,
+          "isProtected": false,
+          "responsePreview": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_069ab3 __variable_ea7542 __variable_0a80b4 antialia"
+        },
+        {
+          "endpoint": "/api/admin/articles/1",
+          "method": "DELETE",
+          "description": "Delete article",
+          "status": 404,
+          "isSuccessful": false,
+          "isProtected": false,
+          "responsePreview": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_069ab3 __variable_ea7542 __variable_0a80b4 antialia"
+        },
+        {
+          "endpoint": "/api/admin/articles/categories",
+          "method": "GET",
+          "description": "Get categories",
+          "status": 404,
+          "isSuccessful": false,
+          "isProtected": false,
+          "responsePreview": "<!DOCTYPE html><html lang=\"en\" class=\"__variable_069ab3 __variable_ea7542 __variable_0a80b4 antialia"
+        }
+      ]
+    },
+    {
+      "test": "Form Structure for CRUD Operations",
+      "status": "warning",
+      "details": {
+        "formCount": 0,
+        "formDetails": []
+      }
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "warnings": 0,
+    "total": 10,
+    "warning": null
+  }
+}

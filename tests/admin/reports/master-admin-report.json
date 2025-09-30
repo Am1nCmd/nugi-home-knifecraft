@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-30T19:29:34.680Z",
+  "timestamp": "2025-09-30T20:00:15.008Z",
   "testSuites": [
     {
       "name": "Admin Dashboard Tests",
@@ -11,7 +11,7 @@
         "total": 8
       },
       "reportPath": "./tests/admin/reports/admin-dashboard-report.json",
-      "duration": 9843,
+      "duration": 10285,
       "testTypes": [
         "Statistics Display",
         "Navigation Links",
@@ -29,20 +29,39 @@
         "total": 11
       },
       "reportPath": "./tests/admin/reports/admin-products-report.json",
-      "duration": 9566,
+      "duration": 9652,
       "testTypes": [
         "CRUD Operations",
         "Form Validation",
         "CSV Import/Export",
         "Tab Navigation"
       ]
+    },
+    {
+      "name": "Article Management Tests",
+      "status": "completed",
+      "summary": {
+        "passed": 5,
+        "failed": 0,
+        "warnings": 0,
+        "total": 10,
+        "warning": null
+      },
+      "reportPath": "./tests/admin/reports/admin-articles-report.json",
+      "duration": 4790,
+      "testTypes": [
+        "Content Management",
+        "Form Validation",
+        "Category Management",
+        "Rich Text Editor"
+      ]
     }
   ],
   "overallSummary": {
-    "totalTests": 19,
-    "passed": 8,
+    "totalTests": 29,
+    "passed": 13,
     "failed": 2,
     "warnings": 9,
-    "duration": 21791
+    "duration": 27581
   }
 }
