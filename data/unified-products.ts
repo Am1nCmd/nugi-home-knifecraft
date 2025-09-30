@@ -121,7 +121,10 @@ export function normalizeProduct(product: any): UnifiedProduct {
     specs: product.specs,
     image: product.images?.[0] || product.image, // Backward compatibility
     createdAt: product.createdAt || new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    updatedAt: product.updatedAt || new Date().toISOString(),
+    // Preserve maker information
+    createdBy: product.createdBy,
+    updatedBy: product.updatedBy,
   }
 }
 
