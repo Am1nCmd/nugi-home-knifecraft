@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
     const maxPrice = searchParams.get("maxPrice")
     const steel = searchParams.get("steel")
     const handle = searchParams.get("handle")
+    const maker = searchParams.get("maker") // Filter by maker email or name
 
     // Fetch both knives and tools
     const [knives, tools] = await Promise.all([
@@ -66,6 +67,16 @@ export async function GET(request: NextRequest) {
       filteredProducts = filteredProducts.filter(product => product.handleMaterial === handle)
     }
 
+    // Maker filter (by email or name)
+    if (maker && maker !== "all") {
+      filteredProducts = filteredProducts.filter(product => {
+        // Check both createdBy and updatedBy for maker match
+        const createdByMatch = product.createdBy?.email === maker || product.createdBy?.name === maker
+        const updatedByMatch = product.updatedBy?.email === maker || product.updatedBy?.name === maker
+        return createdByMatch || updatedByMatch
+      })
+    }
+
     // Sort by price (ascending by default)
     const sortBy = searchParams.get("sortBy") || "price"
     const sortOrder = searchParams.get("sortOrder") || "asc"
@@ -85,6 +96,14 @@ export async function GET(request: NextRequest) {
         case "category":
           aVal = a.category
           bVal = b.category
+          break
+        case "maker":
+          aVal = a.createdBy?.name || a.createdBy?.email || ""
+          bVal = b.createdBy?.name || b.createdBy?.email || ""
+          break
+        case "created":
+          aVal = new Date(a.createdAt || 0)
+          bVal = new Date(b.createdAt || 0)
           break
         default:
           aVal = a.price
@@ -109,6 +128,7 @@ export async function GET(request: NextRequest) {
         maxPrice,
         steel,
         handle,
+        maker,
         sortBy,
         sortOrder
       }

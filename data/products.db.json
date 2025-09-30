@@ -17,7 +17,15 @@
       "handleStyle": "Ergonomic",
       "image": "/pisau-lipat-taktis-outdoor.jpg",
       "createdAt": "2025-09-29T17:15:16.516Z",
-      "updatedAt": "2025-09-29T17:15:16.516Z"
+      "updatedAt": "2025-09-29T17:15:16.516Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "p2",
@@ -36,7 +44,15 @@
       "handleStyle": "Riveted",
       "image": "/pisau-dapur-chef-8-inci.jpg",
       "createdAt": "2025-09-29T17:15:16.516Z",
-      "updatedAt": "2025-09-29T17:15:16.516Z"
+      "updatedAt": "2025-09-29T17:15:16.516Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "p3",
@@ -55,7 +71,15 @@
       "handleStyle": "Classic",
       "image": "/pisau-damascus-koleksi.jpg",
       "createdAt": "2025-09-29T17:15:16.516Z",
-      "updatedAt": "2025-09-29T17:15:16.516Z"
+      "updatedAt": "2025-09-29T17:15:16.516Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "p4",
@@ -74,7 +98,15 @@
       "handleStyle": "Textured",
       "image": "/pisau-survival-serbaguna.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "p5",
@@ -93,7 +125,15 @@
       "handleStyle": "Rounded",
       "image": "/pisau-santoku-7-inci.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "p6",
@@ -112,7 +152,15 @@
       "handleStyle": "Slim",
       "image": "/pisau-lipat-compact.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k1",
@@ -140,7 +188,15 @@
       },
       "image": "/tactical-tanto-knife-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k2",
@@ -167,7 +223,15 @@
       },
       "image": "/bushcraft-knife-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k3",
@@ -194,7 +258,15 @@
       },
       "image": "/chef-knife-8-inch-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k4",
@@ -221,7 +293,15 @@
       },
       "image": "/butcher-cleaver-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k5",
@@ -244,7 +324,15 @@
       "description": "Pisau EDC ringan dengan clip pocket, cocok harian.",
       "image": "/tactical-drop-point-edc-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k6",
@@ -266,7 +354,15 @@
       "handleStyle": "Oval",
       "image": "/bushcraft-companion-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k7",
@@ -288,7 +384,15 @@
       "handleStyle": "Ergonomic",
       "image": "/santoku-7-inch-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k8",
@@ -310,7 +414,15 @@
       "handleStyle": "Non-slip",
       "image": "/placeholder.svg?height=320&width=480",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k9",
@@ -331,7 +443,15 @@
       "handleStyle": "Octagonal",
       "image": "/placeholder.svg?height=320&width=480",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k10",
@@ -353,7 +473,15 @@
       "handleStyle": "Textured",
       "image": "/placeholder.svg?height=320&width=480",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "t1",
@@ -380,7 +508,15 @@
       },
       "image": "/forest-axe-medium-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "t2",
@@ -402,7 +538,15 @@
       "handleStyle": "Straight",
       "image": "/tactical-tomahawk-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "t3",
@@ -427,7 +571,15 @@
       },
       "image": "/jungle-machete-18-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "t4",
@@ -449,7 +601,15 @@
       "handleStyle": "Riveted",
       "image": "/bolo-machete-16-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "t5",
@@ -475,7 +635,15 @@
       },
       "image": "/training-katana-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "t6",
@@ -501,7 +669,15 @@
       },
       "image": "/arming-sword-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "t7",
@@ -523,7 +699,15 @@
       "handleStyle": "Curved",
       "image": "/camp-hatchet-small-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "t8",
@@ -545,7 +729,15 @@
       "handleStyle": "Simple",
       "image": "/falchion-light-front.jpg",
       "createdAt": "2025-09-29T17:15:16.517Z",
-      "updatedAt": "2025-09-29T17:15:16.517Z"
+      "updatedAt": "2025-09-29T17:15:16.517Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     }
   ],
   "metadata": {
@@ -555,6 +747,8 @@
     "productTypes": {
       "knives": 16,
       "tools": 8
-    }
+    },
+    "lastMigration": "2025-09-30T06:21:37.133Z",
+    "migrationVersion": "1.1.0-maker-attribution"
   }
 }

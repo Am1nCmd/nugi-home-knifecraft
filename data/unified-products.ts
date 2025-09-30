@@ -4,6 +4,12 @@ export type ProductType = "knife" | "tool"
 export type KnifeCategory = "Tactical" | "Bushcraft" | "Kitchen" | "Butcher"
 export type ToolCategory = "Axe" | "Machete" | "Swords"
 
+// Maker information type
+export type MakerInfo = {
+  email: string
+  name: string
+}
+
 export type UnifiedProduct = {
   id: string
   title: string
@@ -34,6 +40,10 @@ export type UnifiedProduct = {
   // Metadata
   createdAt?: string
   updatedAt?: string
+
+  // Maker attribution
+  createdBy?: MakerInfo
+  updatedBy?: MakerInfo
 }
 
 // Helper type for legacy products

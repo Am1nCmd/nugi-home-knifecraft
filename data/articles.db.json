@@ -11,7 +11,15 @@
       "publishDate": "",
       "readTime": "",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "n_mg63b6ad76og",
@@ -24,7 +32,15 @@
       "publishDate": "",
       "readTime": "",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "n_mg63b6adrdcs",
@@ -37,7 +53,15 @@
       "publishDate": "",
       "readTime": "",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k_mg63b6ad5mrw",
@@ -50,7 +74,15 @@
       "publishDate": "",
       "readTime": "",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k_mg63b6adtt4m",
@@ -63,7 +95,15 @@
       "publishDate": "",
       "readTime": "",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "k_mg63b6ad7lnn",
@@ -76,7 +116,15 @@
       "publishDate": "",
       "readTime": "",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "b_mg63b6adqed4",
@@ -89,7 +137,15 @@
       "publishDate": "15 Januari 2025",
       "readTime": "8 menit",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "b_mg63b6ad8bta",
@@ -102,7 +158,15 @@
       "publishDate": "12 Januari 2025",
       "readTime": "10 menit",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "b_mg63b6adsnay",
@@ -115,7 +179,15 @@
       "publishDate": "10 Januari 2025",
       "readTime": "6 menit",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "b_mg63b6ad2e9u",
@@ -128,7 +200,15 @@
       "publishDate": "8 Januari 2025",
       "readTime": "12 menit",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "b_mg63b6ad0tyr",
@@ -141,7 +221,15 @@
       "publishDate": "5 Januari 2025",
       "readTime": "15 menit",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     },
     {
       "id": "b_mg63b6adg93c",
@@ -154,7 +242,15 @@
       "publishDate": "3 Januari 2025",
       "readTime": "9 menit",
       "createdAt": "2025-09-30T05:01:24.757Z",
-      "updatedAt": "2025-09-30T05:01:24.757Z"
+      "updatedAt": "2025-09-30T05:01:24.757Z",
+      "createdBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      },
+      "updatedBy": {
+        "email": "system@migration",
+        "name": "System Migration"
+      }
     }
   ],
   "metadata": {
@@ -165,6 +261,8 @@
       "news": 3,
       "knowledge": 3,
       "blog": 6
-    }
+    },
+    "lastMigration": "2025-09-30T06:21:37.133Z",
+    "migrationVersion": "1.1.0-maker-attribution"
   }
 }
