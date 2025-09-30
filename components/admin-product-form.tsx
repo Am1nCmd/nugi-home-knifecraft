@@ -3,15 +3,18 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Package } from "lucide-react"
+import { Package, User } from "lucide-react"
 import { ALL_CATEGORIES, KNIFE_CATEGORIES, TOOL_CATEGORIES, ProductType } from "@/data/unified-products"
 
 export default function AdminProductForm() {
+  const { data: session } = useSession()
+
   const [title, setTitle] = useState("")
   const [price, setPrice] = useState<string>("")
   const [type, setType] = useState<ProductType>("knife")
@@ -114,6 +117,36 @@ export default function AdminProductForm() {
         </div>
       </CardHeader>
       <CardContent>
+        {/* Maker Attribution Info */}
+        {session?.user && (
+          <div className="mb-6 p-4 bg-zinc-700/30 border border-zinc-600/50 rounded-lg">
+            <div className="flex items-center gap-3 mb-2">
+              <User className="w-4 h-4 text-amber-400" />
+              <span className="text-sm font-medium text-amber-400">Maker Attribution</span>
+            </div>
+            <div className="flex items-center gap-3">
+              {session.user.image ? (
+                <img
+                  src={session.user.image}
+                  alt={session.user.name || "Admin"}
+                  className="w-8 h-8 rounded-full"
+                />
+              ) : (
+                <div className="w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4 text-white" />
+                </div>
+              )}
+              <div>
+                <p className="text-sm text-white font-medium">{session.user.name}</p>
+                <p className="text-xs text-zinc-400">{session.user.email}</p>
+              </div>
+            </div>
+            <p className="text-xs text-zinc-500 mt-2">
+              Produk ini akan tercatat dibuat oleh akun di atas
+            </p>
+          </div>
+        )}
+
         <form onSubmit={onSubmit} className="grid gap-4 md:grid-cols-2">
           <div className="grid gap-2">
             <Label htmlFor="title" className="text-zinc-200">Judul</Label>

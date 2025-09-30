@@ -42,7 +42,21 @@ export async function PUT(
     }
 
     const body = await request.json()
-    const article = await updateArticle(params.id, body)
+
+    // Auto-capture updater information from session
+    const updaterInfo = {
+      email: session.user.email!,
+      name: session.user.name || session.user.email!
+    }
+
+    // Add updater attribution to article data
+    const articleData = {
+      ...body,
+      updatedBy: updaterInfo,
+      updatedAt: new Date().toISOString()
+    }
+
+    const article = await updateArticle(params.id, articleData)
 
     return NextResponse.json({ article })
   } catch (error) {

@@ -1,0 +1,560 @@
+{
+  "products": [
+    {
+      "id": "p1",
+      "title": "Pisau Lipat Taktis X1",
+      "price": 350000,
+      "type": "knife",
+      "category": "Tactical",
+      "images": [
+        "/pisau-lipat-taktis-outdoor.jpg"
+      ],
+      "steel": "D2",
+      "handleMaterial": "G10",
+      "bladeLengthCm": 9,
+      "handleLengthCm": 11,
+      "bladeStyle": "Drop Point",
+      "handleStyle": "Ergonomic",
+      "image": "/pisau-lipat-taktis-outdoor.jpg",
+      "createdAt": "2025-09-29T17:15:16.516Z",
+      "updatedAt": "2025-09-29T17:15:16.516Z"
+    },
+    {
+      "id": "p2",
+      "title": "Chef Knife Pro 8\"",
+      "price": 720000,
+      "type": "knife",
+      "category": "Kitchen",
+      "images": [
+        "/pisau-dapur-chef-8-inci.jpg"
+      ],
+      "steel": "X50CrMoV15",
+      "handleMaterial": "Pakkawood",
+      "bladeLengthCm": 20,
+      "handleLengthCm": 12,
+      "bladeStyle": "Chef",
+      "handleStyle": "Riveted",
+      "image": "/pisau-dapur-chef-8-inci.jpg",
+      "createdAt": "2025-09-29T17:15:16.516Z",
+      "updatedAt": "2025-09-29T17:15:16.516Z"
+    },
+    {
+      "id": "p3",
+      "title": "Pisau Koleksi Damascus",
+      "price": 1850000,
+      "type": "knife",
+      "category": "Kitchen",
+      "images": [
+        "/pisau-damascus-koleksi.jpg"
+      ],
+      "steel": "Damascus",
+      "handleMaterial": "Rosewood",
+      "bladeLengthCm": 10,
+      "handleLengthCm": 12,
+      "bladeStyle": "Clip Point",
+      "handleStyle": "Classic",
+      "image": "/pisau-damascus-koleksi.jpg",
+      "createdAt": "2025-09-29T17:15:16.516Z",
+      "updatedAt": "2025-09-29T17:15:16.516Z"
+    },
+    {
+      "id": "p4",
+      "title": "Pisau Survival Serbaguna",
+      "price": 560000,
+      "type": "knife",
+      "category": "Bushcraft",
+      "images": [
+        "/pisau-survival-serbaguna.jpg"
+      ],
+      "steel": "440C",
+      "handleMaterial": "Rubber",
+      "bladeLengthCm": 12,
+      "handleLengthCm": 12,
+      "bladeStyle": "Tanto",
+      "handleStyle": "Textured",
+      "image": "/pisau-survival-serbaguna.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "p5",
+      "title": "Santoku Steel 7\"",
+      "price": 640000,
+      "type": "knife",
+      "category": "Kitchen",
+      "images": [
+        "/pisau-santoku-7-inci.jpg"
+      ],
+      "steel": "AUS-8",
+      "handleMaterial": "Composite",
+      "bladeLengthCm": 18,
+      "handleLengthCm": 12,
+      "bladeStyle": "Santoku",
+      "handleStyle": "Rounded",
+      "image": "/pisau-santoku-7-inci.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "p6",
+      "title": "Pisau Lipat Compact",
+      "price": 290000,
+      "type": "knife",
+      "category": "Tactical",
+      "images": [
+        "/pisau-lipat-compact.jpg"
+      ],
+      "steel": "8Cr13MoV",
+      "handleMaterial": "Aluminum",
+      "bladeLengthCm": 7,
+      "handleLengthCm": 9,
+      "bladeStyle": "Sheepsfoot",
+      "handleStyle": "Slim",
+      "image": "/pisau-lipat-compact.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k1",
+      "title": "Tactical Tanto X",
+      "price": 850000,
+      "type": "knife",
+      "category": "Tactical",
+      "images": [
+        "/tactical-tanto-knife-front.jpg",
+        "/tactical-tanto-knife-side.jpg",
+        "/tactical-tanto-knife-detail.jpg"
+      ],
+      "steel": "D2",
+      "handleMaterial": "G10",
+      "bladeLengthCm": 12,
+      "handleLengthCm": 12,
+      "bladeThicknessMm": 4,
+      "weightGr": 210,
+      "bladeStyle": "Tanto",
+      "handleStyle": "Textured",
+      "description": "Pisau taktis dengan bilah Tanto, cocok untuk outdoor dan kebutuhan taktis.",
+      "specs": {
+        "Sarung": "Kydex",
+        "Finishing": "Stonewashed"
+      },
+      "image": "/tactical-tanto-knife-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k2",
+      "title": "Bushcraft Scout",
+      "price": 690000,
+      "type": "knife",
+      "category": "Bushcraft",
+      "images": [
+        "/bushcraft-knife-front.jpg",
+        "/bushcraft-knife-top.jpg"
+      ],
+      "steel": "1095",
+      "handleMaterial": "Micarta",
+      "bladeLengthCm": 10,
+      "handleLengthCm": 11.5,
+      "bladeThicknessMm": 3.5,
+      "weightGr": 190,
+      "bladeStyle": "Scandi",
+      "handleStyle": "Contoured",
+      "description": "Pisau bushcraft dengan grind Scandi untuk feather stick dan carving.",
+      "specs": {
+        "Sarung": "Leather",
+        "Finishing": "Satin"
+      },
+      "image": "/bushcraft-knife-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k3",
+      "title": "Chef Pro 8\"",
+      "price": 920000,
+      "type": "knife",
+      "category": "Kitchen",
+      "images": [
+        "/chef-knife-8-inch-front.jpg",
+        "/chef-knife-8-inch-angle.jpg"
+      ],
+      "steel": "X50CrMoV15",
+      "handleMaterial": "Pakkawood",
+      "bladeLengthCm": 20,
+      "handleLengthCm": 12,
+      "bladeThicknessMm": 2.2,
+      "weightGr": 230,
+      "bladeStyle": "Chef",
+      "handleStyle": "Riveted",
+      "description": "Pisau dapur serbaguna 8 inci untuk slicing, dicing, dan chopping.",
+      "specs": {
+        "Bolster": "Full",
+        "Balance": "Tengah"
+      },
+      "image": "/chef-knife-8-inch-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k4",
+      "title": "Butcher Cleaver M",
+      "price": 780000,
+      "type": "knife",
+      "category": "Butcher",
+      "images": [
+        "/butcher-cleaver-front.jpg",
+        "/butcher-cleaver-detail.jpg"
+      ],
+      "steel": "5Cr15MoV",
+      "handleMaterial": "Composite",
+      "bladeLengthCm": 18,
+      "handleLengthCm": 12.5,
+      "bladeThicknessMm": 4.5,
+      "weightGr": 360,
+      "bladeStyle": "Cleaver",
+      "handleStyle": "Rounded",
+      "description": "Golok daging dengan kekuatan dan ketajaman seimbang.",
+      "specs": {
+        "Hole": "Hanging Hole",
+        "Edge": "Convex"
+      },
+      "image": "/butcher-cleaver-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k5",
+      "title": "Tactical Drop EDC",
+      "price": 540000,
+      "type": "knife",
+      "category": "Tactical",
+      "images": [
+        "/tactical-drop-point-edc-front.jpg",
+        "/tactical-drop-point-edc-clip.jpg"
+      ],
+      "steel": "8Cr13MoV",
+      "handleMaterial": "Aluminum",
+      "bladeLengthCm": 8,
+      "handleLengthCm": 10.5,
+      "bladeThicknessMm": 2.8,
+      "weightGr": 140,
+      "bladeStyle": "Drop Point",
+      "handleStyle": "Slim",
+      "description": "Pisau EDC ringan dengan clip pocket, cocok harian.",
+      "image": "/tactical-drop-point-edc-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k6",
+      "title": "Bushcraft Companion",
+      "price": 610000,
+      "type": "knife",
+      "category": "Bushcraft",
+      "images": [
+        "/bushcraft-companion-front.jpg",
+        "/bushcraft-companion-spine.jpg"
+      ],
+      "steel": "A2",
+      "handleMaterial": "Birch",
+      "bladeLengthCm": 9.5,
+      "handleLengthCm": 11,
+      "bladeThicknessMm": 3,
+      "weightGr": 175,
+      "bladeStyle": "Puukko",
+      "handleStyle": "Oval",
+      "image": "/bushcraft-companion-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k7",
+      "title": "Santoku 7\"",
+      "price": 760000,
+      "type": "knife",
+      "category": "Kitchen",
+      "images": [
+        "/santoku-7-inch-front.jpg",
+        "/santoku-7-inch-kullenschliff.jpg"
+      ],
+      "steel": "AUS-8",
+      "handleMaterial": "POM",
+      "bladeLengthCm": 18,
+      "handleLengthCm": 12,
+      "bladeThicknessMm": 2.1,
+      "weightGr": 210,
+      "bladeStyle": "Santoku",
+      "handleStyle": "Ergonomic",
+      "image": "/santoku-7-inch-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k8",
+      "title": "Butcher Boning Flex",
+      "price": 680000,
+      "type": "knife",
+      "category": "Butcher",
+      "images": [
+        "/placeholder.svg?height=320&width=480",
+        "/placeholder.svg?height=320&width=480"
+      ],
+      "steel": "4116",
+      "handleMaterial": "TPR",
+      "bladeLengthCm": 15,
+      "handleLengthCm": 12,
+      "bladeThicknessMm": 2,
+      "weightGr": 160,
+      "bladeStyle": "Boning",
+      "handleStyle": "Non-slip",
+      "image": "/placeholder.svg?height=320&width=480",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k9",
+      "title": "Petty 5\"",
+      "price": 430000,
+      "type": "knife",
+      "category": "Kitchen",
+      "images": [
+        "/placeholder.svg?height=320&width=480"
+      ],
+      "steel": "VG10",
+      "handleMaterial": "Walnut",
+      "bladeLengthCm": 13,
+      "handleLengthCm": 11,
+      "bladeThicknessMm": 1.8,
+      "weightGr": 110,
+      "bladeStyle": "Petty",
+      "handleStyle": "Octagonal",
+      "image": "/placeholder.svg?height=320&width=480",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "k10",
+      "title": "Tactical Rescue",
+      "price": 990000,
+      "type": "knife",
+      "category": "Tactical",
+      "images": [
+        "/placeholder.svg?height=320&width=480",
+        "/placeholder.svg?height=320&width=480"
+      ],
+      "steel": "440C",
+      "handleMaterial": "G10",
+      "bladeLengthCm": 11,
+      "handleLengthCm": 12,
+      "bladeThicknessMm": 3.2,
+      "weightGr": 205,
+      "bladeStyle": "Sheepsfoot",
+      "handleStyle": "Textured",
+      "image": "/placeholder.svg?height=320&width=480",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "t1",
+      "title": "Forest Axe Medium",
+      "price": 820000,
+      "type": "tool",
+      "category": "Axe",
+      "images": [
+        "/forest-axe-medium-front.jpg",
+        "/forest-axe-medium-side.jpg"
+      ],
+      "steel": "1055",
+      "handleMaterial": "Hickory",
+      "bladeLengthCm": 11,
+      "handleLengthCm": 50,
+      "bladeThicknessMm": 6,
+      "weightGr": 950,
+      "bladeStyle": "Bearded",
+      "handleStyle": "Curved",
+      "description": "Kapur barus hickory, cocok untuk camping dan limbing.",
+      "specs": {
+        "Head": "Drop-forged",
+        "Sheath": "Leather"
+      },
+      "image": "/forest-axe-medium-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "t2",
+      "title": "Tactical Tomahawk",
+      "price": 690000,
+      "type": "tool",
+      "category": "Axe",
+      "images": [
+        "/tactical-tomahawk-front.jpg",
+        "/tactical-tomahawk-detail.jpg"
+      ],
+      "steel": "3Cr13",
+      "handleMaterial": "FRN",
+      "bladeLengthCm": 9,
+      "handleLengthCm": 38,
+      "bladeThicknessMm": 5,
+      "weightGr": 720,
+      "bladeStyle": "Tomahawk",
+      "handleStyle": "Straight",
+      "image": "/tactical-tomahawk-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "t3",
+      "title": "Jungle Machete 18\"",
+      "price": 540000,
+      "type": "tool",
+      "category": "Machete",
+      "images": [
+        "/jungle-machete-18-front.jpg",
+        "/jungle-machete-18-angle.jpg"
+      ],
+      "steel": "1075",
+      "handleMaterial": "PP",
+      "bladeLengthCm": 45,
+      "handleLengthCm": 15,
+      "bladeThicknessMm": 2.5,
+      "weightGr": 520,
+      "bladeStyle": "Latin",
+      "handleStyle": "Textured",
+      "specs": {
+        "Sheath": "Nylon"
+      },
+      "image": "/jungle-machete-18-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "t4",
+      "title": "Bolo Machete 16\"",
+      "price": 580000,
+      "type": "tool",
+      "category": "Machete",
+      "images": [
+        "/bolo-machete-16-front.jpg",
+        "/bolo-machete-16-detail.jpg"
+      ],
+      "steel": "1055",
+      "handleMaterial": "Wood",
+      "bladeLengthCm": 40.5,
+      "handleLengthCm": 14,
+      "bladeThicknessMm": 3,
+      "weightGr": 610,
+      "bladeStyle": "Bolo",
+      "handleStyle": "Riveted",
+      "image": "/bolo-machete-16-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "t5",
+      "title": "Training Katana",
+      "price": 1250000,
+      "type": "tool",
+      "category": "Swords",
+      "images": [
+        "/training-katana-front.jpg",
+        "/training-katana-tsuba.jpg"
+      ],
+      "steel": "1060",
+      "handleMaterial": "Ray skin + Ito",
+      "bladeLengthCm": 72,
+      "handleLengthCm": 28,
+      "bladeThicknessMm": 6,
+      "weightGr": 1150,
+      "bladeStyle": "Shinogi-zukuri",
+      "handleStyle": "Traditional",
+      "specs": {
+        "Saya": "Wood lacquer",
+        "Hamon": "Simulated"
+      },
+      "image": "/training-katana-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "t6",
+      "title": "European Arming Sword",
+      "price": 1490000,
+      "type": "tool",
+      "category": "Swords",
+      "images": [
+        "/arming-sword-front.jpg",
+        "/arming-sword-guard.jpg"
+      ],
+      "steel": "5160",
+      "handleMaterial": "Leather wrap",
+      "bladeLengthCm": 76,
+      "handleLengthCm": 11,
+      "bladeThicknessMm": 5,
+      "weightGr": 1050,
+      "bladeStyle": "Straight double-edge",
+      "handleStyle": "One-handed",
+      "specs": {
+        "Pommel": "Wheel",
+        "Fuller": "Central"
+      },
+      "image": "/arming-sword-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "t7",
+      "title": "Camp Hatchet Small",
+      "price": 390000,
+      "type": "tool",
+      "category": "Axe",
+      "images": [
+        "/camp-hatchet-small-front.jpg",
+        "/camp-hatchet-small-side.jpg"
+      ],
+      "steel": "1045",
+      "handleMaterial": "Ash",
+      "bladeLengthCm": 7.5,
+      "handleLengthCm": 32,
+      "bladeThicknessMm": 4,
+      "weightGr": 520,
+      "bladeStyle": "Hatchet",
+      "handleStyle": "Curved",
+      "image": "/camp-hatchet-small-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    },
+    {
+      "id": "t8",
+      "title": "Falchion Light",
+      "price": 990000,
+      "type": "tool",
+      "category": "Swords",
+      "images": [
+        "/falchion-light-front.jpg",
+        "/placeholder.svg?height=320&width=480"
+      ],
+      "steel": "1065",
+      "handleMaterial": "Wood wrap",
+      "bladeLengthCm": 70,
+      "handleLengthCm": 12,
+      "bladeThicknessMm": 4.2,
+      "weightGr": 980,
+      "bladeStyle": "Single-edge curved",
+      "handleStyle": "Simple",
+      "image": "/falchion-light-front.jpg",
+      "createdAt": "2025-09-29T17:15:16.517Z",
+      "updatedAt": "2025-09-29T17:15:16.517Z"
+    }
+  ],
+  "metadata": {
+    "version": "2.0",
+    "createdAt": "2025-09-29T17:15:16.517Z",
+    "totalProducts": 24,
+    "productTypes": {
+      "knives": 16,
+      "tools": 8
+    }
+  }
+}

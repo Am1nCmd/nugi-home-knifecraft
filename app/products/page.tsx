@@ -1,12 +1,8 @@
 import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import dynamic from "next/dynamic"
-
-const ProductsExplorer = dynamic(() => import("@/components/products/explorer"), {
-  ssr: false,
-  loading: () => <div className="min-h-screen bg-zinc-900">Loading...</div>
-})
+import { Suspense } from "react"
+import ProductsExplorer from "@/components/products/explorer"
 
 export const metadata: Metadata = {
   title: "Products - Nugi Home Knifecraft",
@@ -27,7 +23,14 @@ export default function ProductsPage() {
           </p>
         </header>
 
-        <ProductsExplorer />
+        <Suspense fallback={<div className="min-h-screen bg-zinc-900 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+            <p className="text-zinc-300">Loading products...</p>
+          </div>
+        </div>}>
+          <ProductsExplorer />
+        </Suspense>
       </main>
       <Footer />
     </div>

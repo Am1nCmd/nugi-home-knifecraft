@@ -41,30 +41,43 @@ export default function ProductsList() {
   const [searchTerm, setSearchTerm] = useState("")
   const [typeFilter, setTypeFilter] = useState<string>("all")
   const [categoryFilter, setCategoryFilter] = useState<string>("all")
+  const [makerFilter, setMakerFilter] = useState<string>("all")
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
   const [productToDelete, setProductToDelete] = useState<UnifiedProduct | null>(null)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-  const { data, error, isLoading, mutate } = useSWR("/api/products/unified", fetcher)
+  // Build the API URL with filters
+  const apiUrl = useMemo(() => {
+    const params = new URLSearchParams()
+    if (typeFilter !== "all") params.append("type", typeFilter)
+    if (categoryFilter !== "all") params.append("category", categoryFilter)
+    if (makerFilter !== "all") params.append("maker", makerFilter)
+    if (searchTerm) params.append("search", searchTerm)
+    return `/api/products/unified?${params.toString()}`
+  }, [typeFilter, categoryFilter, makerFilter, searchTerm])
+
+  const { data, error, isLoading, mutate } = useSWR(apiUrl, fetcher)
 
   const products = data?.products || []
+  const filteredProducts = products // API handles filtering now
 
-  // Filter and search products
-  const filteredProducts = useMemo(() => {
-    return products.filter((product: UnifiedProduct) => {
-      const matchesSearch = product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           product.description?.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesType = typeFilter === "all" || product.type === typeFilter
-      const matchesCategory = categoryFilter === "all" || product.category === categoryFilter
-      return matchesSearch && matchesType && matchesCategory
-    })
-  }, [products, searchTerm, typeFilter, categoryFilter])
+  // Get unique categories and makers for filters
+  const { data: allData } = useSWR("/api/products/unified", fetcher)
+  const allProducts = allData?.products || []
 
-  // Get unique categories for filter
   const categories = useMemo(() => {
-    const cats = new Set(products.map((p: UnifiedProduct) => p.category))
+    const cats = new Set(allProducts.map((p: UnifiedProduct) => p.category))
     return Array.from(cats).sort()
-  }, [products])
+  }, [allProducts])
+
+  const makers = useMemo(() => {
+    const makerSet = new Set<string>()
+    allProducts.forEach((p: UnifiedProduct) => {
+      if (p.createdBy?.name) makerSet.add(p.createdBy.name)
+      if (p.updatedBy?.name && p.updatedBy.name !== p.createdBy?.name) makerSet.add(p.updatedBy.name)
+    })
+    return Array.from(makerSet).sort()
+  }, [allProducts])
 
   const handleDeleteProduct = async () => {
     if (!productToDelete) return
@@ -117,7 +130,7 @@ export default function ProductsList() {
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Filters */}
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-5">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
             <Input
@@ -153,8 +166,22 @@ export default function ProductsList() {
             </SelectContent>
           </Select>
 
+          <Select value={makerFilter} onValueChange={setMakerFilter}>
+            <SelectTrigger className="bg-zinc-700/50 border-zinc-600/50 text-white">
+              <SelectValue placeholder="Maker" />
+            </SelectTrigger>
+            <SelectContent className="bg-zinc-800 border-zinc-700">
+              <SelectItem value="all">Semua Maker</SelectItem>
+              {makers.map((maker) => (
+                <SelectItem key={maker} value={maker}>
+                  {maker}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
           <div className="flex items-center text-sm text-zinc-400">
-            {filteredProducts.length} dari {products.length} produk
+            {filteredProducts.length} dari {allProducts.length} produk
           </div>
         </div>
 
@@ -177,6 +204,7 @@ export default function ProductsList() {
                   <TableHead className="text-zinc-300">Kategori</TableHead>
                   <TableHead className="text-zinc-300">Harga</TableHead>
                   <TableHead className="text-zinc-300">Spesifikasi</TableHead>
+                  <TableHead className="text-zinc-300">Maker</TableHead>
                   <TableHead className="text-zinc-300 text-right">Aksi</TableHead>
                 </TableRow>
               </TableHeader>
@@ -217,6 +245,9 @@ export default function ProductsList() {
                     </TableCell>
                     <TableCell className="text-zinc-400 text-sm">
                       {product.bladeLengthCm}cm • {product.handleMaterial}
+                    </TableCell>
+                    <TableCell className="text-zinc-400 text-sm">
+                      {product.createdBy?.name || "Unknown"}
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-2">

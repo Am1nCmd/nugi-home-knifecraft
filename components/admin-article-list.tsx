@@ -1,10 +1,11 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Trash2, Edit, Eye } from "lucide-react"
 import { Article, ArticleType } from "@/data/articles"
 
@@ -12,10 +13,14 @@ export default function AdminArticleList() {
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<ArticleType>("news")
+  const [makerFilter, setMakerFilter] = useState<string>("all")
 
   const fetchArticles = async () => {
     try {
-      const response = await fetch("/api/articles")
+      const params = new URLSearchParams()
+      if (makerFilter !== "all") params.append("maker", makerFilter)
+
+      const response = await fetch(`/api/articles?${params.toString()}`)
       if (response.ok) {
         const data = await response.json()
         setArticles(data.articles)
@@ -27,9 +32,19 @@ export default function AdminArticleList() {
     }
   }
 
+  // Get unique makers for filter
+  const makers = useMemo(() => {
+    const makerSet = new Set<string>()
+    articles.forEach((article: Article) => {
+      if (article.createdBy?.name) makerSet.add(article.createdBy.name)
+      if (article.updatedBy?.name && article.updatedBy.name !== article.createdBy?.name) makerSet.add(article.updatedBy.name)
+    })
+    return Array.from(makerSet).sort()
+  }, [articles])
+
   useEffect(() => {
     fetchArticles()
-  }, [])
+  }, [makerFilter])
 
   const handleDelete = async (id: string) => {
     if (!confirm("Apakah Anda yakin ingin menghapus artikel ini?")) {
@@ -89,6 +104,23 @@ export default function AdminArticleList() {
         <CardTitle className="text-white">Kelola Artikel</CardTitle>
       </CardHeader>
       <CardContent>
+        {/* Maker Filter */}
+        <div className="mb-6">
+          <Select value={makerFilter} onValueChange={setMakerFilter}>
+            <SelectTrigger className="w-64 bg-zinc-700/50 border-zinc-600/50 text-white">
+              <SelectValue placeholder="Filter by Maker" />
+            </SelectTrigger>
+            <SelectContent className="bg-zinc-800 border-zinc-700">
+              <SelectItem value="all">Semua Maker</SelectItem>
+              {makers.map((maker) => (
+                <SelectItem key={maker} value={maker}>
+                  {maker}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
         <Tabs value={activeTab} onValueChange={(value: string) => setActiveTab(value as ArticleType)}>
           <TabsList className="grid w-full grid-cols-3 bg-zinc-700/50">
             <TabsTrigger value="news" className="data-[state=active]:bg-amber-600 data-[state=active]:text-white">
@@ -161,6 +193,12 @@ function ArticleGrid({ articles, onDelete }: { articles: Article[]; onDelete: (i
                 <span>ID: {article.id}</span>
                 <span>•</span>
                 <span>Dibuat: {new Date(article.createdAt).toLocaleDateString("id-ID")}</span>
+                {article.createdBy?.name && (
+                  <>
+                    <span>•</span>
+                    <span>Maker: {article.createdBy.name}</span>
+                  </>
+                )}
                 {article.updatedAt !== article.createdAt && (
                   <>
                     <span>•</span>

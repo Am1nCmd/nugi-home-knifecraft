@@ -95,7 +95,7 @@ export default function CsvUpload() {
         <CardDescription className="text-zinc-400">
           Header yang didukung: image/foto, title/judul, price/harga, category/kategori, steel/bahan baja,
           handleMaterial/bahan gagang, bladeLength/panjang bilah, handleLength/panjang gagang, bladeStyle/model bilah,
-          handleStyle/model gagang.
+          handleStyle/model gagang, createdByName/maker, createdByEmail/makeremail (otomatis diisi dari akun login jika kosong).
         </CardDescription>
       </CardHeader>
       <CardContent>

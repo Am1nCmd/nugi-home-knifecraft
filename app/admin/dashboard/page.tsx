@@ -24,6 +24,31 @@ export default function AdminDashboardPage() {
   const toolCount = productsData?.products?.filter((p: any) => p.type === "tool")?.length || 0
   const articleCount = articlesData?.articles?.length || 0
 
+  // Calculate maker statistics
+  const productMakers = new Set()
+  const articleMakers = new Set()
+
+  productsData?.products?.forEach((p: any) => {
+    if (p.createdBy?.name) productMakers.add(p.createdBy.name)
+  })
+
+  articlesData?.articles?.forEach((a: any) => {
+    if (a.createdBy?.name) articleMakers.add(a.createdBy.name)
+  })
+
+  const uniqueProductMakers = productMakers.size
+  const uniqueArticleMakers = articleMakers.size
+  const totalUniqueMakers = new Set([...productMakers, ...articleMakers]).size
+
+  // Current user's contributions
+  const currentUserProducts = productsData?.products?.filter((p: any) =>
+    p.createdBy?.email === session?.user?.email
+  )?.length || 0
+
+  const currentUserArticles = articlesData?.articles?.filter((a: any) =>
+    a.createdBy?.email === session?.user?.email
+  )?.length || 0
+
   useEffect(() => {
     if (status === "loading") return // Still loading
 
@@ -154,7 +179,7 @@ export default function AdminDashboardPage() {
         </header>
 
         {/* Quick Stats */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
           <Card className="bg-zinc-800/50 border-zinc-700/50">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
@@ -210,6 +235,48 @@ export default function AdminDashboardPage() {
               </div>
             </CardContent>
           </Card>
+
+          <Card className="bg-zinc-800/50 border-zinc-700/50">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-orange-600/20 rounded-lg">
+                  <User className="w-6 h-6 text-orange-400" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-white">{totalUniqueMakers}</p>
+                  <p className="text-zinc-400 text-sm">Total Makers</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-zinc-800/50 border-zinc-700/50">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-indigo-600/20 rounded-lg">
+                  <Package className="w-6 h-6 text-indigo-400" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-white">{currentUserProducts}</p>
+                  <p className="text-zinc-400 text-sm">My Products</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-zinc-800/50 border-zinc-700/50">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-teal-600/20 rounded-lg">
+                  <FileText className="w-6 h-6 text-teal-400" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-white">{currentUserArticles}</p>
+                  <p className="text-zinc-400 text-sm">My Articles</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Management Sections */}
@@ -242,14 +309,34 @@ export default function AdminDashboardPage() {
           })}
         </div>
 
-        {/* Recent Activity */}
+        {/* Maker Attribution Summary */}
         <Card className="mt-8 bg-zinc-800/50 border-zinc-700/50">
           <CardHeader>
-            <CardTitle className="text-white">Aktivitas Terkini</CardTitle>
+            <CardTitle className="text-white">Maker Attribution Summary</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-zinc-400">Dashboard telah diperbarui dengan sistem produk unified.</p>
-            <p className="text-zinc-500 text-sm mt-2">Gunakan navigation di atas untuk mengakses management tools.</p>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className="p-4 bg-zinc-700/30 rounded-lg">
+                <h4 className="text-white font-medium mb-2">Product Contributors</h4>
+                <p className="text-zinc-300">{uniqueProductMakers} unique makers</p>
+                <p className="text-zinc-500 text-sm">telah berkontribusi produk</p>
+              </div>
+              <div className="p-4 bg-zinc-700/30 rounded-lg">
+                <h4 className="text-white font-medium mb-2">Article Contributors</h4>
+                <p className="text-zinc-300">{uniqueArticleMakers} unique makers</p>
+                <p className="text-zinc-500 text-sm">telah berkontribusi artikel</p>
+              </div>
+              <div className="p-4 bg-zinc-700/30 rounded-lg">
+                <h4 className="text-white font-medium mb-2">Your Contributions</h4>
+                <p className="text-zinc-300">{currentUserProducts + currentUserArticles} total items</p>
+                <p className="text-zinc-500 text-sm">produk dan artikel Anda</p>
+              </div>
+            </div>
+            <div className="mt-4 p-4 bg-amber-600/10 border border-amber-600/30 rounded-lg">
+              <p className="text-amber-400 text-sm">
+                ✨ Sistem maker attribution aktif - semua produk dan artikel baru akan tercatat dengan nama pembuat
+              </p>
+            </div>
           </CardContent>
         </Card>
       </main>

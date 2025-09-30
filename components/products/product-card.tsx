@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Badge } from "@/components/ui/badge"
+import { User } from "lucide-react"
 import type { UnifiedProduct } from "@/data/unified-products"
 
 function formatPriceIDR(amount: number) {
@@ -46,6 +47,14 @@ export default function ProductCard({ product }: { product: UnifiedProduct }) {
             {product.category}
           </Badge>
         </div>
+
+        {/* Maker Information */}
+        {product.createdBy && (
+          <div className="mb-3 flex items-center gap-2 text-zinc-400">
+            <User className="w-3 h-3" />
+            <span className="text-xs">by {product.createdBy.name}</span>
+          </div>
+        )}
 
         <CardTitle className="text-lg md:text-xl text-white font-semibold leading-tight mb-3">
           {product.title}

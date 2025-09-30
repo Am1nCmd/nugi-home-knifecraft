@@ -33,7 +33,11 @@ export async function GET(request: NextRequest) {
       "description",
       "specs",
       "createdAt",
-      "updatedAt"
+      "updatedAt",
+      "createdByName",
+      "createdByEmail",
+      "updatedByName",
+      "updatedByEmail"
     ]
 
     // Create CSV content
@@ -69,7 +73,11 @@ export async function GET(request: NextRequest) {
         escapeCSV(product.description),
         escapeCSV(product.specs ? JSON.stringify(product.specs) : ""),
         product.createdAt || "",
-        product.updatedAt || ""
+        product.updatedAt || "",
+        escapeCSV(product.createdBy?.name || ""),
+        escapeCSV(product.createdBy?.email || ""),
+        escapeCSV(product.updatedBy?.name || ""),
+        escapeCSV(product.updatedBy?.email || "")
       ]
       csvContent += row.join(",") + "\n"
     })
@@ -96,7 +104,11 @@ export async function GET(request: NextRequest) {
           "Premium Damascus steel chef knife",
           '{"Finishing":"Hand-forged","Origin":"Japan"}',
           timestamp,
-          timestamp
+          timestamp,
+          "Admin User",
+          "admin@example.com",
+          "Admin User",
+          "admin@example.com"
         ],
         [
           "",
@@ -116,7 +128,11 @@ export async function GET(request: NextRequest) {
           "Medium forest axe for camping",
           '{"Head":"Drop-forged","Sheath":"Leather"}',
           timestamp,
-          timestamp
+          timestamp,
+          "Admin User",
+          "admin@example.com",
+          "Admin User",
+          "admin@example.com"
         ]
       ]
 

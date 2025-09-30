@@ -15,6 +15,7 @@ export type ProductsFilterState = {
   search: string
   steel: "all" | string
   handle: "all" | string
+  maker: "all" | string
   price: [number, number]
   bladeLength: [number, number]
   sortBy: "price" | "title" | "category"
@@ -26,6 +27,7 @@ export default function ProductsFilters({
   onChange,
   steels,
   handles,
+  makers,
   priceRange,
   bladeLengthRange,
 }: {
@@ -33,6 +35,7 @@ export default function ProductsFilters({
   onChange: (next: ProductsFilterState) => void
   steels: string[]
   handles: string[]
+  makers: string[]
   priceRange: { min: number; max: number }
   bladeLengthRange: { min: number; max: number }
 }) {
@@ -63,7 +66,7 @@ export default function ProductsFilters({
       </div>
 
       {/* Main Filters Grid */}
-      <div className="grid grid-cols-1 gap-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 p-4 md:grid-cols-6">
+      <div className="grid grid-cols-1 gap-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 p-4 md:grid-cols-6 lg:grid-cols-7">
         {/* Product Type */}
         <div className="flex flex-col gap-2">
           <Label className="text-zinc-300">Tipe Produk</Label>
@@ -133,6 +136,24 @@ export default function ProductsFilters({
               {handles.map((h) => (
                 <SelectItem key={h} value={h}>
                   {h}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Maker */}
+        <div className="flex flex-col gap-2">
+          <Label className="text-zinc-300">Maker</Label>
+          <Select value={state.maker} onValueChange={(v) => onChange({ ...state, maker: v })}>
+            <SelectTrigger className="bg-zinc-800/50 border-zinc-700/50 text-white">
+              <SelectValue placeholder="Semua maker" />
+            </SelectTrigger>
+            <SelectContent className="bg-zinc-800 border-zinc-700">
+              <SelectItem value="all">Semua</SelectItem>
+              {makers.map((m) => (
+                <SelectItem key={m} value={m}>
+                  {m}
                 </SelectItem>
               ))}
             </SelectContent>

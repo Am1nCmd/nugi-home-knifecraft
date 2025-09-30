@@ -1,13 +1,15 @@
 "use client"
 
 import { useState } from "react"
+import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card"
 import { ArticleType } from "@/data/articles"
+import { FileText, User } from "lucide-react"
 
 type ArticleFormData = {
   type: ArticleType
@@ -32,6 +34,7 @@ const initialFormData: ArticleFormData = {
 }
 
 export default function AdminArticleForm() {
+  const { data: session } = useSession()
   const [formData, setFormData] = useState<ArticleFormData>(initialFormData)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState("")
@@ -73,11 +76,49 @@ export default function AdminArticleForm() {
   const isBlogType = formData.type === "blog"
 
   return (
-    <Card className="bg-zinc-800/50 border-zinc-700/50">
-      <CardHeader>
-        <CardTitle className="text-white">Tambah Artikel Baru</CardTitle>
+    <Card className="w-full bg-zinc-800/50 border-zinc-700/50">
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-10 h-10 bg-amber-600/20 rounded-lg">
+            <FileText className="w-5 h-5 text-amber-400" />
+          </div>
+          <div>
+            <CardTitle className="text-balance text-white">Tambah Artikel</CardTitle>
+            <CardDescription className="text-zinc-400">Tambahkan artikel baru secara manual</CardDescription>
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
+        {/* Maker Attribution Info */}
+        {session?.user && (
+          <div className="mb-6 p-4 bg-zinc-700/30 border border-zinc-600/50 rounded-lg">
+            <div className="flex items-center gap-3 mb-2">
+              <User className="w-4 h-4 text-amber-400" />
+              <span className="text-sm font-medium text-amber-400">Maker Attribution</span>
+            </div>
+            <div className="flex items-center gap-3">
+              {session.user.image ? (
+                <img
+                  src={session.user.image}
+                  alt={session.user.name || "Admin"}
+                  className="w-8 h-8 rounded-full"
+                />
+              ) : (
+                <div className="w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4 text-white" />
+                </div>
+              )}
+              <div>
+                <p className="text-sm text-white font-medium">{session.user.name}</p>
+                <p className="text-xs text-zinc-400">{session.user.email}</p>
+              </div>
+            </div>
+            <p className="text-xs text-zinc-500 mt-2">
+              Artikel ini akan tercatat dibuat oleh akun di atas
+            </p>
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Article Type */}
           <div>

@@ -18,6 +18,7 @@ function buildQueryString(filters: ProductsFilterState) {
   if (filters.search) params.set("search", filters.search)
   if (filters.steel !== "all") params.set("steel", filters.steel)
   if (filters.handle !== "all") params.set("handle", filters.handle)
+  if (filters.maker !== "all") params.set("maker", filters.maker)
   if (filters.sortBy !== "price") params.set("sortBy", filters.sortBy)
   if (filters.sortOrder !== "asc") params.set("sortOrder", filters.sortOrder)
 
@@ -35,6 +36,7 @@ export default function ProductsExplorer() {
     search: searchParams.get("search") || "",
     steel: "all",
     handle: "all",
+    maker: searchParams.get("maker") || "all",
     price: [50000, 2000000], // Will be updated from API metadata
     bladeLength: [5, 50],    // Will be updated from API metadata
     sortBy: (searchParams.get("sortBy") as "price" | "title" | "category") || "price",
@@ -67,6 +69,7 @@ export default function ProductsExplorer() {
       return {
         steels: [],
         handles: [],
+        makers: [],
         priceRange: { min: 50000, max: 2000000 },
         bladeLengthRange: { min: 5, max: 50 }
       }
@@ -76,12 +79,21 @@ export default function ProductsExplorer() {
     const steels = [...new Set(products.map(p => p.steel))].filter(Boolean).sort()
     const handles = [...new Set(products.map(p => p.handleMaterial))].filter(Boolean).sort()
 
+    // Extract unique makers from products
+    const makers = [...new Set(
+      products.flatMap(p => [
+        p.createdBy?.name,
+        p.updatedBy?.name
+      ]).filter(Boolean)
+    )].sort()
+
     const prices = products.map(p => p.price).filter(p => p > 0)
     const bladeLengths = products.map(p => p.bladeLengthCm).filter(l => l > 0)
 
     return {
       steels,
       handles,
+      makers,
       priceRange: {
         min: Math.min(...prices, 50000),
         max: Math.max(...prices, 2000000)
@@ -123,6 +135,7 @@ export default function ProductsExplorer() {
         onChange={setFilters}
         steels={filterMetadata.steels}
         handles={filterMetadata.handles}
+        makers={filterMetadata.makers}
         priceRange={filterMetadata.priceRange}
         bladeLengthRange={filterMetadata.bladeLengthRange}
       />

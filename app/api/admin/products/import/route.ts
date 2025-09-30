@@ -28,6 +28,10 @@ type CsvRow = {
   specs?: string // JSON string
   createdAt?: string
   updatedAt?: string
+  createdByName?: string
+  createdByEmail?: string
+  updatedByName?: string
+  updatedByEmail?: string
 }
 
 function parseCsvWithQuotes(text: string): CsvRow[] {
@@ -97,6 +101,10 @@ function parseCsvWithQuotes(text: string): CsvRow[] {
     specs: mapIdx(["specs", "spesifikasi", "specifications"]),
     createdAt: mapIdx(["createdat", "created", "dibuat"]),
     updatedAt: mapIdx(["updatedat", "updated", "diperbarui"]),
+    createdByName: mapIdx(["createdbyname", "createdby", "maker", "pembuat"]),
+    createdByEmail: mapIdx(["createdbyemail", "createdbyemail", "makeremail", "emailpembuat"]),
+    updatedByName: mapIdx(["updatedbyname", "updatedby", "lastmodified", "diperbarui oleh"]),
+    updatedByEmail: mapIdx(["updatedbyemail", "updatedbyemail", "lastemail", "emailterakhir"]),
   }
 
   // Required fields check - allow both new and legacy format
@@ -178,6 +186,10 @@ function parseCsvWithQuotes(text: string): CsvRow[] {
       specs,
       createdAt: idx.createdAt >= 0 ? cleanString(parts[idx.createdAt]) : undefined,
       updatedAt: idx.updatedAt >= 0 ? cleanString(parts[idx.updatedAt]) : undefined,
+      createdByName: idx.createdByName >= 0 ? cleanString(parts[idx.createdByName]) : undefined,
+      createdByEmail: idx.createdByEmail >= 0 ? cleanString(parts[idx.createdByEmail]) : undefined,
+      updatedByName: idx.updatedByName >= 0 ? cleanString(parts[idx.updatedByName]) : undefined,
+      updatedByEmail: idx.updatedByEmail >= 0 ? cleanString(parts[idx.updatedByEmail]) : undefined,
     })
   }
   return out
@@ -228,6 +240,20 @@ export async function POST(req: Request) {
           row.id = "p_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6)
         }
 
+        // Auto-capture maker information from session if not provided in CSV
+        const currentUserInfo = {
+          email: session.user.email!,
+          name: session.user.name || session.user.email!
+        }
+
+        const createdBy = (row.createdByName && row.createdByEmail)
+          ? { name: row.createdByName, email: row.createdByEmail }
+          : currentUserInfo
+
+        const updatedBy = (row.updatedByName && row.updatedByEmail)
+          ? { name: row.updatedByName, email: row.updatedByEmail }
+          : currentUserInfo
+
         // Convert CsvRow to UnifiedProduct format
         const unifiedProduct: Partial<UnifiedProduct> = {
           id: row.id,
@@ -246,8 +272,10 @@ export async function POST(req: Request) {
           handleStyle: row.handleStyle,
           description: row.description,
           specs: row.specs,
-          createdAt: row.createdAt,
-          updatedAt: row.updatedAt,
+          createdAt: row.createdAt || new Date().toISOString(),
+          updatedAt: row.updatedAt || new Date().toISOString(),
+          createdBy,
+          updatedBy,
         }
 
         switch (mode) {
