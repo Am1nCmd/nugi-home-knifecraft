@@ -172,15 +172,30 @@ export default function AdminArticleList() {
           </TabsList>
 
           <TabsContent value="news" className="mt-6">
-            <ArticleGrid articles={filteredArticles} onDelete={handleDelete} />
+            <ArticleGrid
+              articles={filteredArticles}
+              onDelete={handleDelete}
+              onPreview={handlePreviewArticle}
+              onEdit={handleEditArticle}
+            />
           </TabsContent>
 
           <TabsContent value="knowledge" className="mt-6">
-            <ArticleGrid articles={filteredArticles} onDelete={handleDelete} />
+            <ArticleGrid
+              articles={filteredArticles}
+              onDelete={handleDelete}
+              onPreview={handlePreviewArticle}
+              onEdit={handleEditArticle}
+            />
           </TabsContent>
 
           <TabsContent value="blog" className="mt-6">
-            <ArticleGrid articles={filteredArticles} onDelete={handleDelete} />
+            <ArticleGrid
+              articles={filteredArticles}
+              onDelete={handleDelete}
+              onPreview={handlePreviewArticle}
+              onEdit={handleEditArticle}
+            />
           </TabsContent>
         </Tabs>
       </CardContent>
@@ -204,7 +219,17 @@ export default function AdminArticleList() {
   )
 }
 
-function ArticleGrid({ articles, onDelete }: { articles: Article[]; onDelete: (id: string) => void }) {
+function ArticleGrid({
+  articles,
+  onDelete,
+  onPreview,
+  onEdit
+}: {
+  articles: Article[]
+  onDelete: (id: string) => void
+  onPreview: (article: Article) => void
+  onEdit: (article: Article) => void
+}) {
   if (articles.length === 0) {
     return (
       <div className="text-center py-8">
@@ -266,7 +291,7 @@ function ArticleGrid({ articles, onDelete }: { articles: Article[]; onDelete: (i
                 size="sm"
                 variant="outline"
                 className="border-zinc-600 text-zinc-300 hover:bg-zinc-600"
-                onClick={() => handlePreviewArticle(article)}
+                onClick={() => onPreview(article)}
                 title="Preview artikel"
               >
                 <Eye className="w-4 h-4" />
@@ -275,7 +300,7 @@ function ArticleGrid({ articles, onDelete }: { articles: Article[]; onDelete: (i
                 size="sm"
                 variant="outline"
                 className="border-amber-600 text-amber-400 hover:bg-amber-600 hover:text-white"
-                onClick={() => handleEditArticle(article)}
+                onClick={() => onEdit(article)}
                 title="Edit artikel"
               >
                 <Edit className="w-4 h-4" />
