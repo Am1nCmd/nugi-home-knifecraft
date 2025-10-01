@@ -6,9 +6,19 @@ import type { Product } from "@/data/products"
 // Vercel KV import (will be undefined in development)
 let kv: any = null
 try {
-  kv = require('@vercel/kv')
-} catch {
-  // KV not available in development
+  if (process.env.VERCEL && process.env.KV_REST_API_URL) {
+    const kvModule = require('@vercel/kv')
+    kv = kvModule.kv || kvModule.default || kvModule
+
+    // Validate that KV has the required methods
+    if (kv && typeof kv.get !== 'function') {
+      console.warn('KV object does not have get method, falling back to null')
+      kv = null
+    }
+  }
+} catch (error) {
+  console.warn('Failed to initialize KV:', error)
+  kv = null
 }
 
 type DbSchema = {

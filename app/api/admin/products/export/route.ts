@@ -3,6 +3,10 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { getProducts } from "@/lib/store"
 
+// Force dynamic behavior for this route
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export async function GET(request: NextRequest) {
   try {
     // Check admin authentication

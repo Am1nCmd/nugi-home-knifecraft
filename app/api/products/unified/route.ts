@@ -3,6 +3,10 @@ import { getKnives } from "@/lib/store"
 import { getTools } from "@/lib/store"
 import { normalizeProduct, type UnifiedProduct } from "@/data/unified-products"
 
+// Force dynamic behavior for this route
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
