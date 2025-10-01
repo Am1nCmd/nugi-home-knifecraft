@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import { getArticles, getArticlesByType, addArticle } from "@/lib/articles"
+import { getArticles, getArticlesByType, addArticle } from "@/lib/articles-production"
 import { ArticleType } from "@/data/articles"
+
+// Force dynamic behavior for this route
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function GET(request: NextRequest) {
   try {
