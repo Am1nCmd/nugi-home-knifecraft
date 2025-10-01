@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import { addProduct, updateProduct, deleteProduct, getProductById } from "@/lib/store"
+import { addProduct, updateProduct, deleteProduct, getProductById, isReadOnlyMode, getDatabaseInfo } from "@/lib/store-production"
 import { ALL_CATEGORIES, type UnifiedProduct } from "@/data/unified-products"
 
 export async function POST(req: Request) {
@@ -92,10 +92,17 @@ export async function POST(req: Request) {
     }
 
     await addProduct(productData)
-    return NextResponse.json({
+
+    const dbInfo = getDatabaseInfo()
+    const response = {
       success: true,
-      message: `Produk "${body.title}" berhasil ditambahkan oleh ${makerInfo.name}`
-    })
+      message: `Produk "${body.title}" berhasil ditambahkan oleh ${makerInfo.name}`,
+      ...(dbInfo.isReadOnly && {
+        warning: "⚠️ Running in read-only mode. Changes are temporary and will be lost on restart."
+      })
+    }
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Add product error:", error)
     return NextResponse.json({
@@ -200,11 +207,17 @@ export async function PUT(req: Request) {
 
     const updatedProduct = await updateProduct(body.id, updateData)
 
-    return NextResponse.json({
+    const dbInfo = getDatabaseInfo()
+    const response = {
       success: true,
       message: `Produk "${body.title}" berhasil diupdate oleh ${updaterInfo.name}`,
-      product: updatedProduct
-    })
+      product: updatedProduct,
+      ...(dbInfo.isReadOnly && {
+        warning: "⚠️ Running in read-only mode. Changes are temporary and will be lost on restart."
+      })
+    }
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Update product error:", error)
     return NextResponse.json({
@@ -239,10 +252,16 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ error: "Gagal menghapus produk" }, { status: 500 })
     }
 
-    return NextResponse.json({
+    const dbInfo = getDatabaseInfo()
+    const response = {
       success: true,
-      message: `Produk "${existingProduct.title}" berhasil dihapus`
-    })
+      message: `Produk "${existingProduct.title}" berhasil dihapus`,
+      ...(dbInfo.isReadOnly && {
+        warning: "⚠️ Running in read-only mode. Changes are temporary and will be lost on restart."
+      })
+    }
+
+    return NextResponse.json(response)
   } catch (error) {
     console.error("Delete product error:", error)
     return NextResponse.json({

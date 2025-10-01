@@ -1,0 +1,84 @@
+{
+  "timestamp": "2025-10-01T03:03:10.287Z",
+  "authBypassTests": [
+    {
+      "test": "Mock Authentication Setup",
+      "status": "failed",
+      "error": "Protocol error (Network.setCookies): Invalid cookie fields"
+    },
+    {
+      "test": "Dashboard Access with Mock Auth",
+      "status": "warning",
+      "details": {
+        "finalUrl": "http://localhost:3000/admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard",
+        "redirected": true,
+        "mockAuthWorking": false
+      },
+      "screenshot": "auth-bypass-test.png"
+    }
+  ],
+  "productFormTests": [
+    {
+      "test": "Product Form Element Detection",
+      "status": "warning",
+      "details": {
+        "formCount": 0,
+        "inputCount": 0,
+        "hasTitle": false,
+        "hasPrice": false,
+        "hasDescription": false,
+        "hasImage": false,
+        "hasCategory": false,
+        "buttonCount": 1
+      },
+      "screenshot": "product-form-elements.png"
+    }
+  ],
+  "articleFormTests": [
+    {
+      "test": "Article Form Element Detection",
+      "status": "warning",
+      "details": {
+        "formCount": 0,
+        "inputCount": 0,
+        "textareaCount": 0,
+        "hasTitle": false,
+        "hasContent": false,
+        "hasCategory": false,
+        "hasTag": false,
+        "hasStatus": false
+      },
+      "screenshot": "article-form-elements.png"
+    }
+  ],
+  "validationTests": [
+    {
+      "test": "Form Validation Testing",
+      "status": "warning",
+      "details": {
+        "productValidation": {},
+        "articleValidation": {},
+        "validationMessages": [],
+        "html5Validation": {
+          "requiredFields": 0,
+          "emailFields": 0,
+          "numberFields": 0
+        }
+      }
+    }
+  ],
+  "crudOperationTests": [
+    {
+      "test": "API CRUD Operations Testing",
+      "status": "failed",
+      "error": "Protocol error (Runtime.callFunctionOn): Execution context was destroyed."
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 2,
+    "warnings": 0,
+    "total": 6,
+    "warning": null
+  }
+}
