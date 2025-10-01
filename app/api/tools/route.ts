@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server"
-import { getTools } from "@/lib/store"
+import { getTools } from "@/lib/store-production"
+
+// Force dynamic behavior for this route
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function GET() {
   try {

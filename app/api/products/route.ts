@@ -1,7 +1,16 @@
 import { NextResponse } from "next/server"
-import { getProducts } from "@/lib/store"
+import { getProducts } from "@/lib/store-production"
+
+// Force dynamic behavior for this route
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function GET() {
-  const products = await getProducts()
-  return NextResponse.json({ products })
+  try {
+    const products = await getProducts()
+    return NextResponse.json({ products })
+  } catch (error) {
+    console.error("Error fetching products:", error)
+    return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 })
+  }
 }
