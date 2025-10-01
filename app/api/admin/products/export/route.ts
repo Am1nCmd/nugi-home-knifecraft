@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import { getProducts } from "@/lib/store"
+import { getProducts } from "@/lib/store-production"
 
 // Force dynamic behavior for this route
 export const dynamic = 'force-dynamic'

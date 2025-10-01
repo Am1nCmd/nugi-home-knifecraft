@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getKnives } from "@/lib/store"
-import { getTools } from "@/lib/store"
+import { getProducts } from "@/lib/store-production"
 import { normalizeProduct, type UnifiedProduct } from "@/data/unified-products"
 
 // Force dynamic behavior for this route
@@ -19,17 +18,8 @@ export async function GET(request: NextRequest) {
     const handle = searchParams.get("handle")
     const maker = searchParams.get("maker") // Filter by maker email or name
 
-    // Fetch both knives and tools
-    const [knives, tools] = await Promise.all([
-      getKnives(),
-      getTools()
-    ])
-
-    // Normalize and combine all products
-    const allProducts: UnifiedProduct[] = [
-      ...knives.map(normalizeProduct),
-      ...tools.map(normalizeProduct)
-    ]
+    // Fetch all products from unified database
+    const allProducts = await getProducts()
 
     // Apply filters
     let filteredProducts = allProducts
