@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useSWRConfig } from "swr"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,6 +13,7 @@ import { Upload, Download } from "lucide-react"
 type ImportMode = "append" | "update" | "replace"
 
 export default function CsvUpload() {
+  const { mutate } = useSWRConfig()
   const [file, setFile] = useState<File | null>(null)
   const [msg, setMsg] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -68,6 +70,11 @@ export default function CsvUpload() {
         setMsg(data?.error || "Gagal mengunggah CSV.")
       } else {
         setMsg(data?.message || `Import berhasil!`)
+
+        // Revalidate SWR cache to refresh product lists and dashboard
+        mutate('/api/products/unified')
+        mutate('/api/articles')
+
         setFile(null)
         // Reset file input
         const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
