@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { useSession } from "next-auth/react"
+import { useSWRConfig } from "swr"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -14,6 +15,7 @@ import { ALL_CATEGORIES, KNIFE_CATEGORIES, TOOL_CATEGORIES, ProductType } from "
 
 export default function AdminProductForm() {
   const { data: session } = useSession()
+  const { mutate } = useSWRConfig()
 
   const [title, setTitle] = useState("")
   const [price, setPrice] = useState<string>("")
@@ -78,6 +80,11 @@ export default function AdminProductForm() {
         setMsg(data?.error || "Gagal menambahkan produk.")
       } else {
         setMsg(data?.message || "Produk berhasil ditambahkan.")
+
+        // Revalidate SWR cache to refresh product lists and dashboard
+        mutate('/api/products/unified')
+        mutate('/api/articles')
+
         // reset
         setTitle("")
         setPrice("")
