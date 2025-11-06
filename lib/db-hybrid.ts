@@ -7,7 +7,7 @@ const DB_FILE = path.join(DB_DIR, "products.db.json")
 
 // Environment detection
 const isProduction = process.env.NODE_ENV === 'production'
-const isServerless = process.env.VERCEL || process.env.NETLIFY
+const isServerless = !!(process.env.VERCEL || process.env.NETLIFY)
 const isReadOnlyEnvironment = isProduction && isServerless
 
 // In-memory storage for read-only environments

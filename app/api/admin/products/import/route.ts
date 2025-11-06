@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 import { addManyProducts, getProducts } from "@/lib/store"
 import { UnifiedProduct, ALL_CATEGORIES, KNIFE_CATEGORIES, TOOL_CATEGORIES } from "@/data/unified-products"
 
@@ -25,7 +25,7 @@ type CsvRow = {
   bladeStyle: string
   handleStyle: string
   description?: string
-  specs?: string // JSON string
+  specs?: Record<string, string | number> // Parsed JSON object
   createdAt?: string
   updatedAt?: string
   createdByName?: string

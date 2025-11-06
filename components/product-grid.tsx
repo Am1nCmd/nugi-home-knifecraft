@@ -2,12 +2,12 @@
 
 import useSWR from "swr"
 import ProductCard from "./product-card"
-import type { Product } from "@/lib/types"
+import type { UnifiedProduct } from "@/data/unified-products"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export default function ProductGrid({ category }: { category: string }) {
-  const { data, error, isLoading } = useSWR<Product[]>("/api/products", fetcher, {
+  const { data, error, isLoading } = useSWR<UnifiedProduct[]>("/api/products", fetcher, {
     revalidateOnFocus: true,
   })
 
@@ -23,7 +23,7 @@ export default function ProductGrid({ category }: { category: string }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {list.map((p) => (
-        <ProductCard key={p.id} p={p} />
+        <ProductCard key={p.id} product={p} />
       ))}
     </div>
   )

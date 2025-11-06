@@ -74,7 +74,7 @@ export default function ProductsList() {
 
   const categories = useMemo(() => {
     const cats = new Set(allProducts.map((p: UnifiedProduct) => p.category))
-    return Array.from(cats).sort()
+    return Array.from(cats).sort() as string[]
   }, [allProducts])
 
   const makers = useMemo(() => {
