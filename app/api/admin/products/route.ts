@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 import { addProduct, updateProduct, deleteProduct, getProductById, isReadOnlyMode, getDatabaseInfo } from "@/lib/store-production"
 import { ALL_CATEGORIES, type UnifiedProduct } from "@/data/unified-products"
 
@@ -35,10 +35,10 @@ export async function POST(req: Request) {
     if (body.price !== undefined) body.price = Number(body.price)
     if (body.bladeLengthCm !== undefined) body.bladeLengthCm = Number(body.bladeLengthCm)
     if (body.handleLengthCm !== undefined) body.handleLengthCm = Number(body.handleLengthCm)
-    if (body.bladeThicknessMm !== undefined && body.bladeThicknessMm !== "") {
+    if (body.bladeThicknessMm !== undefined && String(body.bladeThicknessMm) !== "") {
       body.bladeThicknessMm = Number(body.bladeThicknessMm)
     }
-    if (body.weightGr !== undefined && body.weightGr !== "") {
+    if (body.weightGr !== undefined && String(body.weightGr) !== "") {
       body.weightGr = Number(body.weightGr)
     }
 
@@ -93,11 +93,11 @@ export async function POST(req: Request) {
 
     await addProduct(productData)
 
-    const dbInfo = getDatabaseInfo()
+    const isReadOnly = isReadOnlyMode()
     const response = {
       success: true,
       message: `Produk "${body.title}" berhasil ditambahkan oleh ${makerInfo.name}`,
-      ...(dbInfo.isReadOnly && {
+      ...(isReadOnly && {
         warning: "⚠️ Running in read-only mode. Changes are temporary and will be lost on restart."
       })
     }
@@ -152,10 +152,10 @@ export async function PUT(req: Request) {
     if (body.price !== undefined) body.price = Number(body.price)
     if (body.bladeLengthCm !== undefined) body.bladeLengthCm = Number(body.bladeLengthCm)
     if (body.handleLengthCm !== undefined) body.handleLengthCm = Number(body.handleLengthCm)
-    if (body.bladeThicknessMm !== undefined && body.bladeThicknessMm !== "") {
+    if (body.bladeThicknessMm !== undefined && String(body.bladeThicknessMm) !== "") {
       body.bladeThicknessMm = Number(body.bladeThicknessMm)
     }
-    if (body.weightGr !== undefined && body.weightGr !== "") {
+    if (body.weightGr !== undefined && String(body.weightGr) !== "") {
       body.weightGr = Number(body.weightGr)
     }
 
@@ -207,12 +207,12 @@ export async function PUT(req: Request) {
 
     const updatedProduct = await updateProduct(body.id, updateData)
 
-    const dbInfo = getDatabaseInfo()
+    const isReadOnly = isReadOnlyMode()
     const response = {
       success: true,
       message: `Produk "${body.title}" berhasil diupdate oleh ${updaterInfo.name}`,
       product: updatedProduct,
-      ...(dbInfo.isReadOnly && {
+      ...(isReadOnly && {
         warning: "⚠️ Running in read-only mode. Changes are temporary and will be lost on restart."
       })
     }
@@ -252,11 +252,11 @@ export async function DELETE(req: Request) {
       return NextResponse.json({ error: "Gagal menghapus produk" }, { status: 500 })
     }
 
-    const dbInfo = getDatabaseInfo()
+    const isReadOnly = isReadOnlyMode()
     const response = {
       success: true,
       message: `Produk "${existingProduct.title}" berhasil dihapus`,
-      ...(dbInfo.isReadOnly && {
+      ...(isReadOnly && {
         warning: "⚠️ Running in read-only mode. Changes are temporary and will be lost on restart."
       })
     }

@@ -6,9 +6,14 @@ export async function GET() {
     const dbInfo = getDatabaseInfo()
 
     // Handle potential KV initialization errors
-    let products = []
+    let products: Awaited<ReturnType<typeof getProducts>> = []
     let productCount = 0
-    let sampleProducts = []
+    let sampleProducts: Array<{
+      id: string
+      title: string
+      price: number
+      category: string
+    }> = []
 
     try {
       products = await getProducts()

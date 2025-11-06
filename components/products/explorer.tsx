@@ -84,7 +84,7 @@ export default function ProductsExplorer() {
       products.flatMap(p => [
         p.createdBy?.name,
         p.updatedBy?.name
-      ]).filter(Boolean)
+      ]).filter((name): name is string => Boolean(name))
     )].sort()
 
     const prices = products.map(p => p.price).filter(p => p > 0)

@@ -3,14 +3,14 @@
 import useSWR from "swr"
 import ToolsFilters, { type ToolsFilterState } from "./filters"
 import ToolsGrid from "./grid"
-import type { ToolProduct } from "@/data/tools"
+import type { UnifiedProduct } from "@/data/unified-products"
 import { TOOL_FILTER_META } from "@/data/tools"
 import React from "react"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
 
 export default function ToolsExplorer() {
-  const { data, error, isLoading } = useSWR<ToolProduct[]>("/api/tools", fetcher, { revalidateOnFocus: true })
+  const { data, error, isLoading } = useSWR<UnifiedProduct[]>("/api/tools", fetcher, { revalidateOnFocus: true })
 
   const defaults: ToolsFilterState = {
     category: "all",

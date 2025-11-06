@@ -1,6 +1,6 @@
 import { promises as fs } from "node:fs"
 import path from "node:path"
-import { UnifiedProduct, normalizeProduct, toLegacyProduct } from "@/data/unified-products"
+import { UnifiedProduct, normalizeProduct, toLegacyProduct, type LegacyProduct } from "@/data/unified-products"
 import type { Product } from "@/data/products"
 
 type DbSchema = {
@@ -20,7 +20,7 @@ const DB_PATH = path.join(process.cwd(), "data", "products.db.json")
 
 // Environment detection
 const isProduction = process.env.NODE_ENV === 'production'
-const isServerless = process.env.VERCEL || process.env.NETLIFY
+const isServerless = !!(process.env.VERCEL || process.env.NETLIFY)
 const isReadOnlyEnvironment = isProduction && isServerless
 
 // In-memory storage for read-only environments
@@ -146,7 +146,7 @@ export async function getProductsByCategory(category: string): Promise<UnifiedPr
 }
 
 // Legacy compatibility - get products as legacy format
-export async function getLegacyProducts(): Promise<Product[]> {
+export async function getLegacyProducts(): Promise<LegacyProduct[]> {
   const db = await readDb()
   return db.products.map(toLegacyProduct)
 }

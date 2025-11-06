@@ -1,7 +1,7 @@
 import ToolProductCard from "./product-card"
-import type { ToolProduct } from "@/data/tools"
+import type { UnifiedProduct } from "@/data/unified-products"
 
-export default function ToolsGrid({ products }: { products: ToolProduct[] }) {
+export default function ToolsGrid({ products }: { products: UnifiedProduct[] }) {
   if (!products.length) {
     return <p className="text-sm text-muted-foreground">Tidak ada produk yang cocok dengan filter.</p>
   }
